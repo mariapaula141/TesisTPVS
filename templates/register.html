@@ -6,8 +6,6 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
   <title>TPVS</title>
 
          <!-- Bootstrap CSS CDN -->
@@ -20,9 +18,7 @@
 
 </head>
 <body >
-
-
-  <div class="container " style="transform: translateY(30%);">
+  <div class="container " style="transform: translateY(4%);">
       <div class="row">
           <div class="col-md-4 col-md-offset-4">
               <div class="login-panel panel panel-default">
@@ -31,7 +27,7 @@
                       <img
                       sizes="(max-width: 200px) 100vw, 200px"
                       srcset="
-                      {% static 'visual/tpvs_logo/tpvs2_wjzrvs_c_scale,w_50.png' %} 50w,
+                      {% static 'visual/tpvs_logo/tpvs2_wjzrvs_c_scale,w_50.png' %} 500w,
                       {% static 'visual/tpvs_logo/tpvs2_wjzrvs_c_scale,w_200.png' %} 200w"
                       src=" {% static 'visual/tpvs_logo/tpvs2_wjzrvs_c_scale,w_200.png' %}"
                       alt="">
@@ -40,21 +36,17 @@
                 <div class="panel-body">
                  <form role="form" method="post" id='form_login'>
                     {% csrf_token %}
-                    <div class="form-group"  align="center">
-                        <label class="col-md-4" align="center" >Usuario:</label>
-                          {{ form.username }}
 
+                    <div class="form-label-group">
+                      <label for= {{field.id_for_label}}>{{form.as_p}}</label>
                     </div>
-                    <div class="form-group" align="center">
-                         <label class="col-md-4" align="center" >Contraseña:</label>
-                        {{ form.password }}
-                    </div>
-                    <input class="btn btn-primary btn-block" value="Iniciar sesión" type=submit />
+
+
+                    <input class="btn btn-primary btn-block" value="Registrarse" type=submit />
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="d-block small col-md-12" href="register">Crear una cuenta nueva</a>
-                    <a class="d-block small col-md-12" href="forgot-password.html">Olvidó la contraseña?</a>
+                    <a class="d-block small col-md-12" href="login">Volver</a>
                   </div>
                 </div>
               </div>

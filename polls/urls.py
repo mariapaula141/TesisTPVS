@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^producto/$',views.producto,name="producto"),
     url(r'^trader/$',views.trader,name="trader"),
     url(r'^sistema/$',views.sistema,name="sistema"),
+    url(r'^register/$',views.register,name="register"),
+    url(r'^esperar/$',views.esperar,name="esperar")
 
 
 

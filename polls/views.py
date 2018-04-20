@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
 from .models import Trader, Portafolio, Archivo, Sistema
-from .forms import CargarArchivo, CrearTrader, CrearPortafolio, CrearSistema
+from .forms import CargarArchivo, CrearTrader, CrearPortafolio, CrearSistema, RegistrationForm
 from django.utils import timezone
 import tablib
 from import_export import resources
@@ -11,6 +11,22 @@ from import_export import resources
 
 
 from django.http import HttpResponse
+
+#Registro
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('esperar')
+    else:
+        form = RegistrationForm()
+    return render(request,'register.html',{'form':form})
+
+#Espera
+def esperar(request):
+    return render(request,"esperar.html")
+
 
 
 #Index

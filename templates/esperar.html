@@ -38,25 +38,9 @@
                     </picture>
                 </div>
                 <div class="panel-body">
-                 <form role="form" method="post" id='form_login'>
-                    {% csrf_token %}
-                    <div class="form-group"  align="center">
-                        <label class="col-md-4" align="center" >Usuario:</label>
-                          {{ form.username }}
-
-                    </div>
-                    <div class="form-group" align="center">
-                         <label class="col-md-4" align="center" >Contraseña:</label>
-                        {{ form.password }}
-                    </div>
-                    <input class="btn btn-primary btn-block" value="Iniciar sesión" type=submit />
-                  </form>
-                  <hr>
-                  <div class="text-center">
-                    <a class="d-block small col-md-12" href="register">Crear una cuenta nueva</a>
-                    <a class="d-block small col-md-12" href="forgot-password.html">Olvidó la contraseña?</a>
-                  </div>
-                </div>
+                        <label class="col-md-12"  >Gracias por registrarte ahora solo debes esperar a la confirmacion </label>
+                        <input />
+                  <a class="btn btn-primary btn-block" href="{%url 'login_view'%}">Aceptar</a>
               </div>
           </div>
       </div>
