@@ -58,3 +58,9 @@ class Archivo(models.Model):
 
     def __str__(self):
         return self.ruta
+
+
+    name = models.CharField(max_length=100)
+    release_date = models.DateField()
+    rating = models.IntegerField(default=0)
+    category = models.CharField(max_length=10, choices=CATEGORIES_CHOICES)
