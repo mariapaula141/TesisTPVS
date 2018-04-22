@@ -3,6 +3,9 @@ from django.views import generic
 from django.views.generic.edit import CreateView,UpdateView, DeleteView
 from .models import Archivo, Trader, Portafolio, Sistema
 
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 
 class CargarArchivo(forms.ModelForm):
     class Meta:

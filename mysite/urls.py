@@ -25,7 +25,7 @@ urlpatterns = [
     #path('admin/', admin.site.urls),
     url(r'^admin/', admin.site.urls),
     url(r'', include('polls.urls')),
-
+    url(r'^api-auth/', include('rest_framework.urls'))
 ]
 
 

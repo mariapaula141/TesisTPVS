@@ -2,17 +2,24 @@
 from django.contrib import admin
 from django.contrib.auth.views import login
 from django.conf.urls import url, include
+from django.urls import path, re_path
 #from django.conf import settings
 #from django.conf.urls.static import static
 from .import views
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'mensajes',views.MensajeView)
+
 
 
 urlpatterns = [
     #index
     url(r'^index',views.index,name="index"),
+    url(r'^api/',include(router.urls)),
 
     #log
-    url(r'^$', views.login_view,name="login_view"),
+    #url(r'^$', views.login_view,name="login_view"),
     url(r'^login',views.login_view,name="login_view"),
     url(r'^logout/$',views.logout_view,name="logout"),
 
@@ -28,8 +35,8 @@ urlpatterns = [
     url(r'^esperar/$',views.esperar,name="esperar")
 
 
-
 ]
+urlpatterns += router.urls
 
 """
 if settings.DEBUG:

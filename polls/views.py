@@ -2,15 +2,22 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
-from .models import Trader, Portafolio, Archivo, Sistema
+from .models import Trader, Portafolio, Archivo, Sistema, Mensaje
 from .forms import CargarArchivo, CrearTrader, CrearPortafolio, CrearSistema, RegistrationForm
 from django.utils import timezone
 import tablib
 from import_export import resources
+from rest_framework import viewsets
+from .serializers import MensajeSerializer
 # Create your views here.
 
 
 from django.http import HttpResponse
+
+#API
+class MensajeView(viewsets.ModelViewSet):
+    queryset = Mensaje.objects.all()
+    serializer_class = MensajeSerializer
 
 #Registro
 def register(request):
