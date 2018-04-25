@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
@@ -9,6 +9,9 @@ import tablib
 from import_export import resources
 from rest_framework import viewsets
 from .serializers import MensajeSerializer
+from webline_notifications.models import Notification
+from django.contrib.auth.models import User
+
 # Create your views here.
 
 
@@ -39,7 +42,10 @@ def esperar(request):
 #Index
 @login_required(login_url="login")
 def index(request):
-    return render(request,"index.html")
+    notificaciones = Notification.objects.filter()
+    usuario = request.user
+    return render(request,"index.html", {'notificaciones':notificaciones, 'usuario':usuario})
+
 
 
 #Logs
@@ -52,6 +58,8 @@ def login_view(request):
             return redirect('index')
     else:
         form = AuthenticationForm()
+
+
     return render(request,'login_view.html',{'form':form})
 
 def logout_view(request):

@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^api/',include(router.urls)),
 
     #log
-    #url(r'^$', views.login_view,name="login_view"),
+    url(r'^$', views.login_view,name="login_view"),
     url(r'^login',views.login_view,name="login_view"),
     url(r'^logout/$',views.logout_view,name="logout"),
 

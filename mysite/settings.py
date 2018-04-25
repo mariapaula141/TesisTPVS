@@ -24,7 +24,7 @@ SECRET_KEY = 'ondhlwzqe^wow)6viu53d8px=y*5&gt_=vde4*_szx1e2v@9*&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [#"167.99.147.146"
+ALLOWED_HOSTS = ["167.99.147.146"
 ]
 
 
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'import_export',
     'polls',
     'rest_framework',
+    'webline_notifications',
+
 
 ]
 
@@ -79,22 +81,22 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-       'ENGINE': 'django.db.backends.mysql',
-       'NAME': 'test',
-       'USER' :'root',
-       'PASSWORD':'root123',
-       'HOST': 'localhost',
-       'PORT':'3306',
-   },
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'stagedb',
+        'USER' :'root',
+        'PASSWORD':'root123',
+        'HOST': 'localhost',
+        'PORT':'',
+    },
 
-   #'default': {
-    #    'ENGINE': 'django.db.backends.mysql',
-    #    'NAME': 'stagedb',
-    #    'USER' :'root',
-    #    'PASSWORD':'root123',
-    #    'HOST': 'localhost',
-    #    'PORT':'',
-    #},
+    #'default': {
+    #   'ENGINE': 'django.db.backends.mysql',
+    #   'NAME': 'test',
+    #   'USER' :'root',
+    #   'PASSWORD':'root123',
+    #   'HOST': 'localhost',
+    #   'PORT':'3306',
+   #},
 
 }
 #DATABASE_ROUTERS = ['mysite.routers.MySiteRouter',]
@@ -133,6 +135,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+WEBLINE_NOTIFICATIONS_LIMIT = 50
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
