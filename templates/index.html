@@ -1,5 +1,64 @@
 {% extends 'base.html' %}
-
 {% block content%}
 <h1 class = ""  > Bienvenido <h1>
+
+	<div class="row">
+		<div class="col-md-6 topspace"  >
+			<div class=" panel panel-default panel-yellow"  >
+				<div class="panel-heading col-md-6" align="center" style="margin-bottom: 5%;" >
+					<h3>Manual de usuario</h3>
+				</div>
+				<div class="panel-body" >
+					<form method="post" class="post-form"  >
+						<div class="form-label-group">
+							<label for= {{field.id_for_label}}>AAA</label>
+						</div>
+
+
+						<div class="form-label-group">
+							<label for="inputText">Nombre</label>
+							<input type="text" id="inputNombreTrader" class="form-control" placeholder="Nombre" required >
+						</div>
+						<div class="form-label-group">
+							<label for="inputText">Apellido</label>
+							<input type="text" id="inputApellidoTrader" class="form-control" placeholder="Apellido" required >
+						</div>
+						<div class="space" align="center" >
+							<button class="btn btn-primary btn-lg btn-warning" type="submit">Guardar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 topspace"  >
+			<div class=" panel panel-default panel-yellow"  >
+				<div class="panel-heading col-md-6" align="center" style="margin-bottom: 5%;" >
+					<h3>Log </h3>
+				</div>
+				<div class="panel-body" >
+					<form method="post" class="post-form"  >
+						<div class="form-label-group">
+							<label for= {{field.id_for_label}}>AAA</label>
+						</div>
+
+
+						<div class="form-label-group">
+							<label for="inputText">Nombre</label>
+							<input type="text" id="inputNombreTrader" class="form-control" placeholder="Nombre" required >
+						</div>
+						<div class="form-label-group">
+							<label for="inputText">Apellido</label>
+							<input type="text" id="inputApellidoTrader" class="form-control" placeholder="Apellido" required >
+						</div>
+						<div class="space" align="center" >
+							<button class="btn btn-primary btn-lg btn-warning" type="submit">Guardar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 {%endblock%}

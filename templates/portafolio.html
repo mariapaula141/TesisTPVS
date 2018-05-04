@@ -9,16 +9,8 @@
                 </div>
                 <div class="panel-body">
                  <form method="post" >{% csrf_token %}
-                    <div class="form-label-group">
+                    <div class="form-label-group" aling="center">
                       <label for="inputText">{{form.as_p}}</label>
-                    </div>
-                    <div class="form-label-group">
-                      <label for="inputText">Nombre</label>
-                      <input type="text" id="inputNombrePortafolio" class="form-control" placeholder="Nombre" required >
-                    </div>
-                    <div class="form-label-group">
-                      <label for="inputText">Descripción</label>
-                      <textarea type="text" id="inputDescripcionPortafolio" class="form-control" placeholder="Descripción" rows="3" required ></textarea>
                     </div>
                     <div class="space" align="center" >
                       <button class="btn btn-primary btn-lg btn-warning" type="submit">Guardar</button>

@@ -3,7 +3,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView,UpdateView, DeleteView
 from .models import Archivo, Trader, Portafolio, Sistema
 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import User
 
 
@@ -59,15 +59,26 @@ class RegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
-"""
-    nombre: forms.CharField(widget=forms.TextInput(),required=True)
-    file = forms.FileField()
 
-class CargarArchivo(CreateView):
-    model = Archivo
-    fields = [
-        "nombre",
-        "file"
-    ]
-
-"""
+class EditProfileForm(UserChangeForm):
+    email=forms.EmailField(required=True)
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'password'
+        ]
+class PasswordChangeForm(UserChangeForm):
+    email=forms.EmailField(required=True)
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'password'
+        ]

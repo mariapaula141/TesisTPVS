@@ -152,3 +152,17 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 # Global setting Django-import-export
 #https://django-import-export.readthedocs.io/en/latest/installation.html
 IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+'''
+if DEBUG:
+
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = 'magda.mejia96@gmail.com'                     #sample
+    EMAIL_HOST_PASSWORD = 'password'
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    SERVER_EMAIL = EMAIL_HOST_USER
+'''
