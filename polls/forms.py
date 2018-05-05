@@ -1,7 +1,7 @@
 from django import forms
 from django.views import generic
 from django.views.generic.edit import CreateView,UpdateView, DeleteView
-from .models import Archivo, Trader, Portafolio, Sistema
+from .models import *
 
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import User
@@ -13,14 +13,14 @@ class CargarArchivo(forms.ModelForm):
         fields = [
             "ruta",
         ]
-class CrearTrader(forms.ModelForm):
-    class Meta:
-        model = Trader
-        fields = [
-            "username",
-            "nombre",
-            "apellido",
-        ]
+class TraderForm(forms.ModelForm):
+     idtrader = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Identificador trader','id':'inputIdTrader'}))
+     nombre = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre'}))
+     apellido = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Apellido'}))
+     class Meta:
+          model = Dimtrader
+          fields = ['idtrader','nombre','apellido']
+
 class CrearPortafolio(forms.ModelForm):
     class Meta:
         model = Portafolio

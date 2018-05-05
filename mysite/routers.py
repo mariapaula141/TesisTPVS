@@ -9,7 +9,7 @@ class MySiteRouter(object):
         Point all operations on myapp2 models to 'my_db_2'
         """
         if model._meta.app_label == 'polls':
-            return 'MySQL'
+            return 'datamart'
         return None
 
     def db_for_write(self, model, **hints):
@@ -17,14 +17,14 @@ class MySiteRouter(object):
         Point all operations on myapp models to 'other'
         """
         if model._meta.app_label == 'polls':
-            return 'MySQL'
+            return 'datamart'
         return None
 
     def allow_syncdb(self, db, model):
         """
         Make sure the 'myapp2' app only appears on the 'other' db
         """
-        if db == 'MySQL':
+        if db == 'datamart':
             return model._meta.app_label == 'polls'
         elif model._meta.app_label == 'polls':
             return False

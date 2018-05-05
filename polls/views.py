@@ -2,19 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth import login,logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .models import Trader, Portafolio, Archivo, Sistema, Mensaje
-from .forms import (
-    CargarArchivo, CrearTrader,
-    CrearPortafolio, CrearSistema,
-    RegistrationForm, EditProfileForm
-)
+from .models import *
+from .forms import *
 from django.utils import timezone
-import tablib
-from import_export import resources
 from rest_framework import viewsets
 from .serializers import MensajeSerializer
 from webline_notifications.models import Notification
 from django.contrib.auth.models import User
+from django.http import FileResponse, Http404
 
 # Create your views here.
 
@@ -55,6 +50,15 @@ def index(request):
     usuario = request.user
     return render(request,"index.html", {'notificaciones':notificaciones, 'usuario':usuario})
 
+
+
+
+def manual(request):
+    try:
+        return FileResponse(open('Manual.pdf', 'rb'), content_type='application/pdf')
+    except FileNotFoundError:
+        raise Http404()
+
 #Logs
 def login_view(request):
     if request.method == 'POST':
@@ -74,6 +78,7 @@ def logout_view(request):
         logout(request)
         return redirect('login_view')
 
+#post_save
 
 
 
@@ -90,6 +95,7 @@ def archivo(request):
             return redirect('archivo')
     else:
         form = CargarArchivo()
+
     return render(request,"archivo.html",{'form':form})
 
 @login_required(login_url="login_viw")
@@ -131,19 +137,17 @@ def info(request):
 @login_required(login_url="login_view")
 def trader(request):
     if request.method =='POST':
-        form = CrearTrader(request.POST)
+        form = TraderForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            instance.author = request.user
-            instance.fecha = timezone.now()
-            instance.save()
-            return redirect('trader')
-    else:
-        form = CrearTrader()
-    traders = Trader.objects.filter(fecha__lte=timezone.now()).order_by('fecha')
-    return render(request, 'trader.html', {'form': form, 'traders': traders})
+            instance.save(using='datamart')
+            Dimtrader.objects.using('default').filter(idtrader=form.instance.idtrader).delete()
 
-    #traders = Trader.objects.filter(fecha__lte=timezone.now()).order_by('fecha')
+    else:
+        form = TraderForm()
+    tradersStage = Dimtrader.objects.using('default').order_by('idtrader')
+    tradersDatamart = Dimtrader.objects.using('datamart').order_by('idtrader')
+    return render(request, 'trader.html', {'form':form,'tradersStage':tradersStage, 'tradersDatamart':tradersDatamart})
     #return render(request, 'trader.html', {'traders':traders})
 
 
@@ -194,7 +198,7 @@ def password_reset(request):
         return render(request,"password_reset.html")
 
 def password_reset_confirm(request):
-        return render(request,"password_reset_confirm.html")        
+        return render(request,"password_reset_confirm.html")
 
 
 @login_required(login_url="login_view")
