@@ -1,7 +1,87 @@
 {% extends 'base.html' %}
 {% block content%}
-<h1 class = ""  > Bienvenido <h1>
 
+	<div class="jumbotron" style="padding: 20px;">
+	  <h1>Bienvenido a TPVS</h1>
+	  <p>Este es el sistema que le permitirá realizar limpiar, organizar, almacenar y visualizar la información de una forma
+	   estructurada para su posterior análisis</p>
+	  <p><a class="btn btn-primary btn-lg" href="#" role="button">Conoce más</a>
+	  	<a class="btn btn-warning btn-lg" href="{%url 'manual'%}" role="button">Manual de usuario</a></p>
+
+	</div>
+
+	<div class="row display-flex">
+	  <div class="col-sm-6 col-md-4"  >
+	    <div class="thumbnail" align="center">
+	      <a class="col-md-12" style="margin:10px;"><i class="iconos fa fa-wrench fa-5x " ></i></a>
+
+	      <div class="caption">
+	        <h3 style="color: #E18B00">1.Configurar archivo</h3>
+	        <p>Ajustar las fechas a formato fecha corta y guarde el archivo en formato (.csv)</p>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="col-sm-6 col-md-4">
+	    <div class="thumbnail" align="center" >
+	      <a class="col-md-12" style="margin:10px;"><i class="fa fa-file fa-5x " aria-hidden="true" ></i></a>
+
+	      <div class="caption">
+	        <h3 style="color: #E18B00">2.Cargar archivo</h3>
+	        <p>Cargar el archivo Spot-fwdxlsx o CURR-FUT en formato (.csv)</p>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="col-sm-6 col-md-4">
+	    <div class="thumbnail" align="center" >
+	      <a class="col-md-12" style="margin:10px;"><i class="fa fa-cogs fa-5x " ></i></a>
+
+	      <div class="caption">
+	        <h3 style="color: #E18B00">3.Procesar archivo</h3>
+	        <p>El sistema limpia la información entrante y genera tablas de información faltante.</p>
+	      </div>
+	    </div>
+	  </div>
+	   <div class="col-sm-6 col-md-4">
+	    <div class="thumbnail" align="center" >
+	      <a class="col-md-12" style="margin:10px;"><i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true" ></i></a>
+
+	      <div class="caption">
+	        <h3 style="color: #E18B00">4. Validar errores</h3>
+	        <p>Generar archivo con los registros no cargados y validar errores.</p>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="col-sm-6 col-md-4">
+	    <div class="thumbnail" align="center" >
+	      <a class="col-md-12" style="margin:10px;"><i class="fa fa-info-circle fa-5x " ></i></a>
+
+	      <div class="caption">
+	        <h3 style="color: #E18B00">5. Completar información</h3>
+	        <p>Revisar que dimensiones tienen información faltante y completarla</p>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="col-sm-6 col-md-4">
+	    <div class="thumbnail" align="center" >
+	      <a class="col-md-12" style="margin:10px;"><i class="fa fa-database fa-5x " ></i></a>
+
+	      <div class="caption">
+	        <h3 style="color: #E18B00">6.Cargar el datamart</h3>
+	        <p>Pasar los registros limpios que poseen la información completa al datamart</p>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="col-sm-6 col-md-4 col-md-offset-4">
+	    <div class="thumbnail" align="center" >
+	      <a class="col-md-12" style="margin:10px;"><i class="fa fa-eye fa-5x " aria-hidden="true" ></i></a>
+	      <div class="caption">
+	        <h3 style="color: #E18B00">7.Abrir vista en QLIK</h3>
+	        <p>Abrir visualizaciones en QLIK con la información disponible en el sistema.</p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+<!---
 	<div class="row">
 		<div class="col-md-6 topspace"  >
 			<div class=" panel panel-default panel-yellow"  >
@@ -11,7 +91,7 @@
 					<div class="text-center">
 						<a class="d-block small col-md-12"  href="{%url 'manual'%}"> Manual de usuario.pdf</a>
 					</div >
-					<!---
+
 					<form method="post" class="post-form"  >
 						<div class="form-label-group">
 							<label for= {{field.id_for_label}}>AAA</label>
@@ -28,7 +108,7 @@
 							<button class="btn btn-primary btn-lg btn-warning" type="submit">Guardar</button>
 						</div>
 					</form>
-				-->
+
 			</div>
 		</div>
 		<div class="col-md-6 topspace"  >
@@ -37,7 +117,7 @@
 					<h3>Log </h3>
 				</div>
 				<div class="panel-body" >
-					<!---
+
 					<form method="post" class="post-form"  >
 						<div class="form-label-group">
 							<label for= {{field.id_for_label}}>AAA</label>
@@ -53,12 +133,12 @@
 						<div class="space" align="center" >
 							<button class="btn btn-primary btn-lg btn-warning" type="submit">Guardar</button>
 						</div>
-					</form>
-					-->
+
 				</div>
 			</div>
 		</div>
 	</div>
+		-->
 
 
 

@@ -27,12 +27,12 @@ class Dimestado(models.Model):
 
 
 class Dimfecha(models.Model):
-    idfecha = models.CharField(primary_key=True, max_length=50)
-    anio = models.CharField(max_length=20, blank=True, null=True)
-    mes = models.CharField(max_length=20, blank=True, null=True)
-    dia = models.CharField(max_length=20, blank=True, null=True)
-    nombre_mes = models.CharField(max_length=20, blank=True, null=True)
-    nombre_dia = models.CharField(max_length=20, blank=True, null=True)
+    idfecha = models.CharField(db_column='idFecha', primary_key=True, max_length=20)  # Field name made lowercase.
+    anio = models.SmallIntegerField()
+    mes = models.SmallIntegerField()
+    nombre_mes = models.CharField(db_column='nombre_Mes', max_length=15)  # Field name made lowercase.
+    dia = models.SmallIntegerField()
+    nombre_dia = models.CharField(db_column='nombre_Dia', max_length=15)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -89,20 +89,20 @@ class Dimtrader(models.Model):
         db_table = 'dimtrader'
 
 
-class FactOperacion(models.Model):
-    idoperacion = models.IntegerField(db_column='idOperacion', primary_key=True)  # Field name made lowercase.
-    contraparte_cierre = models.CharField(max_length=10, blank=True, null=True)
-    idestado = models.CharField(db_column='idEstado', max_length=7, blank=True, null=True)  # Field name made lowercase.
-    fecha_carga = models.CharField(max_length=28, blank=True, null=True)
-    fecha_finalizacion = models.CharField(max_length=28, blank=True, null=True)
-    fecha_insercion = models.CharField(max_length=15, blank=True, null=True)
-    fecha_pago = models.CharField(max_length=28, blank=True, null=True)
-    idmonedafuerte = models.CharField(db_column='idMonedaFuerte', max_length=3, blank=True, null=True)  # Field name made lowercase.
-    idmonedadebil = models.CharField(db_column='idMonedaDebil', max_length=3, blank=True, null=True)  # Field name made lowercase.
-    idportafolio = models.CharField(db_column='idPortafolio', max_length=18, blank=True, null=True)  # Field name made lowercase.
-    idproducto = models.CharField(db_column='idProducto', max_length=5, blank=True, null=True)  # Field name made lowercase.
-    idsistema = models.CharField(db_column='idSistema', max_length=13, blank=True, null=True)  # Field name made lowercase.
-    idtrader = models.CharField(db_column='idTrader', max_length=16, blank=True, null=True)  # Field name made lowercase.
+class Factoperacion(models.Model):
+    idoperacion = models.CharField(db_column='idOperacion', primary_key=True, max_length=20)  # Field name made lowercase.
+    contraparte = models.CharField(max_length=20, blank=True, null=True)
+    idestado = models.CharField(db_column='idEstado', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    fecha_carga = models.CharField(max_length=50, blank=True, null=True)
+    fecha_finalizacion = models.CharField(max_length=50, blank=True, null=True)
+    fecha_insercion = models.CharField(max_length=50, blank=True, null=True)
+    fecha_pago = models.CharField(max_length=50, blank=True, null=True)
+    idmonedafuerte = models.CharField(db_column='idMonedaFuerte', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    idmonedadebil = models.CharField(db_column='idMonedaDebil', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    idportafolio = models.CharField(db_column='idPortafolio', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    idproducto = models.CharField(db_column='idProducto', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    idsistema = models.CharField(db_column='idSistema', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    idtrader = models.CharField(db_column='idTrader', max_length=20, blank=True, null=True)  # Field name made lowercase.
     cant_contratos = models.IntegerField(blank=True, null=True)
     monto_operacion = models.FloatField(blank=True, null=True)
     precio_cambio_par = models.FloatField(blank=True, null=True)
@@ -110,4 +110,4 @@ class FactOperacion(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'fact_operacion'
+        db_table = 'factoperacion'

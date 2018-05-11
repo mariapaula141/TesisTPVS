@@ -8,38 +8,81 @@ from django.contrib.auth.models import User
 
 
 class CargarArchivo(forms.ModelForm):
+
     class Meta:
         model = Archivo
         fields = [
             "ruta",
         ]
-class TraderForm(forms.ModelForm):
-     idtrader = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Identificador trader','id':'inputIdTrader'}))
-     nombre = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre'}))
-     apellido = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Apellido'}))
+    def clean_recipients(self):
+        data = self.cleaned_data['ruta']
+        if ("Spot-fwdxlsx.csv" or "CURR_FUT.csv") not in data:
+            raise forms.ValidationError("Archivo inválido")
+        return data
+
+
+class CrearContraparte(forms.ModelForm):
+    idsistema = forms.CharField(label='Identificador sistema', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Identificador sistema','id':'inputId'}))
+    nombre = forms.CharField(label='Nombre', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre'}))
+    descripcion = forms.CharField(label='Descripción', widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Descripción'}))
+    class Meta:
+        model = Dimsistema
+        fields = [
+            "idsistema",
+            "nombre",
+            "descripcion"
+        ]
+class CrearEstado(forms.ModelForm):
+    idestado = forms.CharField(label='Identificador estado', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Identificador estado','id':'inputId'}))
+    nombre = forms.CharField(label='Nombre', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre'}))
+    class Meta:
+        model = Dimestado
+        fields = [
+            "idestado",
+            "nombre",
+        ]
+
+class CrearPortafolio(forms.ModelForm):
+    idportafolio = forms.CharField(label='Identificador portafolio', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Identificador portafolio','id':'inputId'}))
+    nombre = forms.CharField(label='Nombre', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre'}))
+    descripcion = forms.CharField(label='Descripción', widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Descripción'}))
+    class Meta:
+        model = Dimportafolio
+        fields = [
+            "idportafolio",
+            "nombre",
+            "descripcion"
+        ]
+
+
+class CrearSistema(forms.ModelForm):
+    idsistema = forms.CharField(label='Identificador sistema', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Identificador sistema','id':'inputId'}))
+    nombre = forms.CharField(label='Nombre', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre'}))
+    descripcion = forms.CharField(label='Descripción', widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Descripción'}))
+    class Meta:
+        model = Dimsistema
+        fields = [
+            "idsistema",
+            "nombre",
+            "descripcion"
+        ]
+
+class CrearTrader(forms.ModelForm):
+     idtrader = forms.CharField(label='Identificador trader',widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Identificador trader','id':'inputId'}))
+     nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre'}))
+     apellido = forms.CharField(label='Apellido',widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Apellido'}))
      class Meta:
           model = Dimtrader
           fields = ['idtrader','nombre','apellido']
 
-class CrearPortafolio(forms.ModelForm):
-    class Meta:
-        model = Portafolio
-        fields = [
-            "identificador",
-            "nombre",
-            "descripcion",
-        ]
-class CrearSistema(forms.ModelForm):
-    class Meta:
-        model = Sistema
-        fields = [
-            "identificador",
-            "nombre",
-            "descripcion",
-        ]
 
 class RegistrationForm(UserCreationForm):
-    email=forms.EmailField(required=True)
+    username = forms.CharField(label='Nombre de usuario',widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre usuario'}))
+    first_name = forms.CharField(label='Nombres',widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombres'}))
+    last_name = forms.CharField(label='Apellidos',widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Apellidos'}))
+    email=forms.EmailField(required=True,label='Correo electrónico',widget=forms.EmailInput(attrs={'class':'form-control','placeholder':'example@tpvs.com'}))
+    password1=forms.CharField(required=True,label='Contraseña',widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Contraseña'}))
+    password2=forms.CharField(required=True,label='Confirmar contraseña',widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Confirmar contraseña'}))
     class Meta:
         model = User
         fields = [

@@ -81,23 +81,23 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'stagedb',
+        'NAME': 'stage',
         'USER' :'root',
         'PASSWORD':'root123',
         'HOST': 'localhost',
         'PORT':'3306',
     },
-    #'datamart': {
-    #    'ENGINE': 'django.db.backends.mysql',
-    #    'NAME': 'datamart',
-    #    'USER' :'root',
-    #    'PASSWORD':'root123',
-    #    'HOST': 'localhost',
-    #    'PORT':'3306',
-    #},
+    'datamart': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'datamart',
+        'USER' :'root',
+        'PASSWORD':'root123',
+        'HOST': 'localhost',
+        'PORT':'3306',
+    },
 
 }
-#DATABASE_ROUTERS = ['mysite.routers.MySiteRouter',]
+DATABASE_ROUTERS = ['mysite.routers.MySiteRouter',]
 
 
 # Password validation
