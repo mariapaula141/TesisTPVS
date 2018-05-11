@@ -207,6 +207,7 @@ a.article, a.article:hover {
 }
 
 
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -262,4 +263,12 @@ a.article, a.article:hover {
     #sidebarCollapse span {
         display: none;
     }
+}
+
+
+.display-flex {
+  min-height: 550px;
+}
+.thumbnail {
+  height: 100%;
 }

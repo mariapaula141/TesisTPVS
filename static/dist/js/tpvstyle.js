@@ -29,13 +29,21 @@ $(function() {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
             }
-            data = table.row( this ).data();
-            alert( 'Está a punto de editar el elemento:'+data[0] );
-            document.getElementById("inputIdTrader").value = data[0];
+            data = table.row( this ).data();            document.getElementById("inputId").value = data[0];
             location.hash ="top";
         } );
 
        
    
+});
+
+//Boton
+
+$('.carga').on('click', function() {
+    var $this = $(this);
+  $this.button('Cargando');
+    setTimeout(function() {
+       $this.button('reset');
+   }, 8000);
 });
 

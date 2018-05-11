@@ -30,19 +30,20 @@ urlpatterns = [
 
     #menu
     url(r'^archivo/$',views.archivo,name="archivo"),
+    url(r'^trader/$',views.trader,name="trader"),
+    url(r'^register/$',views.register,name="register"),
+    url(r'^perfil/$',views.perfil,name="perfil"),
+
+    url(r'^password/$',views.password,name="password"),
+    url(r'^error/$',views.error,name="error"),
     url(r'^contraparte/$',views.contraparte,name="contraparte"),
     url(r'^estado/$',views.estado,name="estado"),
     url(r'^portafolio/$',views.portafolio,name="portafolio"),
     url(r'^producto/$',views.producto,name="producto"),
-    url(r'^trader/$',views.trader,name="trader"),
     url(r'^sistema/$',views.sistema,name="sistema"),
-    url(r'^register/$',views.register,name="register"),
-    url(r'^esperar/$',views.esperar,name="esperar"),
-    url(r'^parMoneda/$',views.parMoneda,name="parMoneda"),
-    url(r'^info/$',views.info,name="info"),
-    url(r'^perfil/$',views.perfil,name="perfil"),
-    url(r'^password/$',views.password,name="pasword"),
-    url(r'^error/$',views.error,name="error"),
+    url(r'^permiso/$',views.permiso,name="permiso"),
+    #url(r'^parMoneda/$',views.parMoneda,name="parMoneda"),
+    #url(r'^info/$',views.info,name="info"),
 
     #Manual
     url(r'^media/Manual.pdf$',views.manual,name="manual"),
