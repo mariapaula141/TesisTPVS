@@ -24,7 +24,7 @@ SECRET_KEY = 'ondhlwzqe^wow)6viu53d8px=y*5&gt_=vde4*_szx1e2v@9*&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["167.99.147.146"
+ALLOWED_HOSTS = ["167.99.147.146", "tpvsweb.com"
 ]
 
 
@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'import_export',
     'polls',
     'rest_framework',
     'webline_notifications',
@@ -86,21 +85,19 @@ DATABASES = {
         'USER' :'root',
         'PASSWORD':'root123',
         'HOST': 'localhost',
-        'PORT':'',
+        'PORT':'3306',
     },
-
-    #'default': {
-    #   'ENGINE': 'django.db.backends.mysql',
-    #   'NAME': 'test',
-    #   'USER' :'root',
-    #   'PASSWORD':'root123',
-    #   'HOST': 'localhost',
-    #   'PORT':'3306',
-   #},
+    #'datamart': {
+    #    'ENGINE': 'django.db.backends.mysql',
+    #    'NAME': 'datamart',
+    #    'USER' :'root',
+    #    'PASSWORD':'root123',
+    #    'HOST': 'localhost',
+    #    'PORT':'3306',
+    #},
 
 }
 #DATABASE_ROUTERS = ['mysite.routers.MySiteRouter',]
-
 
 
 # Password validation

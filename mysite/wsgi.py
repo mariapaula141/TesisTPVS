@@ -14,3 +14,4 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
 
 application = get_wsgi_application()
+#def application(environ, start_response): start_response('200 OK', [('Content-Type', 'text/html')]) return ["<h1 style='color:blue'>Hello There!</h1>"
