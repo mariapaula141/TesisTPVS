@@ -266,9 +266,3 @@ a.article, a.article:hover {
 }
 
 
-.display-flex {
-  min-height: 550px;
-}
-.thumbnail {
-  height: 100%;
-}

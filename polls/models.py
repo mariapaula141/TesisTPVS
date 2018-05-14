@@ -14,8 +14,7 @@ class Archivo(models.Model):
         self.fecha = timezone.now()
         self.save()
 
-    def __str__(self):
-        return self.ruta
+
 
 class Mensaje(models.Model):
     fecha = models.DateTimeField( blank=True, null=True)
@@ -122,6 +121,19 @@ class Dimtrader(models.Model):
 
     class Meta:
         db_table = 'dimtrader'
+
+
+class Factmoneda(models.Model):
+    name = models.CharField(max_length=20, blank=True, null=True)
+    xchange = models.FloatField(blank=True, null=True)
+    date = models.CharField(max_length=15, blank=True, null=True)
+    m1 = models.CharField(max_length=5, blank=True, null=True)
+    m2 = models.CharField(max_length=5, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'factmoneda'
+
 
 '''
 class Factoperacion(models.Model):

@@ -29,8 +29,10 @@ $(function() {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
             }
-            data = table.row( this ).data();            document.getElementById("inputId").value = data[0];
-            location.hash ="top";
+            data = table.row( this ).data();            
+            document.getElementById("inputId").value = data[0];
+
+            window.scrollTo(0, 0);
         } );
 
        
@@ -46,4 +48,6 @@ $('.carga').on('click', function() {
        $this.button('reset');
    }, 8000);
 });
+
+
 

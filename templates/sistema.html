@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block content%}
@@ -46,7 +47,7 @@
       </div>
 
     <div class = "row">
-      <h2 class="page-header space" style="color:#B43104"> Elementos no identificados </h2>
+      <h2 class="page-header space" style="color:#B43104"> Sistemas no identificados </h2>
     </div>
 
       <div class="table-responsive ">
@@ -54,17 +55,23 @@
           <thead>
             <tr class="bg-danger">
               <th>Identificador</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
             </tr>
           </thead>
           <tfoot>
             <tr class="bg-danger">
               <th>Identificador</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
             </tr>
           </tfoot>
           <tbody>
           	{% for s in sistemaStage %}
-            <tr>
-              <th>{{ s.idsistema }} </th>
+            <tr class="bg-danger">
+              <td>{{ s.idsistema }} </td>
+              <td>{{ s.nombre }} </td>
+              <td>{{ s.descripcion }} </td>
             </tr>
             {% endfor %}
           </tbody>
@@ -72,7 +79,7 @@
       </div>
 
     <div class = "row ">
-      <h2 class="page-header space" style="color:#31B404"> Elementos existentes en el Datamart </h2>
+      <h2 class="page-header space" style="color:#31B404"> Sistemas existentes en el Datamart </h2>
     </div>
 
      <div class="table-responsive ">
@@ -82,7 +89,6 @@
               <th>Identificador</th>
               <th>Nombre</th>
               <th>Descripción</th>
-
             </tr>
           </thead>
           <tfoot>
@@ -95,9 +101,9 @@
           <tbody>
           	{% for s in sistemaDatamart %}
               <tr class="bg-success">
-              	<th>{{ s.idsistema }} </th>
-                <th>{{ s.nombre }} </th>
-                <th>{{ s.descripcion }} </th>
+              	<td>{{ s.idsistema }} </td>
+                <td>{{ s.nombre }} </td>
+                <td>{{ s.descripcion }} </td>
               </tr>
               {% endfor %}
           </tbody>

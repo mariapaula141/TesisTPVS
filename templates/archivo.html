@@ -8,39 +8,53 @@
                    <h3>Proceso de carga</h3>
                 </div>
                 <div class="panel-body" align="center">
-                  {% if messages %}
-                   <div class="row">
-                   <div class='col-sm-6 col-sm-offset-3'>
+                 {% if messages %}
+                 
                        {% for message in messages %}
                        <p{% if message.tags == "success" %} class="alert alert-success" {% endif %}
                        {% if message.tags == "error" %} class="alert alert-danger" {% endif %}
                        >{{ message }}</p>
                        {% endfor %}
-                   </div>
-                 </div>
+                   
+              
                    {% endif %}
-                  <h4 class="col-md-12 space"  align="center">1.Cargar archivo</h4>
-                  <div class="row  col-md-12">
+                  <h4 class="col-md-12 "  align="center">1.Cargar archivo</h4>
+                  
 
-                     <form class="col-md-12" align="center" role="form" metdod="post" enctype="multipart/form-data">
+                     <form class="col-md-12" align="center" role="form" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group" align="center">
 
                              <label class="col-md-12" align="left" >{{form}}</label>
 
                         </div>
-                        <input class=" btn btn-warning btn-block space" value="Cargar archivo" type=submit />
+                        <input class=" btn btn-warning btn-block " value="Cargar archivo" type=submit name="cargar" />
 
                       </form>
-                  </div>
+                  
 
-                    <h4 class="col-md-12 space"  align="center">2. Procesar datos</h4>
+                    <h4 class="col-md-12 "  align="center">2. Procesar datos</h4>
 
-                      <a class="col-md-6"><input class=" btn btn-danger btn-block col-md-6" value="Ver Errores" type=submit /></a>
-                      <a class="col-md-6"><input class=" btn btn-info btn-block col-md-6" value="Validar dimensiones" type=submit /></a>
-                     <h4 class="col-md-12 space" align="center">3. Cargar a datamart</h4>
-                        <a class="col-md-6 col-md-offset-3"><input class=" btn btn-success btn-block col-md-6" value="Cargar registros" type=submit /></a>
+                     <form class="col-md-6" align="center" role="form" method="post" enctype="multipart/form-data">
+                         {% csrf_token %}
+                        <input class=" btn btn-danger btn-block col-md-6" value="Ver Errores" type=submit name="errores" />
+                     </form>
+                     <form class="col-md-6" align="center" role="form" method="post" enctype="multipart/form-data">
+                         {% csrf_token %}
+                        <input class=" btn btn-info btn-block col-md-6" value="Validar dimensiones" type=submit name="dimensiones" />
+                      </form>
+                     <h4 class="col-md-12 " align="center">3. Cargar a datamart</h4>
+                      <form class="col-md-6" align="center" role="form" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                        <input class=" btn btn-success btn-block col-md-6" value="Cargar registros" type=submit name="datamart"  />
+                      </form>
 
+                     
+                      <form class="col-md-6" align="center" role="form" method="post">
+                        {%csrf_token%}
+                        <input class=" btn btn-success btn-block col-md-6" value="Actualizar visualización" type=submit name="CMI"  {% if usuario.is_staff %} {% else %}disabled{% endif %}/>
+                      </form>
+                      
 
                 </div>
               </div>
@@ -48,33 +62,36 @@
       </div>
 
  <div class = "row">
-      <h2 class="page-header space">Registros de carga </h2>
+      <h2 class="page-header space">Archivos cargados al sistema</h2>
     </div>
 
       <div class="table-responsive ">
-        <table class="table table-bordered table-hover table-striped" id="tables" class="display" style="widtd:100%">
-          <tdead>
+        <table class="table table-bordered table-hover table-striped" id="tables" class="display" style="width:100%">
+          <thead>
             <tr>
-              <td>Fecha</td>
-              <td>Acción</td>
-              <td>Usuario</td>
-              <td>Estado</td>
+              <th>id</th>
+              <th>Fecha</th>
+              <th>Acción</th>
+              <th>Usuario</th>
+              <th>Estado</th>
             </tr>
-          </tdead>
+          </thead>
           <tfoot>
             <tr>
-              <td>Fecha</td>
-              <td>Acción</td>
-              <td>Usuario</td>
-              <td>Estado</td>
+              <th>id</th>
+              <th>Fecha</th>
+              <th>Acción</th>
+              <th>Usuario</th>
+              <th>Estado</th>
             </tr>
           </tfoot>
           <tbody>
               {% for r in registros %}
             <tr>
+              <td>{{ r.id }} </td>
               <td>{{ r.fecha }} </td>
               <td>{{ r.accion }} </td>
-              <td>{{ r.autdor }} </td>
+              <td>{{ r.author }} </td>
               <td>{{ r.estado }} </td>
             </tr>
             {% endfor %}

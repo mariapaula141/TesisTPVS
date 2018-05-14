@@ -1,28 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content%}
-
-
-  </script>
      <div class="row">
           <div class="col-md-6 col-md-offset-3 topspace" >
               <div class=" panel panel-default panel-yellow">
                  <div class="panel-heading col-md-12" align="center" style="margin-bottom: 5%;" >
                    <h3>Información estado</h3>
                 </div>
-               <div class="panel-body">
-
-                 {% if messages %}
-                  <div class="row">
-                  <div class='col-sm-6 col-sm-offset-3'>
-                      {% for message in messages %}
-                      <p{% if message.tags == "success" %} class="alert alert-success" {% endif %}
-                      {% if message.tags == "error" %} class="alert alert-danger" {% endif %}
-                      >{{ message }}</p>
-                      {% endfor %}
-                  </div>
-                </div>
-                  {% endif %}
+                <div class="panel-body">
+                  {% if messages %}
+                   <div class="row">
+                   <div class='col-sm-6 col-sm-offset-3'>
+                       {% for message in messages %}
+                       <p{% if message.tags == "success" %} class="alert alert-success" {% endif %}
+                       {% if message.tags == "error" %} class="alert alert-danger" {% endif %}
+                       >{{ message }}</p>
+                       {% endfor %}
+                   </div>
+                 </div>
+                   {% endif %}
                  <form action="" method="post">
                         {%csrf_token%}
                         {% for error in form.non_field_errors %}
@@ -50,65 +46,62 @@
       </div>
 
     <div class = "row">
-      <h2 class="page-header space" style="color:#C70039"> Elementos no identificados </h2>
+      <h2 class="page-header space " style="color:#C70039"> Estados no identificadas </h2>
     </div>
 
       <div class="table-responsive ">
         <table class="table table-bordered table-hover table-striped" id="tables" class="display" style="width:100%">
           <thead>
-            <tr class="bg-danger">
-              <th>Estado</th>
+            <tr class="bg-danger" >
+              <th >Identificador</th>
             </tr>
           </thead>
           <tfoot>
             <tr class="bg-danger">
-              <th>Estado</th>
+              <th>Identificador</th>
             </tr>
           </tfoot>
           <tbody>
             {% for e in estadoStage %}
-            <tr>
-              <th>{{ e.idestado }} </th>
+            <tr class="bg-danger" >
+              <td>{{ e.idestado }} </td>
             </tr>
             {% endfor %}
           </tbody>
         </table>
       </div>
-      <div class="col-md-12 space">
-        <button class="btn btn-warning col-md-4 col-md-offset-4" type="submit">Completar</button>
-      </div>
+
     <div class = "row ">
-      <h2 class="page-header space" style="color:#33C7FF"> Elementos existentes en el Datamart </h2>
+      <h2 class="page-header space" style="color:#31B404"> Estados existentes en el Datamart </h2>
     </div>
 
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover table-striped" id="tablesDtm" width="100%" cellspacing="0">
+     <div class="table-responsive ">
+        <table class="table table-bordered table-hover table-striped" id="tablesDtm" class="display" style="width:100%">
           <thead>
             <tr class="bg-success">
               <th>Identificador</th>
               <th>Nombre</th>
+              
+
             </tr>
           </thead>
           <tfoot>
             <tr class="bg-success">
               <th>Identificador</th>
               <th>Nombre</th>
+              
             </tr>
           </tfoot>
           <tbody>
             {% for e in estadoDatamart %}
-            <tr class="bg-success">
-              <th>{{ e.idestado }} </th>
-              <th>{{ e.nombre }} </th>
-            </tr>
-            {% endfor %}
+              <tr class="bg-success">
+                <td>{{ e.idestado }} </td>
+                <td>{{ e.nombre }} </td>
+               
+              </tr>
+              {% endfor %}
           </tbody>
         </table>
       </div>
-      <div class="col-md-12 space">
-        <button class="btn btn-warning col-md-4 col-md-offset-4" type="submit">Editar</button>
-      </div>
-
-
 
 {%endblock%}

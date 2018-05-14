@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^trader/$',views.trader,name="trader"),
     url(r'^register/$',views.register,name="register"),
     url(r'^perfil/$',views.perfil,name="perfil"),
+    url(r'^alertas/$',views.alertas,name="alertas"),
 
     url(r'^password/$',views.password,name="password"),
     url(r'^error/$',views.error,name="error"),
@@ -42,11 +43,12 @@ urlpatterns = [
     url(r'^producto/$',views.producto,name="producto"),
     url(r'^sistema/$',views.sistema,name="sistema"),
     url(r'^permiso/$',views.permiso,name="permiso"),
-    #url(r'^parMoneda/$',views.parMoneda,name="parMoneda"),
-    #url(r'^info/$',views.info,name="info"),
+    url(r'^parMoneda/$',views.parMoneda,name="parMoneda"),
+    url(r'^info/$',views.info,name="info"),
 
     #Manual
     url(r'^media/Manual.pdf$',views.manual,name="manual"),
+    url(r'^download/(?P<file_name>.+)$', views.download,  name='download'),
 
     #password
     url(r'^reset-password/$', password_reset, {'template_name': 'reset_password.html', 'post_reset_redirect': 'password_reset_done', 'email_template_name': 'reset_password_email.html'}, name='reset-password'),

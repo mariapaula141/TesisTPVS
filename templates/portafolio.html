@@ -46,7 +46,7 @@
       </div>
 
     <div class = "row">
-      <h2 class="page-header space" style="color:#C70039"> Elementos no identificados </h2>
+      <h2 class="page-header space" style="color:#B43104"> Portafolios no identificados </h2>
     </div>
 
       <div class="table-responsive ">
@@ -63,8 +63,8 @@
           </tfoot>
           <tbody>
             {% for p in portafolioStage %}
-            <tr>
-              <th>{{ p.idportafolio }} </th>
+            <tr class="bg-danger">
+              <td>{{ p.idportafolio }} </td>
             </tr>
             {% endfor %}
           </tbody>
@@ -72,7 +72,7 @@
       </div>
 
     <div class = "row ">
-      <h2 class="page-header space" style="color:#33C7FF" > Elementos existentes en el Datamart </h2>
+      <h2 class="page-header space" style="color:#31B404" > Portafolios existentes en el Datamart </h2>
     </div>
 
      <div class="table-responsive ">
@@ -94,10 +94,10 @@
           </tfoot>
           <tbody>
               {% for p in portafolioDatamart %}
-              <tr>
-                <th>{{ p.idportafolio }} </th>
-                <th>{{ p.nombre }} </th>
-                <th>{{ p.descripcion }} </th>
+              <tr class="bg-success">
+                <td>{{ p.idportafolio }} </td>
+                <td>{{ p.nombre }} </td>
+                <td>{{ p.descripcion }} </td>
               </tr>
               {% endfor %}
           </tbody>
