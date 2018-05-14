@@ -11,7 +11,7 @@
 
                    {% if messages %}
                     <div class="row">
-                    <div class='col-sm-6 col-sm-offset-3'>
+                    <div >
                         {% for message in messages %}
                         <p{% if message.tags == "success" %} class="alert alert-success" {% endif %}
                         {% if message.tags == "error" %} class="alert alert-danger" {% endif %}
@@ -34,9 +34,11 @@
                     <div class="form-group has-errors text-danger small">
                     </div>
                      <div class="form-group">
-                       {{field.label_tag}}
-                       <br/>
-                       {{field}}
+                     	
+	                       {{field.label_tag}}
+	                       <br/>
+	                       {{field}}
+	                  
                      </div>
 
                      {% endfor %}

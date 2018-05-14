@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010" xmlns:orgomg.cwm.resource.relational="http:///orgomg/cwm/resource/relational.ecore">
+  <TalendMetadata:DatabaseConnection xmi:id="_jelfsFGcEeiiBuRPO5P1mw" name="stage" id="_Zz0DgFGcEeiiBuRPO5P1mw" label="stage" dataPackage="_U8vCYFH1Eei-cpOEQaJITg" DatabaseType="MySQL" DriverClass="org.gjt.mm.mysql.Driver" URL="jdbc:mysql://167.99.147.146:3306/stage?noDatetimeStringSync=true" dbVersionString="MYSQL_5" Port="3306" Username="tesis" Password="ptjjpwSs3axUZ97yjx/lxw==" ServerName="167.99.147.146" DatasourceName="" FileFieldName="" SID="stage" SqlSynthax="" StringQuote="" NullChar="" DbmsId="mysql_id" ProductId="MYSQL" AdditionalParams="noDatetimeStringSync=true" StandardSQL="true" SQLMode="false" UiSchema="">
+    <taggedValue xmi:id="_jelfsVGcEeiiBuRPO5P1mw" tag="Is Conn Need Reload" value="false"/>
+    <taggedValue xmi:id="_je6P0FGcEeiiBuRPO5P1mw" tag="package filter" value=""/>
+    <taggedValue xmi:id="_je624FGcEeiiBuRPO5P1mw" tag="Status" value=""/>
+    <taggedValue xmi:id="_je624VGcEeiiBuRPO5P1mw" tag="Version" value="0.1"/>
+    <taggedValue xmi:id="_je624lGcEeiiBuRPO5P1mw" tag="Purpose" value=""/>
+    <taggedValue xmi:id="_je6241GcEeiiBuRPO5P1mw" tag="Description" value=""/>
+    <taggedValue xmi:id="_je625FGcEeiiBuRPO5P1mw" tag="Author" value=""/>
+    <taggedValue xmi:id="_je625VGcEeiiBuRPO5P1mw" tag="otherParameter"/>
+    <taggedValue xmi:id="_jkyOUFGcEeiiBuRPO5P1mw" tag="DB ProductName" value="MySQL"/>
+    <taggedValue xmi:id="_jkyOUVGcEeiiBuRPO5P1mw" tag="DB ProductVersion" value="5.7.22-0ubuntu0.16.04.1"/>
+    <taggedValue xmi:id="_jkyOUlGcEeiiBuRPO5P1mw" tag="DB IdentifierQuoteString" value="`"/>
+    <parameters xmi:id="_jelfslGcEeiiBuRPO5P1mw" key="CONN_PARA_KEY_USERNAME" value="tesis"/>
+    <parameters xmi:id="_MoeGIFH1Eei-cpOEQaJITg" key="CONN_PARA_KEY_MAPRDB_TABLE_NS_MAPPING" value=""/>
+  </TalendMetadata:DatabaseConnection>
+  <orgomg.cwm.resource.relational:Catalog xmi:id="_U8vCYFH1Eei-cpOEQaJITg" name="stage" dataManager="_jelfsFGcEeiiBuRPO5P1mw"/>
+</xmi:XMI>

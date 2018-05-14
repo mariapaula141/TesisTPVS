@@ -159,6 +159,7 @@ private RunStat runStat = new RunStat();
 		globalMap.put(KEY_DB_DATASOURCES_RAW, new java.util.HashMap<String, javax.sql.DataSource>(dataSources));
 	}
 
+	LogCatcherUtils tLogCatcher_1 = new LogCatcherUtils();
 
 private final java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
 private final java.io.PrintStream errorMessagePS = new java.io.PrintStream(new java.io.BufferedOutputStream(baos));
@@ -254,7 +255,12 @@ private class TalendException extends Exception {
 			}
 
 			if(!(e instanceof TDieException)){
+				tLogCatcher_1.addMessage("Java Exception", currentComponent, 6, e.getClass().getName() + ":" + e.getMessage(), 1);
+				tLogCatcher_1Process(globalMap);
 			}
+				} catch (TalendException e) {
+					// do nothing
+				
 		} catch (Exception e) {
 			this.e.printStackTrace();
 		}
@@ -266,8 +272,24 @@ private class TalendException extends Exception {
 				
 				end_Hash.put(errorComponent, System.currentTimeMillis());
 				
-				status = "failure";
-				
+						try {
+							
+								if(this.execStat){
+									runStat.updateStatOnConnection("OnComponentError1", 0, "error");
+								}
+							
+							
+								errorCode = null;
+								tREST_1Process(globalMap);
+								if (!"failure".equals(status)) {
+									status = "end";
+								}
+								
+
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						
 					tFileInputDelimited_1_onSubJobError(exception, errorComponent, globalMap);
 			}
 			
@@ -316,13 +338,13 @@ private class TalendException extends Exception {
 					tFileInputDelimited_1_onSubJobError(exception, errorComponent, globalMap);
 			}
 			
-			public void tRunJob_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+			public void tFileDelete_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 				
 				end_Hash.put(errorComponent, System.currentTimeMillis());
 				
 				status = "failure";
 				
-					tRunJob_1_onSubJobError(exception, errorComponent, globalMap);
+					tFileInputDelimited_1_onSubJobError(exception, errorComponent, globalMap);
 			}
 			
 			public void tMysqlOutput_2_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
@@ -343,12 +365,44 @@ private class TalendException extends Exception {
 					tFileInputDelimited_1_onSubJobError(exception, errorComponent, globalMap);
 			}
 			
+			public void tREST_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+				
+				end_Hash.put(errorComponent, System.currentTimeMillis());
+				
+				status = "failure";
+				
+					tREST_1_onSubJobError(exception, errorComponent, globalMap);
+			}
+			
+			public void tLogCatcher_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+				
+				end_Hash.put(errorComponent, System.currentTimeMillis());
+				
+				status = "failure";
+				
+					tLogCatcher_1_onSubJobError(exception, errorComponent, globalMap);
+			}
+			
+			public void tFileOutputDelimited_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+				
+				end_Hash.put(errorComponent, System.currentTimeMillis());
+				
+				status = "failure";
+				
+					tLogCatcher_1_onSubJobError(exception, errorComponent, globalMap);
+			}
+			
 			public void tFileInputDelimited_1_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 
 resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThread().getId()+ "", "FATAL", "", exception.getMessage(), ResumeUtil.getExceptionStackTrace(exception),"");
 
 			}
-			public void tRunJob_1_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+			public void tREST_1_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+
+resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThread().getId()+ "", "FATAL", "", exception.getMessage(), ResumeUtil.getExceptionStackTrace(exception),"");
+
+			}
+			public void tLogCatcher_1_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 
 resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThread().getId()+ "", "FATAL", "", exception.getMessage(), ResumeUtil.getExceptionStackTrace(exception),"");
 
@@ -359,6 +413,407 @@ resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThrea
 
 
 
+
+public static class row8Struct implements routines.system.IPersistableRow<row8Struct> {
+    final static byte[] commonByteArrayLock_COMPLETO_ETL_Fut = new byte[0];
+    static byte[] commonByteArray_COMPLETO_ETL_Fut = new byte[0];
+
+	
+			    public String id_operacion;
+
+				public String getId_operacion () {
+					return this.id_operacion;
+				}
+				
+			    public String estado;
+
+				public String getEstado () {
+					return this.estado;
+				}
+				
+			    public String fecha_carga;
+
+				public String getFecha_carga () {
+					return this.fecha_carga;
+				}
+				
+			    public String fecha_finalizacion;
+
+				public String getFecha_finalizacion () {
+					return this.fecha_finalizacion;
+				}
+				
+			    public String fecha_insercion;
+
+				public String getFecha_insercion () {
+					return this.fecha_insercion;
+				}
+				
+			    public String fecha_pago;
+
+				public String getFecha_pago () {
+					return this.fecha_pago;
+				}
+				
+			    public String portafolio_nombre;
+
+				public String getPortafolio_nombre () {
+					return this.portafolio_nombre;
+				}
+				
+			    public String sistema_nombre;
+
+				public String getSistema_nombre () {
+					return this.sistema_nombre;
+				}
+				
+			    public Integer cant_contratos;
+
+				public Integer getCant_contratos () {
+					return this.cant_contratos;
+				}
+				
+			    public String trader_nombre;
+
+				public String getTrader_nombre () {
+					return this.trader_nombre;
+				}
+				
+			    public String producto_nombre;
+
+				public String getProducto_nombre () {
+					return this.producto_nombre;
+				}
+				
+			    public String tipo_operacion_nombre;
+
+				public String getTipo_operacion_nombre () {
+					return this.tipo_operacion_nombre;
+				}
+				
+			    public String moneda1;
+
+				public String getMoneda1 () {
+					return this.moneda1;
+				}
+				
+			    public String moneda2;
+
+				public String getMoneda2 () {
+					return this.moneda2;
+				}
+				
+			    public Double monto_operacion;
+
+				public Double getMonto_operacion () {
+					return this.monto_operacion;
+				}
+				
+			    public Double P_L;
+
+				public Double getP_L () {
+					return this.P_L;
+				}
+				
+			    public Double precio;
+
+				public Double getPrecio () {
+					return this.precio;
+				}
+				
+			    public String contraparte;
+
+				public String getContraparte () {
+					return this.contraparte;
+				}
+				
+
+
+
+	private String readString(ObjectInputStream dis) throws IOException{
+		String strReturn = null;
+		int length = 0;
+        length = dis.readInt();
+		if (length == -1) {
+			strReturn = null;
+		} else {
+			if(length > commonByteArray_COMPLETO_ETL_Fut.length) {
+				if(length < 1024 && commonByteArray_COMPLETO_ETL_Fut.length == 0) {
+   					commonByteArray_COMPLETO_ETL_Fut = new byte[1024];
+				} else {
+   					commonByteArray_COMPLETO_ETL_Fut = new byte[2 * length];
+   				}
+			}
+			dis.readFully(commonByteArray_COMPLETO_ETL_Fut, 0, length);
+			strReturn = new String(commonByteArray_COMPLETO_ETL_Fut, 0, length, utf8Charset);
+		}
+		return strReturn;
+	}
+
+    private void writeString(String str, ObjectOutputStream dos) throws IOException{
+		if(str == null) {
+            dos.writeInt(-1);
+		} else {
+            byte[] byteArray = str.getBytes(utf8Charset);
+	    	dos.writeInt(byteArray.length);
+			dos.write(byteArray);
+    	}
+    }
+	private Integer readInteger(ObjectInputStream dis) throws IOException{
+		Integer intReturn;
+        int length = 0;
+        length = dis.readByte();
+		if (length == -1) {
+			intReturn = null;
+		} else {
+	    	intReturn = dis.readInt();
+		}
+		return intReturn;
+	}
+
+	private void writeInteger(Integer intNum, ObjectOutputStream dos) throws IOException{
+		if(intNum == null) {
+            dos.writeByte(-1);
+		} else {
+			dos.writeByte(0);
+	    	dos.writeInt(intNum);
+    	}
+	}
+
+    public void readData(ObjectInputStream dis) {
+
+		synchronized(commonByteArrayLock_COMPLETO_ETL_Fut) {
+
+        	try {
+
+        		int length = 0;
+		
+					this.id_operacion = readString(dis);
+					
+					this.estado = readString(dis);
+					
+					this.fecha_carga = readString(dis);
+					
+					this.fecha_finalizacion = readString(dis);
+					
+					this.fecha_insercion = readString(dis);
+					
+					this.fecha_pago = readString(dis);
+					
+					this.portafolio_nombre = readString(dis);
+					
+					this.sistema_nombre = readString(dis);
+					
+						this.cant_contratos = readInteger(dis);
+					
+					this.trader_nombre = readString(dis);
+					
+					this.producto_nombre = readString(dis);
+					
+					this.tipo_operacion_nombre = readString(dis);
+					
+					this.moneda1 = readString(dis);
+					
+					this.moneda2 = readString(dis);
+					
+			            length = dis.readByte();
+           				if (length == -1) {
+           	    			this.monto_operacion = null;
+           				} else {
+           			    	this.monto_operacion = dis.readDouble();
+           				}
+					
+			            length = dis.readByte();
+           				if (length == -1) {
+           	    			this.P_L = null;
+           				} else {
+           			    	this.P_L = dis.readDouble();
+           				}
+					
+			            length = dis.readByte();
+           				if (length == -1) {
+           	    			this.precio = null;
+           				} else {
+           			    	this.precio = dis.readDouble();
+           				}
+					
+					this.contraparte = readString(dis);
+					
+        	} catch (IOException e) {
+	            throw new RuntimeException(e);
+
+		
+
+        }
+
+		
+
+      }
+
+
+    }
+
+    public void writeData(ObjectOutputStream dos) {
+        try {
+
+		
+					// String
+				
+						writeString(this.id_operacion,dos);
+					
+					// String
+				
+						writeString(this.estado,dos);
+					
+					// String
+				
+						writeString(this.fecha_carga,dos);
+					
+					// String
+				
+						writeString(this.fecha_finalizacion,dos);
+					
+					// String
+				
+						writeString(this.fecha_insercion,dos);
+					
+					// String
+				
+						writeString(this.fecha_pago,dos);
+					
+					// String
+				
+						writeString(this.portafolio_nombre,dos);
+					
+					// String
+				
+						writeString(this.sistema_nombre,dos);
+					
+					// Integer
+				
+						writeInteger(this.cant_contratos,dos);
+					
+					// String
+				
+						writeString(this.trader_nombre,dos);
+					
+					// String
+				
+						writeString(this.producto_nombre,dos);
+					
+					// String
+				
+						writeString(this.tipo_operacion_nombre,dos);
+					
+					// String
+				
+						writeString(this.moneda1,dos);
+					
+					// String
+				
+						writeString(this.moneda2,dos);
+					
+					// Double
+				
+						if(this.monto_operacion == null) {
+			                dos.writeByte(-1);
+						} else {
+               				dos.writeByte(0);
+           			    	dos.writeDouble(this.monto_operacion);
+		            	}
+					
+					// Double
+				
+						if(this.P_L == null) {
+			                dos.writeByte(-1);
+						} else {
+               				dos.writeByte(0);
+           			    	dos.writeDouble(this.P_L);
+		            	}
+					
+					// Double
+				
+						if(this.precio == null) {
+			                dos.writeByte(-1);
+						} else {
+               				dos.writeByte(0);
+           			    	dos.writeDouble(this.precio);
+		            	}
+					
+					// String
+				
+						writeString(this.contraparte,dos);
+					
+        	} catch (IOException e) {
+	            throw new RuntimeException(e);
+        }
+
+
+    }
+
+
+    public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(super.toString());
+		sb.append("[");
+		sb.append("id_operacion="+id_operacion);
+		sb.append(",estado="+estado);
+		sb.append(",fecha_carga="+fecha_carga);
+		sb.append(",fecha_finalizacion="+fecha_finalizacion);
+		sb.append(",fecha_insercion="+fecha_insercion);
+		sb.append(",fecha_pago="+fecha_pago);
+		sb.append(",portafolio_nombre="+portafolio_nombre);
+		sb.append(",sistema_nombre="+sistema_nombre);
+		sb.append(",cant_contratos="+String.valueOf(cant_contratos));
+		sb.append(",trader_nombre="+trader_nombre);
+		sb.append(",producto_nombre="+producto_nombre);
+		sb.append(",tipo_operacion_nombre="+tipo_operacion_nombre);
+		sb.append(",moneda1="+moneda1);
+		sb.append(",moneda2="+moneda2);
+		sb.append(",monto_operacion="+String.valueOf(monto_operacion));
+		sb.append(",P_L="+String.valueOf(P_L));
+		sb.append(",precio="+String.valueOf(precio));
+		sb.append(",contraparte="+contraparte);
+	    sb.append("]");
+
+	    return sb.toString();
+    }
+
+    /**
+     * Compare keys
+     */
+    public int compareTo(row8Struct other) {
+
+		int returnValue = -1;
+		
+	    return returnValue;
+    }
+
+
+    private int checkNullsAndCompare(Object object1, Object object2) {
+        int returnValue = 0;
+		if (object1 instanceof Comparable && object2 instanceof Comparable) {
+            returnValue = ((Comparable) object1).compareTo(object2);
+        } else if (object1 != null && object2 != null) {
+            returnValue = compareStrings(object1.toString(), object2.toString());
+        } else if (object1 == null && object2 != null) {
+            returnValue = 1;
+        } else if (object1 != null && object2 == null) {
+            returnValue = -1;
+        } else {
+            returnValue = 0;
+        }
+
+        return returnValue;
+    }
+
+    private int compareStrings(String string1, String string2) {
+        return string1.compareTo(string2);
+    }
+
+
+}
 
 public static class DataStruct implements routines.system.IPersistableRow<DataStruct> {
     final static byte[] commonByteArrayLock_COMPLETO_ETL_Fut = new byte[0];
@@ -4985,6 +5440,7 @@ out1Struct out1 = new out1Struct();
 row2Struct row2 = new row2Struct();
 row4Struct row4 = new row4Struct();
 DataStruct Data = new DataStruct();
+row8Struct row8 = new row8Struct();
 row5Struct row5 = new row5Struct();
 row3Struct row3 = new row3Struct();
 
@@ -4992,6 +5448,52 @@ row3Struct row3 = new row3Struct();
 
 
 
+
+
+
+
+	
+	/**
+	 * [tFileDelete_1 begin ] start
+	 */
+
+	
+
+	
+		
+		ok_Hash.put("tFileDelete_1", false);
+		start_Hash.put("tFileDelete_1", System.currentTimeMillis());
+		
+	
+	currentComponent="tFileDelete_1";
+
+	
+			if (execStat) {
+				if(resourceMap.get("inIterateVComp") == null){
+					
+						runStat.updateStatOnConnection("row8" + iterateId, 0, 0);
+					
+				}
+			} 
+
+		
+		int tos_count_tFileDelete_1 = 0;
+		
+    	class BytesLimit65535_tFileDelete_1{
+    		public void limitLog4jByte() throws Exception{
+    			
+    		}
+    	}
+    	
+        new BytesLimit65535_tFileDelete_1().limitLog4jByte();
+
+ 
+
+
+
+/**
+ * [tFileDelete_1 begin ] stop
+ */
 
 
 
@@ -5104,7 +5606,7 @@ int count_tMysqlOutput_4=0;
                                 rsTable_tMysqlOutput_4.close();
                                 if(!whetherExist_tMysqlOutput_4) {
                                     java.sql.Statement stmtCreate_tMysqlOutput_4 = conn_tMysqlOutput_4.createStatement();
-                                        stmtCreate_tMysqlOutput_4.execute("CREATE TABLE `" + tableName_tMysqlOutput_4 + "`(`id_operacion` VARCHAR(20)  ,`estado` VARCHAR(20)  ,`fecha_carga` VARCHAR(50)  ,`fecha_finalizacion` VARCHAR(50)  ,`fecha_insercion` VARCHAR(50)  ,`fecha_pago` VARCHAR(50)  ,`portafolio_nombre` VARCHAR(20)  ,`sistema_nombre` VARCHAR(20)  ,`cant_contratos` INT(0)  ,`trader_nombre` VARCHAR(20)  ,`producto_nombre` VARCHAR(20)  ,`tipo_operacion_nombre` VARCHAR(20)  ,`moneda1` VARCHAR(20)  ,`moneda2` VARCHAR(20)  ,`monto_operacion` DOUBLE ,`P_L` DOUBLE ,`precio` DOUBLE(22,0)  ,`contraparte` VARCHAR(30)  )");
+                                        stmtCreate_tMysqlOutput_4.execute("CREATE TABLE `" + tableName_tMysqlOutput_4 + "`(`id_operacion` VARCHAR(20)  ,`estado` VARCHAR(20)  ,`fecha_carga` VARCHAR(50)  ,`fecha_finalizacion` VARCHAR(50)  ,`fecha_insercion` VARCHAR(50)  ,`fecha_pago` VARCHAR(50)  ,`portafolio_nombre` VARCHAR(20)  ,`sistema_nombre` VARCHAR(20)  ,`cant_contratos` INT(0)  ,`trader_nombre` VARCHAR(20)  ,`producto_nombre` VARCHAR(20)  ,`tipo_operacion_nombre` VARCHAR(20)  ,`moneda1` VARCHAR(20)  ,`moneda2` VARCHAR(20)  ,`monto_operacion` DOUBLE ,`P_L` DOUBLE ,`precio` DOUBLE(22,2)  ,`contraparte` VARCHAR(30)  )");
                                     stmtCreate_tMysqlOutput_4.close();
                                 }
 
@@ -6550,7 +7052,7 @@ out1Struct out1_tmp = new out1Struct();
 				org.talend.fileprocess.FileInputDelimited fid_tFileInputDelimited_1 = null;
 				try{
 					
-						Object filename_tFileInputDelimited_1 = "/home/Archivos/CURR_FUT.csv";
+						Object filename_tFileInputDelimited_1 = "/home/TPVS/TesisTPVS/media/CURR_FUT.csv";
 						if(filename_tFileInputDelimited_1 instanceof java.io.InputStream){
 							
 			int footer_value_tFileInputDelimited_1 = 0, random_value_tFileInputDelimited_1 = -1;
@@ -6560,11 +7062,10 @@ out1Struct out1_tmp = new out1Struct();
 		
 						}
 						try {
-							fid_tFileInputDelimited_1 = new org.talend.fileprocess.FileInputDelimited("/home/Archivos/CURR_FUT.csv", "ISO-8859-15",";","\n",true,2,0,-1,-1, false);
+							fid_tFileInputDelimited_1 = new org.talend.fileprocess.FileInputDelimited("/home/TPVS/TesisTPVS/media/CURR_FUT.csv", "ISO-8859-15",";","\n",true,1,0,-1,-1, false);
 						} catch(java.lang.Exception e) {
 							
-								
-								System.err.println(e.getMessage());
+								throw e;
 							
 						}
 					
@@ -6590,9 +7091,8 @@ out1Struct out1_tmp = new out1Struct();
 			    					} catch (java.lang.Exception e) {
 			        					whetherReject_tFileInputDelimited_1 = true;
 			        					
-			                					System.err.println(e.getMessage());
-			                					row1 = null;
-			                				
+			            					throw(e);
+			            				
 			    					}
 								
 
@@ -6646,6 +7146,8 @@ out1Struct out1_tmp = new out1Struct();
  */
 // Start of branch "row1"
 if(row1 != null) { 
+			row3 = null;
+			row5 = null;
 
 
 
@@ -6767,6 +7269,8 @@ rejectedInnerJoin_tMap_1 = false;
  */
 // Start of branch "out1"
 if(out1 != null) { 
+			row3 = null;
+			row5 = null;
 
 
 
@@ -6912,6 +7416,7 @@ nb_line_tFilterRow_1++;
  */
 // Start of branch "row2"
 if(row2 != null) { 
+			row5 = null;
 
 
 
@@ -7186,6 +7691,7 @@ if(Data != null) {
 
 
 
+            row8 = null;
         whetherReject_tMysqlOutput_4 = false;
                             if(Data.id_operacion == null) {
 pstmt_tMysqlOutput_4.setNull(1, java.sql.Types.VARCHAR);
@@ -7282,6 +7788,25 @@ pstmt_tMysqlOutput_4.setNull(18, java.sql.Types.VARCHAR);
 
                       batchSizeCounter_tMysqlOutput_4++;
             if(!whetherReject_tMysqlOutput_4) {
+                            row8 = new row8Struct();
+                                row8.id_operacion = Data.id_operacion;
+                                row8.estado = Data.estado;
+                                row8.fecha_carga = Data.fecha_carga;
+                                row8.fecha_finalizacion = Data.fecha_finalizacion;
+                                row8.fecha_insercion = Data.fecha_insercion;
+                                row8.fecha_pago = Data.fecha_pago;
+                                row8.portafolio_nombre = Data.portafolio_nombre;
+                                row8.sistema_nombre = Data.sistema_nombre;
+                                row8.cant_contratos = Data.cant_contratos;
+                                row8.trader_nombre = Data.trader_nombre;
+                                row8.producto_nombre = Data.producto_nombre;
+                                row8.tipo_operacion_nombre = Data.tipo_operacion_nombre;
+                                row8.moneda1 = Data.moneda1;
+                                row8.moneda2 = Data.moneda2;
+                                row8.monto_operacion = Data.monto_operacion;
+                                row8.P_L = Data.P_L;
+                                row8.precio = Data.precio;
+                                row8.contraparte = Data.contraparte;
             }
                 if ( batchSize_tMysqlOutput_4 <= batchSizeCounter_tMysqlOutput_4) {
                 try {
@@ -7354,6 +7879,144 @@ pstmt_tMysqlOutput_4.setNull(18, java.sql.Types.VARCHAR);
 /**
  * [tMysqlOutput_4 process_data_begin ] stop
  */
+// Start of branch "row8"
+if(row8 != null) { 
+
+
+
+	
+	/**
+	 * [tFileDelete_1 main ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileDelete_1";
+
+	
+
+			//row8
+			//row8
+
+
+			
+				if(execStat){
+					runStat.updateStatOnConnection("row8"+iterateId,1, 1);
+				} 
+			
+
+		
+
+ 
+
+class DeleteFoldertFileDelete_1{
+	 /**
+     * delete all the sub-files in 'file'
+     * 
+     * @param file
+     */
+	public boolean delete(java.io.File file) {
+        java.io.File[] files = file.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            if (files[i].isFile()) {
+                files[i].delete();
+            } else if (files[i].isDirectory()) {
+                if (!files[i].delete()) {
+                    delete(files[i]);
+                }
+            }
+        }
+        deleteDirectory(file);
+        return file.delete();
+    }
+
+    /**
+     * delete all the sub-folders in 'file'
+     * 
+     * @param file
+     */
+    private void deleteDirectory(java.io.File file) {
+        java.io.File[] filed = file.listFiles();
+        for (int i = 0; i < filed.length; i++) {
+        	if(filed[i].isDirectory()) {
+            	deleteDirectory(filed[i]);
+            }
+            filed[i].delete();
+        }
+    }
+
+}
+    java.io.File file_tFileDelete_1=new java.io.File("/home/TPVS/TesisTPVS/media/CURR_FUT.csv");
+    if(file_tFileDelete_1.exists()&& file_tFileDelete_1.isFile()){
+    	if(file_tFileDelete_1.delete()){
+    		globalMap.put("tFileDelete_1_CURRENT_STATUS", "File deleted.");
+		}else{
+			globalMap.put("tFileDelete_1_CURRENT_STATUS", "No file deleted.");
+		}
+	}else{
+		globalMap.put("tFileDelete_1_CURRENT_STATUS", "File does not exist or is invalid.");
+	}
+	globalMap.put("tFileDelete_1_DELETE_PATH","/home/TPVS/TesisTPVS/media/CURR_FUT.csv");
+    
+     
+ 
+
+ 
+
+
+	tos_count_tFileDelete_1++;
+
+/**
+ * [tFileDelete_1 main ] stop
+ */
+	
+	/**
+	 * [tFileDelete_1 process_data_begin ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileDelete_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tFileDelete_1 process_data_begin ] stop
+ */
+	
+	/**
+	 * [tFileDelete_1 process_data_end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileDelete_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tFileDelete_1 process_data_end ] stop
+ */
+
+} // End of branch "row8"
+
+
+
+
 	
 	/**
 	 * [tMysqlOutput_4 process_data_end ] start
@@ -7989,7 +8652,7 @@ pstmt_tMysqlOutput_1.setNull(19, java.sql.Types.VARCHAR);
 
             }
             }finally{
-                if(!((Object)("/home/Archivos/CURR_FUT.csv") instanceof java.io.InputStream)){
+                if(!((Object)("/home/TPVS/TesisTPVS/media/CURR_FUT.csv") instanceof java.io.InputStream)){
                 	if(fid_tFileInputDelimited_1!=null){
                 		fid_tFileInputDelimited_1.close();
                 	}
@@ -8250,16 +8913,46 @@ end_Hash.put("tMap_4", System.currentTimeMillis());
 ok_Hash.put("tMysqlOutput_4", true);
 end_Hash.put("tMysqlOutput_4", System.currentTimeMillis());
 
-				if(execStat){   
-   	 				runStat.updateStatOnConnection("OnComponentOk2", 0, "ok");
-				}
-				tRunJob_1Process(globalMap);
 
 
 
 /**
  * [tMysqlOutput_4 end ] stop
  */
+
+	
+	/**
+	 * [tFileDelete_1 end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileDelete_1";
+
+	
+
+			if(execStat){
+				if(resourceMap.get("inIterateVComp") == null || !((Boolean)resourceMap.get("inIterateVComp"))){
+			 		runStat.updateStatOnConnection("row8"+iterateId,2, 0); 
+			 	}
+			}
+		
+ 
+
+ok_Hash.put("tFileDelete_1", true);
+end_Hash.put("tFileDelete_1", System.currentTimeMillis());
+
+
+
+
+/**
+ * [tFileDelete_1 end ] stop
+ */
+
+
+
 
 
 
@@ -8639,6 +9332,30 @@ end_Hash.put("tMysqlOutput_1", System.currentTimeMillis());
  * [tMysqlOutput_4 finally ] stop
  */
 
+	
+	/**
+	 * [tFileDelete_1 finally ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileDelete_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tFileDelete_1 finally ] stop
+ */
+
+
+
+
 
 
 
@@ -8760,8 +9477,8 @@ end_Hash.put("tMysqlOutput_1", System.currentTimeMillis());
 	}
 	
 
-public void tRunJob_1Process(final java.util.Map<String, Object> globalMap) throws TalendException {
-	globalMap.put("tRunJob_1_SUBPROCESS_STATE", 0);
+public void tREST_1Process(final java.util.Map<String, Object> globalMap) throws TalendException {
+	globalMap.put("tREST_1_SUBPROCESS_STATE", 0);
 
  final boolean execStat = this.execStat;
 	
@@ -8787,160 +9504,166 @@ public void tRunJob_1Process(final java.util.Map<String, Object> globalMap) thro
 
 	
 	/**
-	 * [tRunJob_1 begin ] start
+	 * [tREST_1 begin ] start
 	 */
 
 	
 
 	
 		
-		ok_Hash.put("tRunJob_1", false);
-		start_Hash.put("tRunJob_1", System.currentTimeMillis());
+		ok_Hash.put("tREST_1", false);
+		start_Hash.put("tREST_1", System.currentTimeMillis());
 		
 	
-	currentComponent="tRunJob_1";
+	currentComponent="tREST_1";
 
 	
-		int tos_count_tRunJob_1 = 0;
+		int tos_count_tREST_1 = 0;
 		
-    	class BytesLimit65535_tRunJob_1{
+    	class BytesLimit65535_tREST_1{
     		public void limitLog4jByte() throws Exception{
     			
     		}
     	}
     	
-        new BytesLimit65535_tRunJob_1().limitLog4jByte();
-
-
- 
-
-
-
-/**
- * [tRunJob_1 begin ] stop
- */
-	
-	/**
-	 * [tRunJob_1 main ] start
-	 */
-
+        new BytesLimit65535_tREST_1().limitLog4jByte();
 	
 
 	
+	String endpoint_tREST_1 = "http://167.99.147.146:8000/mensajes/";
 	
-	currentComponent="tRunJob_1";
-
+	String trustStoreFile_tREST_1 = System.getProperty("javax.net.ssl.trustStore");
+	String trustStoreType_tREST_1 = System.getProperty("javax.net.ssl.trustStoreType");
+	String trustStorePWD_tREST_1 = System.getProperty("javax.net.ssl.trustStorePassword");
 	
-	java.util.List<String> paraList_tRunJob_1 = new java.util.ArrayList<String>();
+	String keyStoreFile_tREST_1 = System.getProperty("javax.net.ssl.keyStore");
+	String keyStoreType_tREST_1 = System.getProperty("javax.net.ssl.keyStoreType");
+	String keyStorePWD_tREST_1 = System.getProperty("javax.net.ssl.keyStorePassword");
 	
-	        			paraList_tRunJob_1.add("--father_pid="+pid);
-	      			
-	        			paraList_tRunJob_1.add("--root_pid="+rootPid);
-	      			
-	        			paraList_tRunJob_1.add("--father_node=tRunJob_1");
-	      			
-	        			paraList_tRunJob_1.add("--context=Default");
-	      			
-	//for feature:10589
+	com.sun.jersey.api.client.config.ClientConfig config_tREST_1 = new com.sun.jersey.api.client.config.DefaultClientConfig();
+	javax.net.ssl.SSLContext ctx_tREST_1 = javax.net.ssl.SSLContext.getInstance("SSL");
 	
-		paraList_tRunJob_1.add("--stat_port=" + portStats);
-	
-
-	if(resuming_logs_dir_path != null){
-		paraList_tRunJob_1.add("--resuming_logs_dir_path=" + resuming_logs_dir_path);
-	}
-	String childResumePath_tRunJob_1 = ResumeUtil.getChildJobCheckPointPath(resuming_checkpoint_path);
-	String tRunJobName_tRunJob_1 = ResumeUtil.getRighttRunJob(resuming_checkpoint_path);
-	if("tRunJob_1".equals(tRunJobName_tRunJob_1) && childResumePath_tRunJob_1 != null){
-		paraList_tRunJob_1.add("--resuming_checkpoint_path=" + ResumeUtil.getChildJobCheckPointPath(resuming_checkpoint_path));
-	}
-	paraList_tRunJob_1.add("--parent_part_launcher=JOB:" + jobName + "/NODE:tRunJob_1");
-	
-	java.util.Map<String, Object> parentContextMap_tRunJob_1 = new java.util.HashMap<String, Object>();
-
-	
-
-	Object obj_tRunJob_1 = null;
-
-	
-	
-		completo.create_dim_0_1.Create_dim childJob_tRunJob_1 = new completo.create_dim_0_1.Create_dim();
-	    // pass DataSources
-	    java.util.Map<String, routines.system.TalendDataSource> talendDataSources_tRunJob_1 = (java.util.Map<String, routines.system.TalendDataSource>) globalMap
-	            .get(KEY_DB_DATASOURCES);
-	    if (null != talendDataSources_tRunJob_1) {
-	        java.util.Map<String, javax.sql.DataSource> dataSources_tRunJob_1 = new java.util.HashMap<String, javax.sql.DataSource>();
-	        for (java.util.Map.Entry<String, routines.system.TalendDataSource> talendDataSourceEntry_tRunJob_1 : talendDataSources_tRunJob_1
-			        .entrySet()) {
-	            dataSources_tRunJob_1.put(talendDataSourceEntry_tRunJob_1.getKey(),
-	                    talendDataSourceEntry_tRunJob_1.getValue().getRawDataSource());
-	        }
-	        childJob_tRunJob_1.setDataSources(dataSources_tRunJob_1);
-	    }
-		  
-			childJob_tRunJob_1.parentContextMap = parentContextMap_tRunJob_1;
-		  
+	javax.net.ssl.TrustManager[] tms_tREST_1 = null;
+	if(trustStoreFile_tREST_1!=null && trustStoreType_tREST_1!=null){
+		char[] password_tREST_1 = null;
+		if(trustStorePWD_tREST_1!=null)
+			password_tREST_1 = trustStorePWD_tREST_1.toCharArray();
+		java.security.KeyStore trustStore_tREST_1 = java.security.KeyStore.getInstance(trustStoreType_tREST_1);
+		trustStore_tREST_1.load(new java.io.FileInputStream(trustStoreFile_tREST_1), password_tREST_1);
 		
-		String[][] childReturn_tRunJob_1 = childJob_tRunJob_1.runJob((String[]) paraList_tRunJob_1.toArray(new String[paraList_tRunJob_1.size()]));
+		javax.net.ssl.TrustManagerFactory tmf_tREST_1 = javax.net.ssl.TrustManagerFactory.getInstance(javax.net.ssl.KeyManagerFactory.getDefaultAlgorithm());
+        tmf_tREST_1.init(trustStore_tREST_1);
+        tms_tREST_1 = tmf_tREST_1.getTrustManagers();
+	}
+	
+	javax.net.ssl.KeyManager[] kms_tREST_1 = null;
+	if(keyStoreFile_tREST_1!=null && keyStoreType_tREST_1!=null){
+		char[] password_tREST_1 = null;
+		if(keyStorePWD_tREST_1!=null)
+			password_tREST_1 = keyStorePWD_tREST_1.toCharArray();
+		java.security.KeyStore keyStore_tREST_1 = java.security.KeyStore.getInstance(keyStoreType_tREST_1);
+		keyStore_tREST_1.load(new java.io.FileInputStream(keyStoreFile_tREST_1), password_tREST_1);
 		
-	  	
-				errorCode = childJob_tRunJob_1.getErrorCode();
-		    
-	            
-	    	if(childJob_tRunJob_1.getErrorCode() == null){
-				globalMap.put("tRunJob_1_CHILD_RETURN_CODE", childJob_tRunJob_1.getStatus() != null && ("failure").equals(childJob_tRunJob_1.getStatus()) ? 1 : 0);
-	    	}else{
-				globalMap.put("tRunJob_1_CHILD_RETURN_CODE", childJob_tRunJob_1.getErrorCode());
-		    }
-		    if (childJob_tRunJob_1.getExceptionStackTrace() != null) { 
-		    	globalMap.put("tRunJob_1_CHILD_EXCEPTION_STACKTRACE", childJob_tRunJob_1.getExceptionStackTrace());
-		    }
-	  
-			 
-				if (childJob_tRunJob_1.getErrorCode() != null || ("failure").equals(childJob_tRunJob_1.getStatus())) {
-	        		throw new RuntimeException("Child job running failed.\n"+childJob_tRunJob_1.getException().getClass().getName() + ": " + childJob_tRunJob_1.getException().getMessage());
-				}
-			
-	  	
+		javax.net.ssl.KeyManagerFactory kmf_tREST_1 = javax.net.ssl.KeyManagerFactory.getInstance(javax.net.ssl.KeyManagerFactory.getDefaultAlgorithm());
+        kmf_tREST_1.init(keyStore_tREST_1,password_tREST_1);
+        kms_tREST_1 = kmf_tREST_1.getKeyManagers();
+	}
+	
+    ctx_tREST_1.init(kms_tREST_1, tms_tREST_1 , null);
+    config_tREST_1.getProperties().put(com.sun.jersey.client.urlconnection.HTTPSProperties.PROPERTY_HTTPS_PROPERTIES,
+                new com.sun.jersey.client.urlconnection.HTTPSProperties(new javax.net.ssl.HostnameVerifier() {
+
+                    public boolean verify(String hostName, javax.net.ssl.SSLSession session) {
+                        return true;
+                    }
+                }, ctx_tREST_1));
+
+	com.sun.jersey.api.client.Client restClient_tREST_1 = com.sun.jersey.api.client.Client.create(config_tREST_1);
+	
+	java.util.Map<String, Object> headers_tREST_1 = new java.util.HashMap<String, Object>();
+	
+    	headers_tREST_1.put("Content-Type","application/json");
+	
+    	headers_tREST_1.put("Accept","application/json");
+	
+	
+	Object transfer_encoding_tREST_1 = headers_tREST_1.get("Transfer-Encoding");
+	if(transfer_encoding_tREST_1!=null && "chunked".equals(transfer_encoding_tREST_1)) {
+		restClient_tREST_1.setChunkedEncodingSize(4096);
+	}
+	
+	com.sun.jersey.api.client.WebResource restResource_tREST_1;
+	if(endpoint_tREST_1!=null && !("").equals(endpoint_tREST_1)){
+		restResource_tREST_1 = restClient_tREST_1.resource(endpoint_tREST_1);
+	}else{
+		throw new IllegalArgumentException("url can't be empty!");
+	}
+	
+	com.sun.jersey.api.client.ClientResponse errorResponse_tREST_1 = null;
+	String restResponse_tREST_1 = "";
+	try{
+		
+		com.sun.jersey.api.client.WebResource.Builder builder_tREST_1 = null;
+		for(java.util.Map.Entry<String, Object> header_tREST_1 : headers_tREST_1.entrySet()) {
+			if(builder_tREST_1 == null) {
+				builder_tREST_1 = restResource_tREST_1.header(header_tREST_1.getKey(), header_tREST_1.getValue());
+			} else {
+				builder_tREST_1.header(header_tREST_1.getKey(), header_tREST_1.getValue());
+			}
+		}
+		
+		
+			if(builder_tREST_1!=null) {
+				restResponse_tREST_1 = builder_tREST_1.post(String.class,"{	  	  \"fecha\": null,          \"mensaje\": \"Error limpiando los datos, por favor revise el formato del documento\"      }  ");
+			} else {
+				restResponse_tREST_1 = restResource_tREST_1.post(String.class,"{	  	  \"fecha\": null,          \"mensaje\": \"Error limpiando los datos, por favor revise el formato del documento\"      }  ");
+			}
+		
+	}catch (com.sun.jersey.api.client.UniformInterfaceException ue) {
+        errorResponse_tREST_1 = ue.getResponse();
+    }
+	
+	// for output
+	
 
  
 
 
-	tos_count_tRunJob_1++;
 
 /**
- * [tRunJob_1 main ] stop
+ * [tREST_1 begin ] stop
  */
 	
 	/**
-	 * [tRunJob_1 process_data_begin ] start
+	 * [tREST_1 main ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tRunJob_1";
+	currentComponent="tREST_1";
 
 	
 
  
 
 
+	tos_count_tREST_1++;
 
 /**
- * [tRunJob_1 process_data_begin ] stop
+ * [tREST_1 main ] stop
  */
 	
 	/**
-	 * [tRunJob_1 process_data_end ] start
+	 * [tREST_1 process_data_begin ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tRunJob_1";
+	currentComponent="tREST_1";
 
 	
 
@@ -8949,31 +9672,51 @@ public void tRunJob_1Process(final java.util.Map<String, Object> globalMap) thro
 
 
 /**
- * [tRunJob_1 process_data_end ] stop
+ * [tREST_1 process_data_begin ] stop
  */
 	
 	/**
-	 * [tRunJob_1 end ] start
+	 * [tREST_1 process_data_end ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tRunJob_1";
+	currentComponent="tREST_1";
 
 	
 
  
 
-ok_Hash.put("tRunJob_1", true);
-end_Hash.put("tRunJob_1", System.currentTimeMillis());
+
+
+/**
+ * [tREST_1 process_data_end ] stop
+ */
+	
+	/**
+	 * [tREST_1 end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tREST_1";
+
+	
+
+ 
+
+ok_Hash.put("tREST_1", true);
+end_Hash.put("tREST_1", System.currentTimeMillis());
 
 
 
 
 /**
- * [tRunJob_1 end ] stop
+ * [tREST_1 end ] stop
  */
 				}//end the resume
 
@@ -8998,14 +9741,14 @@ end_Hash.put("tRunJob_1", System.currentTimeMillis());
 					
 	
 	/**
-	 * [tRunJob_1 finally ] start
+	 * [tREST_1 finally ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tRunJob_1";
+	currentComponent="tREST_1";
 
 	
 
@@ -9014,7 +9757,7 @@ end_Hash.put("tRunJob_1", System.currentTimeMillis());
 
 
 /**
- * [tRunJob_1 finally ] stop
+ * [tREST_1 finally ] stop
  */
 				}catch(java.lang.Exception e){	
 					//ignore
@@ -9025,7 +9768,895 @@ end_Hash.put("tRunJob_1", System.currentTimeMillis());
 			}
 		
 
-		globalMap.put("tRunJob_1_SUBPROCESS_STATE", 1);
+		globalMap.put("tREST_1_SUBPROCESS_STATE", 1);
+	}
+	
+
+
+public static class row7Struct implements routines.system.IPersistableRow<row7Struct> {
+    final static byte[] commonByteArrayLock_COMPLETO_ETL_Fut = new byte[0];
+    static byte[] commonByteArray_COMPLETO_ETL_Fut = new byte[0];
+
+	
+			    public java.util.Date moment;
+
+				public java.util.Date getMoment () {
+					return this.moment;
+				}
+				
+			    public String pid;
+
+				public String getPid () {
+					return this.pid;
+				}
+				
+			    public String root_pid;
+
+				public String getRoot_pid () {
+					return this.root_pid;
+				}
+				
+			    public String father_pid;
+
+				public String getFather_pid () {
+					return this.father_pid;
+				}
+				
+			    public String project;
+
+				public String getProject () {
+					return this.project;
+				}
+				
+			    public String job;
+
+				public String getJob () {
+					return this.job;
+				}
+				
+			    public String context;
+
+				public String getContext () {
+					return this.context;
+				}
+				
+			    public Integer priority;
+
+				public Integer getPriority () {
+					return this.priority;
+				}
+				
+			    public String type;
+
+				public String getType () {
+					return this.type;
+				}
+				
+			    public String origin;
+
+				public String getOrigin () {
+					return this.origin;
+				}
+				
+			    public String message;
+
+				public String getMessage () {
+					return this.message;
+				}
+				
+			    public Integer code;
+
+				public Integer getCode () {
+					return this.code;
+				}
+				
+
+
+
+	private java.util.Date readDate(ObjectInputStream dis) throws IOException{
+		java.util.Date dateReturn = null;
+        int length = 0;
+        length = dis.readByte();
+		if (length == -1) {
+			dateReturn = null;
+		} else {
+	    	dateReturn = new Date(dis.readLong());
+		}
+		return dateReturn;
+	}
+
+    private void writeDate(java.util.Date date1, ObjectOutputStream dos) throws IOException{
+		if(date1 == null) {
+            dos.writeByte(-1);
+		} else {
+			dos.writeByte(0);
+	    	dos.writeLong(date1.getTime());
+    	}
+    }
+
+	private String readString(ObjectInputStream dis) throws IOException{
+		String strReturn = null;
+		int length = 0;
+        length = dis.readInt();
+		if (length == -1) {
+			strReturn = null;
+		} else {
+			if(length > commonByteArray_COMPLETO_ETL_Fut.length) {
+				if(length < 1024 && commonByteArray_COMPLETO_ETL_Fut.length == 0) {
+   					commonByteArray_COMPLETO_ETL_Fut = new byte[1024];
+				} else {
+   					commonByteArray_COMPLETO_ETL_Fut = new byte[2 * length];
+   				}
+			}
+			dis.readFully(commonByteArray_COMPLETO_ETL_Fut, 0, length);
+			strReturn = new String(commonByteArray_COMPLETO_ETL_Fut, 0, length, utf8Charset);
+		}
+		return strReturn;
+	}
+
+    private void writeString(String str, ObjectOutputStream dos) throws IOException{
+		if(str == null) {
+            dos.writeInt(-1);
+		} else {
+            byte[] byteArray = str.getBytes(utf8Charset);
+	    	dos.writeInt(byteArray.length);
+			dos.write(byteArray);
+    	}
+    }
+	private Integer readInteger(ObjectInputStream dis) throws IOException{
+		Integer intReturn;
+        int length = 0;
+        length = dis.readByte();
+		if (length == -1) {
+			intReturn = null;
+		} else {
+	    	intReturn = dis.readInt();
+		}
+		return intReturn;
+	}
+
+	private void writeInteger(Integer intNum, ObjectOutputStream dos) throws IOException{
+		if(intNum == null) {
+            dos.writeByte(-1);
+		} else {
+			dos.writeByte(0);
+	    	dos.writeInt(intNum);
+    	}
+	}
+
+    public void readData(ObjectInputStream dis) {
+
+		synchronized(commonByteArrayLock_COMPLETO_ETL_Fut) {
+
+        	try {
+
+        		int length = 0;
+		
+					this.moment = readDate(dis);
+					
+					this.pid = readString(dis);
+					
+					this.root_pid = readString(dis);
+					
+					this.father_pid = readString(dis);
+					
+					this.project = readString(dis);
+					
+					this.job = readString(dis);
+					
+					this.context = readString(dis);
+					
+						this.priority = readInteger(dis);
+					
+					this.type = readString(dis);
+					
+					this.origin = readString(dis);
+					
+					this.message = readString(dis);
+					
+						this.code = readInteger(dis);
+					
+        	} catch (IOException e) {
+	            throw new RuntimeException(e);
+
+		
+
+        }
+
+		
+
+      }
+
+
+    }
+
+    public void writeData(ObjectOutputStream dos) {
+        try {
+
+		
+					// java.util.Date
+				
+						writeDate(this.moment,dos);
+					
+					// String
+				
+						writeString(this.pid,dos);
+					
+					// String
+				
+						writeString(this.root_pid,dos);
+					
+					// String
+				
+						writeString(this.father_pid,dos);
+					
+					// String
+				
+						writeString(this.project,dos);
+					
+					// String
+				
+						writeString(this.job,dos);
+					
+					// String
+				
+						writeString(this.context,dos);
+					
+					// Integer
+				
+						writeInteger(this.priority,dos);
+					
+					// String
+				
+						writeString(this.type,dos);
+					
+					// String
+				
+						writeString(this.origin,dos);
+					
+					// String
+				
+						writeString(this.message,dos);
+					
+					// Integer
+				
+						writeInteger(this.code,dos);
+					
+        	} catch (IOException e) {
+	            throw new RuntimeException(e);
+        }
+
+
+    }
+
+
+    public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(super.toString());
+		sb.append("[");
+		sb.append("moment="+String.valueOf(moment));
+		sb.append(",pid="+pid);
+		sb.append(",root_pid="+root_pid);
+		sb.append(",father_pid="+father_pid);
+		sb.append(",project="+project);
+		sb.append(",job="+job);
+		sb.append(",context="+context);
+		sb.append(",priority="+String.valueOf(priority));
+		sb.append(",type="+type);
+		sb.append(",origin="+origin);
+		sb.append(",message="+message);
+		sb.append(",code="+String.valueOf(code));
+	    sb.append("]");
+
+	    return sb.toString();
+    }
+
+    /**
+     * Compare keys
+     */
+    public int compareTo(row7Struct other) {
+
+		int returnValue = -1;
+		
+	    return returnValue;
+    }
+
+
+    private int checkNullsAndCompare(Object object1, Object object2) {
+        int returnValue = 0;
+		if (object1 instanceof Comparable && object2 instanceof Comparable) {
+            returnValue = ((Comparable) object1).compareTo(object2);
+        } else if (object1 != null && object2 != null) {
+            returnValue = compareStrings(object1.toString(), object2.toString());
+        } else if (object1 == null && object2 != null) {
+            returnValue = 1;
+        } else if (object1 != null && object2 == null) {
+            returnValue = -1;
+        } else {
+            returnValue = 0;
+        }
+
+        return returnValue;
+    }
+
+    private int compareStrings(String string1, String string2) {
+        return string1.compareTo(string2);
+    }
+
+
+}
+public void tLogCatcher_1Process(final java.util.Map<String, Object> globalMap) throws TalendException {
+	globalMap.put("tLogCatcher_1_SUBPROCESS_STATE", 0);
+
+ final boolean execStat = this.execStat;
+	
+		String iterateId = "";
+	
+	
+	String currentComponent = "";
+	java.util.Map<String, Object> resourceMap = new java.util.HashMap<String, Object>();
+
+	try {
+			// TDI-39566 avoid throwing an useless Exception
+			boolean resumeIt = true;
+			if (globalResumeTicket == false && resumeEntryMethodName != null) {
+				String currentMethodName = new java.lang.Exception().getStackTrace()[0].getMethodName();
+				resumeIt = resumeEntryMethodName.equals(currentMethodName);
+			}
+			if (resumeIt || globalResumeTicket) { //start the resume
+				globalResumeTicket = true;
+
+
+
+		row7Struct row7 = new row7Struct();
+
+
+
+
+	
+	/**
+	 * [tFileOutputDelimited_1 begin ] start
+	 */
+
+	
+
+	
+		
+		ok_Hash.put("tFileOutputDelimited_1", false);
+		start_Hash.put("tFileOutputDelimited_1", System.currentTimeMillis());
+		
+	
+	currentComponent="tFileOutputDelimited_1";
+
+	
+			if (execStat) {
+				if(resourceMap.get("inIterateVComp") == null){
+					
+						runStat.updateStatOnConnection("row7" + iterateId, 0, 0);
+					
+				}
+			} 
+
+		
+		int tos_count_tFileOutputDelimited_1 = 0;
+		
+    	class BytesLimit65535_tFileOutputDelimited_1{
+    		public void limitLog4jByte() throws Exception{
+    			
+    		}
+    	}
+    	
+        new BytesLimit65535_tFileOutputDelimited_1().limitLog4jByte();
+
+String fileName_tFileOutputDelimited_1 = "";
+    fileName_tFileOutputDelimited_1 = (new java.io.File("/home/TPVS/TesisTPVS/media/errores.csv")).getAbsolutePath().replace("\\","/");
+    String fullName_tFileOutputDelimited_1 = null;
+    String extension_tFileOutputDelimited_1 = null;
+    String directory_tFileOutputDelimited_1 = null;
+    if((fileName_tFileOutputDelimited_1.indexOf("/") != -1)) {
+        if(fileName_tFileOutputDelimited_1.lastIndexOf(".") < fileName_tFileOutputDelimited_1.lastIndexOf("/")) {
+            fullName_tFileOutputDelimited_1 = fileName_tFileOutputDelimited_1;
+            extension_tFileOutputDelimited_1 = "";
+        } else {
+            fullName_tFileOutputDelimited_1 = fileName_tFileOutputDelimited_1.substring(0, fileName_tFileOutputDelimited_1.lastIndexOf("."));
+            extension_tFileOutputDelimited_1 = fileName_tFileOutputDelimited_1.substring(fileName_tFileOutputDelimited_1.lastIndexOf("."));
+        }
+        directory_tFileOutputDelimited_1 = fileName_tFileOutputDelimited_1.substring(0, fileName_tFileOutputDelimited_1.lastIndexOf("/"));
+    } else {
+        if(fileName_tFileOutputDelimited_1.lastIndexOf(".") != -1) {
+            fullName_tFileOutputDelimited_1 = fileName_tFileOutputDelimited_1.substring(0, fileName_tFileOutputDelimited_1.lastIndexOf("."));
+            extension_tFileOutputDelimited_1 = fileName_tFileOutputDelimited_1.substring(fileName_tFileOutputDelimited_1.lastIndexOf("."));
+        } else {
+            fullName_tFileOutputDelimited_1 = fileName_tFileOutputDelimited_1;
+            extension_tFileOutputDelimited_1 = "";
+        }
+        directory_tFileOutputDelimited_1 = "";
+    }
+    boolean isFileGenerated_tFileOutputDelimited_1 = true;
+    java.io.File filetFileOutputDelimited_1 = new java.io.File(fileName_tFileOutputDelimited_1);
+    globalMap.put("tFileOutputDelimited_1_FILE_NAME",fileName_tFileOutputDelimited_1);
+        if(filetFileOutputDelimited_1.exists()){
+            isFileGenerated_tFileOutputDelimited_1 = false;
+        }
+            int nb_line_tFileOutputDelimited_1 = 0;
+            int splitedFileNo_tFileOutputDelimited_1 = 0;
+            int currentRow_tFileOutputDelimited_1 = 0;
+
+            final String OUT_DELIM_tFileOutputDelimited_1 = /** Start field tFileOutputDelimited_1:FIELDSEPARATOR */";"/** End field tFileOutputDelimited_1:FIELDSEPARATOR */;
+
+            final String OUT_DELIM_ROWSEP_tFileOutputDelimited_1 = /** Start field tFileOutputDelimited_1:ROWSEPARATOR */"\n"/** End field tFileOutputDelimited_1:ROWSEPARATOR */;
+
+                    //create directory only if not exists
+                    if(directory_tFileOutputDelimited_1 != null && directory_tFileOutputDelimited_1.trim().length() != 0) {
+                        java.io.File dir_tFileOutputDelimited_1 = new java.io.File(directory_tFileOutputDelimited_1);
+                        if(!dir_tFileOutputDelimited_1.exists()) {
+                            dir_tFileOutputDelimited_1.mkdirs();
+                        }
+                    }
+
+                        //routines.system.Row
+                        java.io.Writer outtFileOutputDelimited_1 = null;
+
+                        outtFileOutputDelimited_1 = new java.io.BufferedWriter(new java.io.OutputStreamWriter(
+                        new java.io.FileOutputStream(fileName_tFileOutputDelimited_1, true),"ISO-8859-15"));
+
+
+        resourceMap.put("out_tFileOutputDelimited_1", outtFileOutputDelimited_1);
+resourceMap.put("nb_line_tFileOutputDelimited_1", nb_line_tFileOutputDelimited_1);
+
+ 
+
+
+
+/**
+ * [tFileOutputDelimited_1 begin ] stop
+ */
+
+
+
+	
+	/**
+	 * [tLogCatcher_1 begin ] start
+	 */
+
+	
+
+	
+		
+		ok_Hash.put("tLogCatcher_1", false);
+		start_Hash.put("tLogCatcher_1", System.currentTimeMillis());
+		
+	
+	currentComponent="tLogCatcher_1";
+
+	
+		int tos_count_tLogCatcher_1 = 0;
+		
+    	class BytesLimit65535_tLogCatcher_1{
+    		public void limitLog4jByte() throws Exception{
+    			
+    		}
+    	}
+    	
+        new BytesLimit65535_tLogCatcher_1().limitLog4jByte();
+
+try {
+	for (LogCatcherUtils.LogCatcherMessage lcm : tLogCatcher_1.getMessages()) {
+		row7.type = lcm.getType();
+		row7.origin = (lcm.getOrigin()==null || lcm.getOrigin().length()<1 ? null : lcm.getOrigin());
+		row7.priority = lcm.getPriority();
+		row7.message = lcm.getMessage();
+		row7.code = lcm.getCode();
+		
+		row7.moment = java.util.Calendar.getInstance().getTime();
+	
+    	row7.pid = pid;
+		row7.root_pid = rootPid;
+		row7.father_pid = fatherPid;
+	
+    	row7.project = projectName;
+    	row7.job = jobName;
+    	row7.context = contextStr;
+    		
+ 
+
+
+
+/**
+ * [tLogCatcher_1 begin ] stop
+ */
+	
+	/**
+	 * [tLogCatcher_1 main ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tLogCatcher_1";
+
+	
+
+ 
+
+
+	tos_count_tLogCatcher_1++;
+
+/**
+ * [tLogCatcher_1 main ] stop
+ */
+	
+	/**
+	 * [tLogCatcher_1 process_data_begin ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tLogCatcher_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tLogCatcher_1 process_data_begin ] stop
+ */
+
+	
+	/**
+	 * [tFileOutputDelimited_1 main ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileOutputDelimited_1";
+
+	
+
+			//row7
+			//row7
+
+
+			
+				if(execStat){
+					runStat.updateStatOnConnection("row7"+iterateId,1, 1);
+				} 
+			
+
+		
+
+
+                    StringBuilder sb_tFileOutputDelimited_1 = new StringBuilder();
+                            if(row7.moment != null) {
+                        sb_tFileOutputDelimited_1.append(
+                            FormatterUtils.format_Date(row7.moment, "yyyy-MM-dd HH:mm:ss")
+                        );
+                            }
+                            sb_tFileOutputDelimited_1.append(OUT_DELIM_tFileOutputDelimited_1);
+                            if(row7.pid != null) {
+                        sb_tFileOutputDelimited_1.append(
+                            row7.pid
+                        );
+                            }
+                            sb_tFileOutputDelimited_1.append(OUT_DELIM_tFileOutputDelimited_1);
+                            if(row7.root_pid != null) {
+                        sb_tFileOutputDelimited_1.append(
+                            row7.root_pid
+                        );
+                            }
+                            sb_tFileOutputDelimited_1.append(OUT_DELIM_tFileOutputDelimited_1);
+                            if(row7.father_pid != null) {
+                        sb_tFileOutputDelimited_1.append(
+                            row7.father_pid
+                        );
+                            }
+                            sb_tFileOutputDelimited_1.append(OUT_DELIM_tFileOutputDelimited_1);
+                            if(row7.project != null) {
+                        sb_tFileOutputDelimited_1.append(
+                            row7.project
+                        );
+                            }
+                            sb_tFileOutputDelimited_1.append(OUT_DELIM_tFileOutputDelimited_1);
+                            if(row7.job != null) {
+                        sb_tFileOutputDelimited_1.append(
+                            row7.job
+                        );
+                            }
+                            sb_tFileOutputDelimited_1.append(OUT_DELIM_tFileOutputDelimited_1);
+                            if(row7.context != null) {
+                        sb_tFileOutputDelimited_1.append(
+                            row7.context
+                        );
+                            }
+                            sb_tFileOutputDelimited_1.append(OUT_DELIM_tFileOutputDelimited_1);
+                            if(row7.priority != null) {
+                        sb_tFileOutputDelimited_1.append(
+                            row7.priority
+                        );
+                            }
+                            sb_tFileOutputDelimited_1.append(OUT_DELIM_tFileOutputDelimited_1);
+                            if(row7.type != null) {
+                        sb_tFileOutputDelimited_1.append(
+                            row7.type
+                        );
+                            }
+                            sb_tFileOutputDelimited_1.append(OUT_DELIM_tFileOutputDelimited_1);
+                            if(row7.origin != null) {
+                        sb_tFileOutputDelimited_1.append(
+                            row7.origin
+                        );
+                            }
+                            sb_tFileOutputDelimited_1.append(OUT_DELIM_tFileOutputDelimited_1);
+                            if(row7.message != null) {
+                        sb_tFileOutputDelimited_1.append(
+                            row7.message
+                        );
+                            }
+                            sb_tFileOutputDelimited_1.append(OUT_DELIM_tFileOutputDelimited_1);
+                            if(row7.code != null) {
+                        sb_tFileOutputDelimited_1.append(
+                            row7.code
+                        );
+                            }
+                    sb_tFileOutputDelimited_1.append(OUT_DELIM_ROWSEP_tFileOutputDelimited_1);
+
+
+                    nb_line_tFileOutputDelimited_1++;
+                    resourceMap.put("nb_line_tFileOutputDelimited_1", nb_line_tFileOutputDelimited_1);
+
+                        outtFileOutputDelimited_1.write(sb_tFileOutputDelimited_1.toString());
+
+
+
+
+ 
+
+
+	tos_count_tFileOutputDelimited_1++;
+
+/**
+ * [tFileOutputDelimited_1 main ] stop
+ */
+	
+	/**
+	 * [tFileOutputDelimited_1 process_data_begin ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileOutputDelimited_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tFileOutputDelimited_1 process_data_begin ] stop
+ */
+	
+	/**
+	 * [tFileOutputDelimited_1 process_data_end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileOutputDelimited_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tFileOutputDelimited_1 process_data_end ] stop
+ */
+
+
+
+	
+	/**
+	 * [tLogCatcher_1 process_data_end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tLogCatcher_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tLogCatcher_1 process_data_end ] stop
+ */
+	
+	/**
+	 * [tLogCatcher_1 end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tLogCatcher_1";
+
+	
+	}
+} catch (Exception e_tLogCatcher_1) {
+	logIgnoredError(String.format("tLogCatcher_1 - tLogCatcher failed to process log message(s) due to internal error: %s", e_tLogCatcher_1), e_tLogCatcher_1);
+}
+
+ 
+
+ok_Hash.put("tLogCatcher_1", true);
+end_Hash.put("tLogCatcher_1", System.currentTimeMillis());
+
+
+
+
+/**
+ * [tLogCatcher_1 end ] stop
+ */
+
+	
+	/**
+	 * [tFileOutputDelimited_1 end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileOutputDelimited_1";
+
+	
+
+
+
+		
+			
+					if(outtFileOutputDelimited_1!=null) {
+						outtFileOutputDelimited_1.flush();
+						outtFileOutputDelimited_1.close();
+					}
+				
+				globalMap.put("tFileOutputDelimited_1_NB_LINE",nb_line_tFileOutputDelimited_1);
+				globalMap.put("tFileOutputDelimited_1_FILE_NAME",fileName_tFileOutputDelimited_1);
+			
+		
+		
+		resourceMap.put("finish_tFileOutputDelimited_1", true);
+	
+
+			if(execStat){
+				if(resourceMap.get("inIterateVComp") == null || !((Boolean)resourceMap.get("inIterateVComp"))){
+			 		runStat.updateStatOnConnection("row7"+iterateId,2, 0); 
+			 	}
+			}
+		
+ 
+
+ok_Hash.put("tFileOutputDelimited_1", true);
+end_Hash.put("tFileOutputDelimited_1", System.currentTimeMillis());
+
+
+
+
+/**
+ * [tFileOutputDelimited_1 end ] stop
+ */
+
+
+
+				}//end the resume
+
+				
+
+
+
+	
+			}catch(java.lang.Exception e){	
+				
+				TalendException te = new TalendException(e, currentComponent, globalMap);
+				
+				throw te;
+			}catch(java.lang.Error error){	
+				
+					runStat.stopThreadStat();
+				
+				throw error;
+			}finally{
+				
+				try{
+					
+	
+	/**
+	 * [tLogCatcher_1 finally ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tLogCatcher_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tLogCatcher_1 finally ] stop
+ */
+
+	
+	/**
+	 * [tFileOutputDelimited_1 finally ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileOutputDelimited_1";
+
+	
+
+
+		if(resourceMap.get("finish_tFileOutputDelimited_1") == null){ 
+			
+				
+						java.io.Writer outtFileOutputDelimited_1 = (java.io.Writer)resourceMap.get("out_tFileOutputDelimited_1");
+						if(outtFileOutputDelimited_1!=null) {
+							outtFileOutputDelimited_1.flush();
+							outtFileOutputDelimited_1.close();
+						}
+					
+				
+			
+		}
+	
+
+ 
+
+
+
+/**
+ * [tFileOutputDelimited_1 finally ] stop
+ */
+
+
+
+				}catch(java.lang.Exception e){	
+					//ignore
+				}catch(java.lang.Error error){
+					//ignore
+				}
+				resourceMap = null;
+			}
+		
+
+		globalMap.put("tLogCatcher_1_SUBPROCESS_STATE", 1);
 	}
 	
     public String resuming_logs_dir_path = null;
@@ -9395,6 +11026,6 @@ if (execStat) {
     ResumeUtil resumeUtil = null;
 }
 /************************************************************************************************
- *     240455 characters generated by Talend Open Studio for Data Integration 
- *     on the 9 de mayo de 2018 02:43:56 AM COT
+ *     279580 characters generated by Talend Open Studio for Data Integration 
+ *     on the 12 de mayo de 2018 11:53:18 PM COT
  ************************************************************************************************/

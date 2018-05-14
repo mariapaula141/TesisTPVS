@@ -45,7 +45,7 @@
   </div>
 
     <div class = "row">
-      <h2 class="page-header space" style="color:#C70039"> Elementos no identificados </h2>
+      <h2 class="page-header space" style="color:#B43104"> Traders no identificados </h2>
     </div>
 
       <div class="table-responsive ">
@@ -53,17 +53,23 @@
           <thead>
             <tr class="bg-danger">
               <th>Usuario</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
             </tr>
           </thead>
           <tfoot>
             <tr class="bg-danger">
               <th>Usuario</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
             </tr>
           </tfoot>
           <tbody>
             {% for t in tradersStage %}
             <tr class="bg-danger">
-              <th>{{ t.idtrader }} </th>
+              <td>{{ t.idtrader }} </td>
+              <td>{{ t.nombre }} </td>
+              <td>{{ t.apellido }} </td>
             </tr>
             {% endfor %}
           </tbody>
@@ -71,7 +77,7 @@
       </div>
 
     <div class = "row ">
-      <h2 class="page-header space" style="color:#33C7FF"> Elementos existentes en el Datamart </h2>
+      <h2 class="page-header space" style="color:#31B404"> Traders existentes en el Datamart </h2>
     </div>
 
       <div class="table-responsive">
@@ -81,7 +87,6 @@
               <th>Usuario</th>
               <th>Nombre</th>
               <th>Apellido</th>
-
             </tr>
           </thead>
           <tfoot>
@@ -95,9 +100,9 @@
           <tbody>
             {% for t in tradersDatamart %}
             <tr>
-              <th>{{ t.idtrader }} </th>
-              <th>{{ t.nombre }} </th>
-              <th>{{ t.apellido }} </th>
+              <td>{{ t.idtrader }} </td>
+              <td>{{ t.nombre }} </td>
+              <td>{{ t.apellido }} </td>
             </tr>
             {% endfor %}
           </tbody>

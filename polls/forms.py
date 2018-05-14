@@ -16,21 +16,20 @@ class CargarArchivo(forms.ModelForm):
         ]
     def clean_recipients(self):
         data = self.cleaned_data['ruta']
-        if ("Spot-fwdxlsx.csv" or "CURR_FUT.csv") not in data:
+        if ("Spot-fwd.csv" or "CURR_FUT.csv") not in data:
             raise forms.ValidationError("Archivo inválido")
         return data
 
 
 class CrearContraparte(forms.ModelForm):
-    idsistema = forms.CharField(label='Identificador sistema', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Identificador sistema','id':'inputId'}))
+    idcontraparte = forms.CharField(label='Identificador Contraparte', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Identificador Contraparte','id':'inputId'}))
     nombre = forms.CharField(label='Nombre', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre'}))
-    descripcion = forms.CharField(label='Descripción', widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Descripción'}))
+    #descripcion = forms.CharField(label='Descripción', widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Descripción'}))
     class Meta:
-        model = Dimsistema
+        model = Dimcontraparte
         fields = [
-            "idsistema",
-            "nombre",
-            "descripcion"
+            "idcontraparte",
+            "nombre"
         ]
 class CrearEstado(forms.ModelForm):
     idestado = forms.CharField(label='Identificador estado', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Identificador estado','id':'inputId'}))
@@ -40,6 +39,18 @@ class CrearEstado(forms.ModelForm):
         fields = [
             "idestado",
             "nombre",
+        ]
+
+class CrearInfomoneda(forms.ModelForm):
+    idmoneda = forms.CharField(label='Identificador moneda', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Identificador moneda','id':'inputId'}))
+    nombre = forms.CharField(label='Nombre', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre'}))
+    descripcion = forms.CharField(label='Descripción', widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Descripción'}))
+    class Meta:
+        model = Diminfomoneda
+        fields = [
+            "idmoneda",
+            "nombre",
+            "descripcion"
         ]
 
 class CrearPortafolio(forms.ModelForm):
@@ -75,6 +86,18 @@ class CrearTrader(forms.ModelForm):
           model = Dimtrader
           fields = ['idtrader','nombre','apellido']
 
+class CrearProducto(forms.ModelForm):
+    idproducto = forms.CharField(label='Identificador producto', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Identificador producto','id':'inputId'}))
+    nombre = forms.CharField(label='Nombre', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre'}))
+    tipo_operacion = forms.CharField(label='Tipo operación', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Tipo operación'}))
+    class Meta:
+        model = Dimproducto
+        fields = [
+            "idproducto",
+            "nombre",
+            "tipo_operacion"
+        ]
+
 
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(label='Nombre de usuario',widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre usuario'}))
@@ -104,7 +127,12 @@ class RegistrationForm(UserCreationForm):
         return user
 
 class EditProfileForm(UserChangeForm):
-    email=forms.EmailField(required=True)
+    username = forms.CharField(label='Nombre de usuario',widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre usuario'}))
+    first_name = forms.CharField(label='Nombres',widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nombres'}))
+    last_name = forms.CharField(label='Apellidos',widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Apellidos'}))
+    email=forms.EmailField(label='Correo electrónico',widget=forms.EmailInput(attrs={'class':'form-control','placeholder':'example@tpvs.com'}))
+    password=forms.CharField(label='',widget = forms.HiddenInput(), required = False)
+
     class Meta:
         model = User
         fields = [

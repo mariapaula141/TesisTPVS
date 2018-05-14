@@ -263,13 +263,13 @@ private class TalendException extends Exception {
 	}
 }
 
-			public void tRESTClient_2_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+			public void tRESTClient_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 				
 				end_Hash.put(errorComponent, System.currentTimeMillis());
 				
 				status = "failure";
 				
-					tRESTClient_2_onSubJobError(exception, errorComponent, globalMap);
+					tRESTClient_1_onSubJobError(exception, errorComponent, globalMap);
 			}
 			
 			public void tExtractXMLField_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
@@ -278,7 +278,7 @@ private class TalendException extends Exception {
 				
 				status = "failure";
 				
-					tRESTClient_2_onSubJobError(exception, errorComponent, globalMap);
+					tRESTClient_1_onSubJobError(exception, errorComponent, globalMap);
 			}
 			
 			public void tXMLMap_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
@@ -287,19 +287,28 @@ private class TalendException extends Exception {
 				
 				status = "failure";
 				
-					tRESTClient_2_onSubJobError(exception, errorComponent, globalMap);
+					tRESTClient_1_onSubJobError(exception, errorComponent, globalMap);
 			}
 			
-			public void tMysqlOutput_2_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+			public void tDBOutput_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 				
 				end_Hash.put(errorComponent, System.currentTimeMillis());
 				
 				status = "failure";
 				
-					tRESTClient_2_onSubJobError(exception, errorComponent, globalMap);
+					tRESTClient_1_onSubJobError(exception, errorComponent, globalMap);
 			}
 			
-			public void tRESTClient_2_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+			public void tDBOutput_2_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+				
+				end_Hash.put(errorComponent, System.currentTimeMillis());
+				
+				status = "failure";
+				
+					tRESTClient_1_onSubJobError(exception, errorComponent, globalMap);
+			}
+			
+			public void tRESTClient_1_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 
 resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThread().getId()+ "", "FATAL", "", exception.getMessage(), ResumeUtil.getExceptionStackTrace(exception),"");
 
@@ -472,6 +481,198 @@ public static class insertsStruct implements routines.system.IPersistableRow<ins
      * Compare keys
      */
     public int compareTo(insertsStruct other) {
+
+		int returnValue = -1;
+		
+	    return returnValue;
+    }
+
+
+    private int checkNullsAndCompare(Object object1, Object object2) {
+        int returnValue = 0;
+		if (object1 instanceof Comparable && object2 instanceof Comparable) {
+            returnValue = ((Comparable) object1).compareTo(object2);
+        } else if (object1 != null && object2 != null) {
+            returnValue = compareStrings(object1.toString(), object2.toString());
+        } else if (object1 == null && object2 != null) {
+            returnValue = 1;
+        } else if (object1 != null && object2 == null) {
+            returnValue = -1;
+        } else {
+            returnValue = 0;
+        }
+
+        return returnValue;
+    }
+
+    private int compareStrings(String string1, String string2) {
+        return string1.compareTo(string2);
+    }
+
+
+}
+
+public static class inserts2Struct implements routines.system.IPersistableRow<inserts2Struct> {
+    final static byte[] commonByteArrayLock_COMPLETO_xchange_api_consume = new byte[0];
+    static byte[] commonByteArray_COMPLETO_xchange_api_consume = new byte[0];
+
+	
+			    public String name;
+
+				public String getName () {
+					return this.name;
+				}
+				
+			    public Double exchange;
+
+				public Double getExchange () {
+					return this.exchange;
+				}
+				
+			    public String date;
+
+				public String getDate () {
+					return this.date;
+				}
+				
+			    public String currency1;
+
+				public String getCurrency1 () {
+					return this.currency1;
+				}
+				
+			    public String currency2;
+
+				public String getCurrency2 () {
+					return this.currency2;
+				}
+				
+
+
+
+	private String readString(ObjectInputStream dis) throws IOException{
+		String strReturn = null;
+		int length = 0;
+        length = dis.readInt();
+		if (length == -1) {
+			strReturn = null;
+		} else {
+			if(length > commonByteArray_COMPLETO_xchange_api_consume.length) {
+				if(length < 1024 && commonByteArray_COMPLETO_xchange_api_consume.length == 0) {
+   					commonByteArray_COMPLETO_xchange_api_consume = new byte[1024];
+				} else {
+   					commonByteArray_COMPLETO_xchange_api_consume = new byte[2 * length];
+   				}
+			}
+			dis.readFully(commonByteArray_COMPLETO_xchange_api_consume, 0, length);
+			strReturn = new String(commonByteArray_COMPLETO_xchange_api_consume, 0, length, utf8Charset);
+		}
+		return strReturn;
+	}
+
+    private void writeString(String str, ObjectOutputStream dos) throws IOException{
+		if(str == null) {
+            dos.writeInt(-1);
+		} else {
+            byte[] byteArray = str.getBytes(utf8Charset);
+	    	dos.writeInt(byteArray.length);
+			dos.write(byteArray);
+    	}
+    }
+
+    public void readData(ObjectInputStream dis) {
+
+		synchronized(commonByteArrayLock_COMPLETO_xchange_api_consume) {
+
+        	try {
+
+        		int length = 0;
+		
+					this.name = readString(dis);
+					
+			            length = dis.readByte();
+           				if (length == -1) {
+           	    			this.exchange = null;
+           				} else {
+           			    	this.exchange = dis.readDouble();
+           				}
+					
+					this.date = readString(dis);
+					
+					this.currency1 = readString(dis);
+					
+					this.currency2 = readString(dis);
+					
+        	} catch (IOException e) {
+	            throw new RuntimeException(e);
+
+		
+
+        }
+
+		
+
+      }
+
+
+    }
+
+    public void writeData(ObjectOutputStream dos) {
+        try {
+
+		
+					// String
+				
+						writeString(this.name,dos);
+					
+					// Double
+				
+						if(this.exchange == null) {
+			                dos.writeByte(-1);
+						} else {
+               				dos.writeByte(0);
+           			    	dos.writeDouble(this.exchange);
+		            	}
+					
+					// String
+				
+						writeString(this.date,dos);
+					
+					// String
+				
+						writeString(this.currency1,dos);
+					
+					// String
+				
+						writeString(this.currency2,dos);
+					
+        	} catch (IOException e) {
+	            throw new RuntimeException(e);
+        }
+
+
+    }
+
+
+    public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(super.toString());
+		sb.append("[");
+		sb.append("name="+name);
+		sb.append(",exchange="+String.valueOf(exchange));
+		sb.append(",date="+date);
+		sb.append(",currency1="+currency1);
+		sb.append(",currency2="+currency2);
+	    sb.append("]");
+
+	    return sb.toString();
+    }
+
+    /**
+     * Compare keys
+     */
+    public int compareTo(inserts2Struct other) {
 
 		int returnValue = -1;
 		
@@ -857,8 +1058,8 @@ public static class row1Struct implements routines.system.IPersistableRow<row1St
 
 
 }
-public void tRESTClient_2Process(final java.util.Map<String, Object> globalMap) throws TalendException {
-	globalMap.put("tRESTClient_2_SUBPROCESS_STATE", 0);
+public void tRESTClient_1Process(final java.util.Map<String, Object> globalMap) throws TalendException {
+	globalMap.put("tRESTClient_1_SUBPROCESS_STATE", 0);
 
  final boolean execStat = this.execStat;
 	
@@ -883,6 +1084,7 @@ public void tRESTClient_2Process(final java.util.Map<String, Object> globalMap) 
 		row1Struct row1 = new row1Struct();
 row2Struct row2 = new row2Struct();
 insertsStruct inserts = new insertsStruct();
+inserts2Struct inserts2 = new inserts2Struct();
 
 
 
@@ -891,18 +1093,18 @@ insertsStruct inserts = new insertsStruct();
 
 	
 	/**
-	 * [tMysqlOutput_2 begin ] start
+	 * [tDBOutput_1 begin ] start
 	 */
 
 	
 
 	
 		
-		ok_Hash.put("tMysqlOutput_2", false);
-		start_Hash.put("tMysqlOutput_2", System.currentTimeMillis());
+		ok_Hash.put("tDBOutput_1", false);
+		start_Hash.put("tDBOutput_1", System.currentTimeMillis());
 		
 	
-	currentComponent="tMysqlOutput_2";
+	currentComponent="tDBOutput_1";
 
 	
 			if (execStat) {
@@ -914,99 +1116,83 @@ insertsStruct inserts = new insertsStruct();
 			} 
 
 		
-		int tos_count_tMysqlOutput_2 = 0;
+		int tos_count_tDBOutput_1 = 0;
 		
-    	class BytesLimit65535_tMysqlOutput_2{
+    	class BytesLimit65535_tDBOutput_1{
     		public void limitLog4jByte() throws Exception{
     			
     		}
     	}
     	
-        new BytesLimit65535_tMysqlOutput_2().limitLog4jByte();
+        new BytesLimit65535_tDBOutput_1().limitLog4jByte();
 
 
 
 
 
 
-int nb_line_tMysqlOutput_2 = 0;
-int nb_line_update_tMysqlOutput_2 = 0;
-int nb_line_inserted_tMysqlOutput_2 = 0;
-int nb_line_deleted_tMysqlOutput_2 = 0;
-int nb_line_rejected_tMysqlOutput_2 = 0;
+int nb_line_tDBOutput_1 = 0;
+int nb_line_update_tDBOutput_1 = 0;
+int nb_line_inserted_tDBOutput_1 = 0;
+int nb_line_deleted_tDBOutput_1 = 0;
+int nb_line_rejected_tDBOutput_1 = 0;
 
-int deletedCount_tMysqlOutput_2=0;
-int updatedCount_tMysqlOutput_2=0;
-int insertedCount_tMysqlOutput_2=0;
+int deletedCount_tDBOutput_1=0;
+int updatedCount_tDBOutput_1=0;
+int insertedCount_tDBOutput_1=0;
 
-int rejectedCount_tMysqlOutput_2=0;
+int rejectedCount_tDBOutput_1=0;
 
-String tableName_tMysqlOutput_2 = "factmoneda";
-boolean whetherReject_tMysqlOutput_2 = false;
+String tableName_tDBOutput_1 = "factmoneda";
+boolean whetherReject_tDBOutput_1 = false;
 
-java.util.Calendar calendar_tMysqlOutput_2 = java.util.Calendar.getInstance();
-calendar_tMysqlOutput_2.set(1, 0, 1, 0, 0, 0);
-long year1_tMysqlOutput_2 = calendar_tMysqlOutput_2.getTime().getTime();
-calendar_tMysqlOutput_2.set(10000, 0, 1, 0, 0, 0);
-long year10000_tMysqlOutput_2 = calendar_tMysqlOutput_2.getTime().getTime();
-long date_tMysqlOutput_2;
+java.util.Calendar calendar_tDBOutput_1 = java.util.Calendar.getInstance();
+calendar_tDBOutput_1.set(1, 0, 1, 0, 0, 0);
+long year1_tDBOutput_1 = calendar_tDBOutput_1.getTime().getTime();
+calendar_tDBOutput_1.set(10000, 0, 1, 0, 0, 0);
+long year10000_tDBOutput_1 = calendar_tDBOutput_1.getTime().getTime();
+long date_tDBOutput_1;
 
-java.sql.Connection conn_tMysqlOutput_2 = null;
-		String dbProperties_tMysqlOutput_2 = "noDatetimeStringSync=true";
-		String url_tMysqlOutput_2 = null;
-		if(dbProperties_tMysqlOutput_2 == null || dbProperties_tMysqlOutput_2.trim().length() == 0) {
-			url_tMysqlOutput_2 = "jdbc:mysql://" + "167.99.147.146" + ":" + "3306" + "/" + "stage" + "?" + "rewriteBatchedStatements=true";
+java.sql.Connection conn_tDBOutput_1 = null;
+		String dbProperties_tDBOutput_1 = "noDatetimeStringSync=true";
+		String url_tDBOutput_1 = null;
+		if(dbProperties_tDBOutput_1 == null || dbProperties_tDBOutput_1.trim().length() == 0) {
+			url_tDBOutput_1 = "jdbc:mysql://" + "167.99.147.146" + ":" + "3306" + "/" + "stage" + "?" + "rewriteBatchedStatements=true";
 		} else {
-			String properties_tMysqlOutput_2 = "noDatetimeStringSync=true";
-			if (!properties_tMysqlOutput_2.contains("rewriteBatchedStatements")) {
-				properties_tMysqlOutput_2 += "&rewriteBatchedStatements=true";
+			String properties_tDBOutput_1 = "noDatetimeStringSync=true";
+			if (!properties_tDBOutput_1.contains("rewriteBatchedStatements")) {
+				properties_tDBOutput_1 += "&rewriteBatchedStatements=true";
 			}
 
-			url_tMysqlOutput_2 = "jdbc:mysql://" + "167.99.147.146" + ":" + "3306" + "/" + "stage" + "?" + properties_tMysqlOutput_2;
+			url_tDBOutput_1 = "jdbc:mysql://" + "167.99.147.146" + ":" + "3306" + "/" + "stage" + "?" + properties_tDBOutput_1;
 		}
-		String driverClass_tMysqlOutput_2 = "org.gjt.mm.mysql.Driver";
+		String driverClass_tDBOutput_1 = "org.gjt.mm.mysql.Driver";
 		
-		String dbUser_tMysqlOutput_2 = "tesis";
+		String dbUser_tDBOutput_1 = "tesis";
 		
 
 		 
-	final String decryptedPassword_tMysqlOutput_2 = routines.system.PasswordEncryptUtil.decryptPassword("edb6ac47853dddd4f4f7aba1746784ea");
+	final String decryptedPassword_tDBOutput_1 = routines.system.PasswordEncryptUtil.decryptPassword("edb6ac47853dddd4f4f7aba1746784ea");
 
-		String dbPwd_tMysqlOutput_2 = decryptedPassword_tMysqlOutput_2;
-		java.lang.Class.forName(driverClass_tMysqlOutput_2);
+		String dbPwd_tDBOutput_1 = decryptedPassword_tDBOutput_1;
+		java.lang.Class.forName(driverClass_tDBOutput_1);
 		
-		conn_tMysqlOutput_2 = java.sql.DriverManager.getConnection(url_tMysqlOutput_2, dbUser_tMysqlOutput_2, dbPwd_tMysqlOutput_2);
+		conn_tDBOutput_1 = java.sql.DriverManager.getConnection(url_tDBOutput_1, dbUser_tDBOutput_1, dbPwd_tDBOutput_1);
 		
 	
-	resourceMap.put("conn_tMysqlOutput_2", conn_tMysqlOutput_2);
-        conn_tMysqlOutput_2.setAutoCommit(false);
-        int commitEvery_tMysqlOutput_2 = 10000;
-        int commitCounter_tMysqlOutput_2 = 0;
+	resourceMap.put("conn_tDBOutput_1", conn_tDBOutput_1);
+        conn_tDBOutput_1.setAutoCommit(false);
+        int commitEvery_tDBOutput_1 = 10000;
+        int commitCounter_tDBOutput_1 = 0;
 
-int count_tMysqlOutput_2=0;
+int count_tDBOutput_1=0;
     	
-                                java.sql.DatabaseMetaData dbMetaData_tMysqlOutput_2 = conn_tMysqlOutput_2.getMetaData();
-                                java.sql.ResultSet rsTable_tMysqlOutput_2 = dbMetaData_tMysqlOutput_2.getTables(null, null, null, new String[]{"TABLE"});
-                                boolean whetherExist_tMysqlOutput_2 = false;
-                                while(rsTable_tMysqlOutput_2.next()) {
-                                    String table_tMysqlOutput_2 = rsTable_tMysqlOutput_2.getString("TABLE_NAME");
-                                    if(table_tMysqlOutput_2.equalsIgnoreCase("factmoneda")) {
-                                        whetherExist_tMysqlOutput_2 = true;
-                                        break;
-                                    }
-                                }
-                                rsTable_tMysqlOutput_2.close();
-                                if(!whetherExist_tMysqlOutput_2) {
-                                    java.sql.Statement stmtCreate_tMysqlOutput_2 = conn_tMysqlOutput_2.createStatement();
-                                        stmtCreate_tMysqlOutput_2.execute("CREATE TABLE `" + tableName_tMysqlOutput_2 + "`(`name` VARCHAR(20)  ,`xchange` DOUBLE ,`date` VARCHAR(15)  ,`m1` VARCHAR(5)  ,`m2` VARCHAR(5)  )");
-                                    stmtCreate_tMysqlOutput_2.close();
-                                }
 
-				String insert_tMysqlOutput_2 = "INSERT INTO `" + "factmoneda" + "` (`name`,`xchange`,`date`,`m1`,`m2`) VALUES (?,?,?,?,?)";
-		        int batchSize_tMysqlOutput_2 = 100;
-	   			int batchSizeCounter_tMysqlOutput_2=0;
+				String insert_tDBOutput_1 = "INSERT INTO `" + "factmoneda" + "` (`name`,`xchange`,`date`,`m1`,`m2`) VALUES (?,?,?,?,?)";
+		        int batchSize_tDBOutput_1 = 100;
+	   			int batchSizeCounter_tDBOutput_1=0;
 		            
-		        java.sql.PreparedStatement pstmt_tMysqlOutput_2 = conn_tMysqlOutput_2.prepareStatement(insert_tMysqlOutput_2);
+		        java.sql.PreparedStatement pstmt_tDBOutput_1 = conn_tDBOutput_1.prepareStatement(insert_tDBOutput_1);
 
 
  
@@ -1014,7 +1200,122 @@ int count_tMysqlOutput_2=0;
 
 
 /**
- * [tMysqlOutput_2 begin ] stop
+ * [tDBOutput_1 begin ] stop
+ */
+
+
+
+
+	
+	/**
+	 * [tDBOutput_2 begin ] start
+	 */
+
+	
+
+	
+		
+		ok_Hash.put("tDBOutput_2", false);
+		start_Hash.put("tDBOutput_2", System.currentTimeMillis());
+		
+	
+	currentComponent="tDBOutput_2";
+
+	
+			if (execStat) {
+				if(resourceMap.get("inIterateVComp") == null){
+					
+						runStat.updateStatOnConnection("inserts2" + iterateId, 0, 0);
+					
+				}
+			} 
+
+		
+		int tos_count_tDBOutput_2 = 0;
+		
+    	class BytesLimit65535_tDBOutput_2{
+    		public void limitLog4jByte() throws Exception{
+    			
+    		}
+    	}
+    	
+        new BytesLimit65535_tDBOutput_2().limitLog4jByte();
+
+
+
+
+
+
+int nb_line_tDBOutput_2 = 0;
+int nb_line_update_tDBOutput_2 = 0;
+int nb_line_inserted_tDBOutput_2 = 0;
+int nb_line_deleted_tDBOutput_2 = 0;
+int nb_line_rejected_tDBOutput_2 = 0;
+
+int deletedCount_tDBOutput_2=0;
+int updatedCount_tDBOutput_2=0;
+int insertedCount_tDBOutput_2=0;
+
+int rejectedCount_tDBOutput_2=0;
+
+String tableName_tDBOutput_2 = "factmoneda";
+boolean whetherReject_tDBOutput_2 = false;
+
+java.util.Calendar calendar_tDBOutput_2 = java.util.Calendar.getInstance();
+calendar_tDBOutput_2.set(1, 0, 1, 0, 0, 0);
+long year1_tDBOutput_2 = calendar_tDBOutput_2.getTime().getTime();
+calendar_tDBOutput_2.set(10000, 0, 1, 0, 0, 0);
+long year10000_tDBOutput_2 = calendar_tDBOutput_2.getTime().getTime();
+long date_tDBOutput_2;
+
+java.sql.Connection conn_tDBOutput_2 = null;
+		String dbProperties_tDBOutput_2 = "noDatetimeStringSync=true";
+		String url_tDBOutput_2 = null;
+		if(dbProperties_tDBOutput_2 == null || dbProperties_tDBOutput_2.trim().length() == 0) {
+			url_tDBOutput_2 = "jdbc:mysql://" + "167.99.147.146" + ":" + "3306" + "/" + "stage" + "?" + "rewriteBatchedStatements=true";
+		} else {
+			String properties_tDBOutput_2 = "noDatetimeStringSync=true";
+			if (!properties_tDBOutput_2.contains("rewriteBatchedStatements")) {
+				properties_tDBOutput_2 += "&rewriteBatchedStatements=true";
+			}
+
+			url_tDBOutput_2 = "jdbc:mysql://" + "167.99.147.146" + ":" + "3306" + "/" + "stage" + "?" + properties_tDBOutput_2;
+		}
+		String driverClass_tDBOutput_2 = "org.gjt.mm.mysql.Driver";
+		
+		String dbUser_tDBOutput_2 = "tesis";
+		
+
+		 
+	final String decryptedPassword_tDBOutput_2 = routines.system.PasswordEncryptUtil.decryptPassword("edb6ac47853dddd4f4f7aba1746784ea");
+
+		String dbPwd_tDBOutput_2 = decryptedPassword_tDBOutput_2;
+		java.lang.Class.forName(driverClass_tDBOutput_2);
+		
+		conn_tDBOutput_2 = java.sql.DriverManager.getConnection(url_tDBOutput_2, dbUser_tDBOutput_2, dbPwd_tDBOutput_2);
+		
+	
+	resourceMap.put("conn_tDBOutput_2", conn_tDBOutput_2);
+        conn_tDBOutput_2.setAutoCommit(false);
+        int commitEvery_tDBOutput_2 = 10000;
+        int commitCounter_tDBOutput_2 = 0;
+
+int count_tDBOutput_2=0;
+    	
+
+				String insert_tDBOutput_2 = "INSERT INTO `" + "factmoneda" + "` (`name`,`xchange`,`date`,`m1`,`m2`) VALUES (?,?,?,?,?)";
+		        int batchSize_tDBOutput_2 = 100;
+	   			int batchSizeCounter_tDBOutput_2=0;
+		            
+		        java.sql.PreparedStatement pstmt_tDBOutput_2 = conn_tDBOutput_2.prepareStatement(insert_tDBOutput_2);
+
+
+ 
+
+
+
+/**
+ * [tDBOutput_2 begin ] stop
  */
 
 
@@ -1079,13 +1380,15 @@ class XML_API_tXMLMap_1{
         return false;
     }
 }
-	class Var__tXMLMap_1__Struct {	String cod;
+	class Var__tXMLMap_1__Struct {	String currency2;
 	}
 	Var__tXMLMap_1__Struct Var__tXMLMap_1 = new Var__tXMLMap_1__Struct();
 // ###############################
 // # Outputs initialization
 insertsStruct inserts_tmp = new insertsStruct();
 insertsStruct inserts_save = null;
+inserts2Struct inserts2_tmp = new inserts2Struct();
+inserts2Struct inserts2_save = null;
 // ###############################
 		int nb_line_tXMLMap_1 = 0; 
 	
@@ -1349,81 +1652,81 @@ XML_API_tExtractXMLField_1 xml_api_tExtractXMLField_1 = new XML_API_tExtractXMLF
 
 	
 	/**
-	 * [tRESTClient_2 begin ] start
+	 * [tRESTClient_1 begin ] start
 	 */
 
 	
 
 	
 		
-		ok_Hash.put("tRESTClient_2", false);
-		start_Hash.put("tRESTClient_2", System.currentTimeMillis());
+		ok_Hash.put("tRESTClient_1", false);
+		start_Hash.put("tRESTClient_1", System.currentTimeMillis());
 		
 	
-	currentComponent="tRESTClient_2";
+	currentComponent="tRESTClient_1";
 
 	
-		int tos_count_tRESTClient_2 = 0;
+		int tos_count_tRESTClient_1 = 0;
 		
-    	class BytesLimit65535_tRESTClient_2{
+    	class BytesLimit65535_tRESTClient_1{
     		public void limitLog4jByte() throws Exception{
     			
     		}
     	}
     	
-        new BytesLimit65535_tRESTClient_2().limitLog4jByte();
+        new BytesLimit65535_tRESTClient_1().limitLog4jByte();
 
  
 
 
 
 /**
- * [tRESTClient_2 begin ] stop
+ * [tRESTClient_1 begin ] stop
  */
 	
 	/**
-	 * [tRESTClient_2 main ] start
+	 * [tRESTClient_1 main ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tRESTClient_2";
+	currentComponent="tRESTClient_1";
 
 	
 	row1 = null;
 
 // expected response body
-Object responseDoc_tRESTClient_2 = null;
+Object responseDoc_tRESTClient_1 = null;
 
 try {
 	// request body
-	org.dom4j.Document requestDoc_tRESTClient_2 = null;
-	String requestString_tRESTClient_2 = null;
+	org.dom4j.Document requestDoc_tRESTClient_1 = null;
+	String requestString_tRESTClient_1 = null;
 
-	Object requestBody_tRESTClient_2 = requestDoc_tRESTClient_2 != null ? requestDoc_tRESTClient_2 : requestString_tRESTClient_2;
+	Object requestBody_tRESTClient_1 = requestDoc_tRESTClient_1 != null ? requestDoc_tRESTClient_1 : requestString_tRESTClient_1;
 
 	
 
     //resposne class name
-	Class<?> responseClass_tRESTClient_2
+	Class<?> responseClass_tRESTClient_1
 		= org.dom4j.Document.class;
 
 	// create web client instance
-	org.apache.cxf.jaxrs.client.JAXRSClientFactoryBean factoryBean_tRESTClient_2 =
+	org.apache.cxf.jaxrs.client.JAXRSClientFactoryBean factoryBean_tRESTClient_1 =
 			new org.apache.cxf.jaxrs.client.JAXRSClientFactoryBean();
 
 	boolean inOSGi = routines.system.BundleUtils.inOSGi();
 
-	final java.util.List<org.apache.cxf.feature.Feature> features_tRESTClient_2 =
+	final java.util.List<org.apache.cxf.feature.Feature> features_tRESTClient_1 =
 			new java.util.ArrayList<org.apache.cxf.feature.Feature>();
 
 	
 		String url = "http://apilayer.net";
 		// {baseUri}tRESTClient
-		factoryBean_tRESTClient_2.setServiceName(new javax.xml.namespace.QName(url, "tRESTClient"));
-		factoryBean_tRESTClient_2.setAddress(url);
+		factoryBean_tRESTClient_1.setServiceName(new javax.xml.namespace.QName(url, "tRESTClient"));
+		factoryBean_tRESTClient_1.setAddress(url);
 	
 
 	
@@ -1432,11 +1735,11 @@ try {
 
 	
 
-	factoryBean_tRESTClient_2.setFeatures(features_tRESTClient_2);
+	factoryBean_tRESTClient_1.setFeatures(features_tRESTClient_1);
 
 
-	java.util.List<Object> providers_tRESTClient_2 = new java.util.ArrayList<Object>();
-	providers_tRESTClient_2.add(new org.apache.cxf.jaxrs.provider.dom4j.DOM4JProvider() {
+	java.util.List<Object> providers_tRESTClient_1 = new java.util.ArrayList<Object>();
+	providers_tRESTClient_1.add(new org.apache.cxf.jaxrs.provider.dom4j.DOM4JProvider() {
 		// workaround for https://jira.talendforge.org/browse/TESB-7276
 		public org.dom4j.Document readFrom(Class<org.dom4j.Document> cls,
 											java.lang.reflect.Type type,
@@ -1450,101 +1753,101 @@ try {
 					&& Integer.valueOf(contentLength) <= 0) {
 				try {
 					return org.dom4j.DocumentHelper.parseText("<root/>");
-				} catch (org.dom4j.DocumentException e_tRESTClient_2) {
-					e_tRESTClient_2.printStackTrace();
+				} catch (org.dom4j.DocumentException e_tRESTClient_1) {
+					e_tRESTClient_1.printStackTrace();
 				}
 				return null;
 			}
 			return super.readFrom(cls, type, anns, mt, headers, is);
 		}
 	});
-	org.apache.cxf.jaxrs.provider.json.JSONProvider jsonProvider_tRESTClient_2 =
+	org.apache.cxf.jaxrs.provider.json.JSONProvider jsonProvider_tRESTClient_1 =
 			new org.apache.cxf.jaxrs.provider.json.JSONProvider();
-		jsonProvider_tRESTClient_2.setIgnoreNamespaces(true);
-		jsonProvider_tRESTClient_2.setAttributesToElements(true);
+		jsonProvider_tRESTClient_1.setIgnoreNamespaces(true);
+		jsonProvider_tRESTClient_1.setAttributesToElements(true);
 	
 	
-		jsonProvider_tRESTClient_2.setSupportUnwrapped(true);
-		jsonProvider_tRESTClient_2.setWrapperName("root");
+		jsonProvider_tRESTClient_1.setSupportUnwrapped(true);
+		jsonProvider_tRESTClient_1.setWrapperName("root");
 	
 	
-		jsonProvider_tRESTClient_2.setDropRootElement(false);
-		jsonProvider_tRESTClient_2.setConvertTypesToStrings(false);
-	providers_tRESTClient_2.add(jsonProvider_tRESTClient_2);
-	factoryBean_tRESTClient_2.setProviders(providers_tRESTClient_2);
-	factoryBean_tRESTClient_2.setTransportId("http://cxf.apache.org/transports/http");
+		jsonProvider_tRESTClient_1.setDropRootElement(false);
+		jsonProvider_tRESTClient_1.setConvertTypesToStrings(false);
+	providers_tRESTClient_1.add(jsonProvider_tRESTClient_1);
+	factoryBean_tRESTClient_1.setProviders(providers_tRESTClient_1);
+	factoryBean_tRESTClient_1.setTransportId("http://cxf.apache.org/transports/http");
 
-	boolean use_auth_tRESTClient_2 = false;
-	if (use_auth_tRESTClient_2 && "SAML".equals("BASIC")) {
+	boolean use_auth_tRESTClient_1 = false;
+	if (use_auth_tRESTClient_1 && "SAML".equals("BASIC")) {
 		if (!inOSGi) {
 			throw new IllegalArgumentException("SAML based security scenarios are not supported in Studio (standalone)");
 		}
 		// set SAML Token authentication
 		
 		 
-	final String decryptedPassword_tRESTClient_2 = routines.system.PasswordEncryptUtil.decryptPassword("a54bbfcc1190b7e1f4f7aba1746784ea");
+	final String decryptedPassword_tRESTClient_1 = routines.system.PasswordEncryptUtil.decryptPassword("a54bbfcc1190b7e1f4f7aba1746784ea");
 
 		org.apache.cxf.ws.security.trust.STSClient stsClient =
-			org.talend.esb.security.saml.STSClientUtils.createSTSClient(factoryBean_tRESTClient_2.getBus(),
-				"username", decryptedPassword_tRESTClient_2);
+			org.talend.esb.security.saml.STSClientUtils.createSTSClient(factoryBean_tRESTClient_1.getBus(),
+				"username", decryptedPassword_tRESTClient_1);
 		
-		org.talend.esb.security.saml.SAMLRESTUtils.configureClient(factoryBean_tRESTClient_2, stsClient);
+		org.talend.esb.security.saml.SAMLRESTUtils.configureClient(factoryBean_tRESTClient_1, stsClient);
 	}
 
-	org.apache.cxf.jaxrs.client.WebClient webClient_tRESTClient_2 = factoryBean_tRESTClient_2.createWebClient();
+	org.apache.cxf.jaxrs.client.WebClient webClient_tRESTClient_1 = factoryBean_tRESTClient_1.createWebClient();
 
 	// set request path
-	webClient_tRESTClient_2.path("/api/live");
+	webClient_tRESTClient_1.path("/api/live");
 
 	// set connection properties
-	org.apache.cxf.jaxrs.client.ClientConfiguration clientConfig_tRESTClient_2 = org.apache.cxf.jaxrs.client.WebClient.getConfig(webClient_tRESTClient_2);
-	org.apache.cxf.transport.http.HTTPConduit conduit_tRESTClient_2 = clientConfig_tRESTClient_2.getHttpConduit();
+	org.apache.cxf.jaxrs.client.ClientConfiguration clientConfig_tRESTClient_1 = org.apache.cxf.jaxrs.client.WebClient.getConfig(webClient_tRESTClient_1);
+	org.apache.cxf.transport.http.HTTPConduit conduit_tRESTClient_1 = clientConfig_tRESTClient_1.getHttpConduit();
 
-    if (clientConfig_tRESTClient_2.getEndpoint() != null
-            && clientConfig_tRESTClient_2.getEndpoint().getEndpointInfo() != null) {
-        clientConfig_tRESTClient_2.getEndpoint().getEndpointInfo().setProperty("enable.webclient.operation.reporting",
+    if (clientConfig_tRESTClient_1.getEndpoint() != null
+            && clientConfig_tRESTClient_1.getEndpoint().getEndpointInfo() != null) {
+        clientConfig_tRESTClient_1.getEndpoint().getEndpointInfo().setProperty("enable.webclient.operation.reporting",
                                                                           true);
     }
 
 	
 
-	if (use_auth_tRESTClient_2 && "BASIC".equals("BASIC")) {
+	if (use_auth_tRESTClient_1 && "BASIC".equals("BASIC")) {
 		// set BASIC auth
 		
 		 
-	final String decryptedPassword_tRESTClient_2 = routines.system.PasswordEncryptUtil.decryptPassword("a54bbfcc1190b7e1f4f7aba1746784ea");
+	final String decryptedPassword_tRESTClient_1 = routines.system.PasswordEncryptUtil.decryptPassword("a54bbfcc1190b7e1f4f7aba1746784ea");
 
-		org.apache.cxf.configuration.security.AuthorizationPolicy authPolicy_tRESTClient_2 = new org.apache.cxf.configuration.security.AuthorizationPolicy();
-			authPolicy_tRESTClient_2.setAuthorizationType("Basic");
-			authPolicy_tRESTClient_2.setUserName("username");
-			authPolicy_tRESTClient_2.setPassword(decryptedPassword_tRESTClient_2);
-		conduit_tRESTClient_2.setAuthorization(authPolicy_tRESTClient_2);
-	} else if (use_auth_tRESTClient_2 && "HTTP Digest".equals("BASIC")) {
+		org.apache.cxf.configuration.security.AuthorizationPolicy authPolicy_tRESTClient_1 = new org.apache.cxf.configuration.security.AuthorizationPolicy();
+			authPolicy_tRESTClient_1.setAuthorizationType("Basic");
+			authPolicy_tRESTClient_1.setUserName("username");
+			authPolicy_tRESTClient_1.setPassword(decryptedPassword_tRESTClient_1);
+		conduit_tRESTClient_1.setAuthorization(authPolicy_tRESTClient_1);
+	} else if (use_auth_tRESTClient_1 && "HTTP Digest".equals("BASIC")) {
 		// set Digest auth
 		
 		 
-	final String decryptedPassword_tRESTClient_2 = routines.system.PasswordEncryptUtil.decryptPassword("a54bbfcc1190b7e1f4f7aba1746784ea");
+	final String decryptedPassword_tRESTClient_1 = routines.system.PasswordEncryptUtil.decryptPassword("a54bbfcc1190b7e1f4f7aba1746784ea");
 
-		org.apache.cxf.configuration.security.AuthorizationPolicy authPolicy_tRESTClient_2 = new org.apache.cxf.configuration.security.AuthorizationPolicy();
-		authPolicy_tRESTClient_2.setAuthorizationType("Digest");
-		authPolicy_tRESTClient_2.setUserName("username");
-		authPolicy_tRESTClient_2.setPassword(decryptedPassword_tRESTClient_2);
-		conduit_tRESTClient_2.setAuthorization(authPolicy_tRESTClient_2);
+		org.apache.cxf.configuration.security.AuthorizationPolicy authPolicy_tRESTClient_1 = new org.apache.cxf.configuration.security.AuthorizationPolicy();
+		authPolicy_tRESTClient_1.setAuthorizationType("Digest");
+		authPolicy_tRESTClient_1.setUserName("username");
+		authPolicy_tRESTClient_1.setPassword(decryptedPassword_tRESTClient_1);
+		conduit_tRESTClient_1.setAuthorization(authPolicy_tRESTClient_1);
 	}
 
 	if (!inOSGi) {
-		conduit_tRESTClient_2.getClient().setReceiveTimeout((long)(60 * 1000L));
-		conduit_tRESTClient_2.getClient().setConnectionTimeout((long)(30 * 1000L));
-		boolean use_proxy_tRESTClient_2 = false;
-		if (use_proxy_tRESTClient_2) {
+		conduit_tRESTClient_1.getClient().setReceiveTimeout((long)(60 * 1000L));
+		conduit_tRESTClient_1.getClient().setConnectionTimeout((long)(30 * 1000L));
+		boolean use_proxy_tRESTClient_1 = false;
+		if (use_proxy_tRESTClient_1) {
 			
 			 
-	final String decryptedPassword_tRESTClient_2 = routines.system.PasswordEncryptUtil.decryptPassword("f4f7aba1746784ea");
+	final String decryptedPassword_tRESTClient_1 = routines.system.PasswordEncryptUtil.decryptPassword("f4f7aba1746784ea");
 
-			conduit_tRESTClient_2.getClient().setProxyServer("61.163.92.4");
-			conduit_tRESTClient_2.getClient().setProxyServerPort(Integer.valueOf(8080));
-			conduit_tRESTClient_2.getProxyAuthorization().setUserName("");
-			conduit_tRESTClient_2.getProxyAuthorization().setPassword(decryptedPassword_tRESTClient_2);
+			conduit_tRESTClient_1.getClient().setProxyServer("61.163.92.4");
+			conduit_tRESTClient_1.getClient().setProxyServerPort(Integer.valueOf(8080));
+			conduit_tRESTClient_1.getProxyAuthorization().setUserName("");
+			conduit_tRESTClient_1.getProxyAuthorization().setPassword(decryptedPassword_tRESTClient_1);
 		}
 	}
 
@@ -1556,52 +1859,52 @@ try {
 
 	
 		// set Accept-Type
-		webClient_tRESTClient_2.accept("application/xml");
+		webClient_tRESTClient_1.accept("application/xml");
 	
 
 	
 		// set optional query and header properties if any
 	
-	if (use_auth_tRESTClient_2 && "OAUTH2_BEARER".equals("BASIC")) {
+	if (use_auth_tRESTClient_1 && "OAUTH2_BEARER".equals("BASIC")) {
 		// set oAuth2 bearer token
-		webClient_tRESTClient_2.header("Authorization", "Bearer " + "");
+		webClient_tRESTClient_1.header("Authorization", "Bearer " + "");
 	}
 	
-	if (use_auth_tRESTClient_2 && "OIDC_PASSWORD_GRANT".equals("BASIC")) {
+	if (use_auth_tRESTClient_1 && "OIDC_PASSWORD_GRANT".equals("BASIC")) {
  
-	final String decryptedPassword_tRESTClient_2 = routines.system.PasswordEncryptUtil.decryptPassword("a54bbfcc1190b7e1f4f7aba1746784ea");
+	final String decryptedPassword_tRESTClient_1 = routines.system.PasswordEncryptUtil.decryptPassword("a54bbfcc1190b7e1f4f7aba1746784ea");
 
-        String username_tRESTClient_2 = "username";
-        String password_tRESTClient_2 = decryptedPassword_tRESTClient_2;
+        String username_tRESTClient_1 = "username";
+        String password_tRESTClient_1 = decryptedPassword_tRESTClient_1;
 
-        String bearerHeader_tRESTClient_2 = null;
+        String bearerHeader_tRESTClient_1 = null;
 
         try {
 			if (!inOSGi) {
-				org.springframework.context.support.ClassPathXmlApplicationContext context_tRESTClient_2 =
+				org.springframework.context.support.ClassPathXmlApplicationContext context_tRESTClient_1 =
 					new org.springframework.context.support.ClassPathXmlApplicationContext("META-INF/tesb/oidc-context.xml");
-				org.talend.esb.security.oidc.OidcConfiguration oidcConfiguration_tRESTClient_2 = context_tRESTClient_2.getBean(org.talend.esb.security.oidc.OidcConfiguration.class);
-				bearerHeader_tRESTClient_2 = org.talend.esb.security.oidc.OidcClientUtils.oidcClientBearer(username_tRESTClient_2, password_tRESTClient_2, oidcConfiguration_tRESTClient_2);
+				org.talend.esb.security.oidc.OidcConfiguration oidcConfiguration_tRESTClient_1 = context_tRESTClient_1.getBean(org.talend.esb.security.oidc.OidcConfiguration.class);
+				bearerHeader_tRESTClient_1 = org.talend.esb.security.oidc.OidcClientUtils.oidcClientBearer(username_tRESTClient_1, password_tRESTClient_1, oidcConfiguration_tRESTClient_1);
 			}else{
-				bearerHeader_tRESTClient_2 = org.talend.esb.security.oidc.OidcClientUtils.oidcClientBearer(username_tRESTClient_2, password_tRESTClient_2);
+				bearerHeader_tRESTClient_1 = org.talend.esb.security.oidc.OidcClientUtils.oidcClientBearer(username_tRESTClient_1, password_tRESTClient_1);
 			}
 		} catch (Exception ex) {
             throw new javax.ws.rs.WebApplicationException("Failed to get OIDC access token: ", ex);
         }
 
-		webClient_tRESTClient_2.header("Authorization", bearerHeader_tRESTClient_2);
+		webClient_tRESTClient_1.header("Authorization", bearerHeader_tRESTClient_1);
 	}
     
 	// if FORM request then capture query parameters into Form, otherwise set them as queries
 	
 		
-			webClient_tRESTClient_2.query("access_key" ,"dae854cf61ae211b629e41056eaa4f63");
+			webClient_tRESTClient_1.query("access_key" ,"dae854cf61ae211b629e41056eaa4f63");
 		
-			webClient_tRESTClient_2.query("currencies" ,"EUR,GBP,COP,JPY");
+			webClient_tRESTClient_1.query("currencies" ,"EUR,GBP,COP,JPY");
 		
-			webClient_tRESTClient_2.query("source" ,"USD");
+			webClient_tRESTClient_1.query("source" ,"USD");
 		
-			webClient_tRESTClient_2.query("format" ,"1");
+			webClient_tRESTClient_1.query("format" ,"1");
 		
 	
 
@@ -1609,13 +1912,13 @@ try {
 	try {
 		// start send request
 		
-			responseDoc_tRESTClient_2 = webClient_tRESTClient_2.get(responseClass_tRESTClient_2);
+			responseDoc_tRESTClient_1 = webClient_tRESTClient_1.get(responseClass_tRESTClient_1);
 		
 
 
-		int webClientResponseStatus_tRESTClient_2 = webClient_tRESTClient_2.getResponse().getStatus();
-		if (webClientResponseStatus_tRESTClient_2 >= 300) {
-			throw new javax.ws.rs.WebApplicationException(webClient_tRESTClient_2.getResponse());
+		int webClientResponseStatus_tRESTClient_1 = webClient_tRESTClient_1.getResponse().getStatus();
+		if (webClientResponseStatus_tRESTClient_1 >= 300) {
+			throw new javax.ws.rs.WebApplicationException(webClient_tRESTClient_1.getResponse());
 		}
 
 		
@@ -1623,43 +1926,43 @@ try {
 				row1 = new row1Struct();
 			}
 
-			row1.statusCode = webClientResponseStatus_tRESTClient_2;
+			row1.statusCode = webClientResponseStatus_tRESTClient_1;
 			
 				
 				{
-					Object responseObj_tRESTClient_2 = responseDoc_tRESTClient_2;
+					Object responseObj_tRESTClient_1 = responseDoc_tRESTClient_1;
 				
-				if(responseObj_tRESTClient_2 != null){
-					if (responseClass_tRESTClient_2 == String.class) {
-						row1.string = (String) responseObj_tRESTClient_2;
+				if(responseObj_tRESTClient_1 != null){
+					if (responseClass_tRESTClient_1 == String.class) {
+						row1.string = (String) responseObj_tRESTClient_1;
 					} else {
-						routines.system.Document responseTalendDoc_tRESTClient_2 = null;
-						if (null != responseObj_tRESTClient_2) {
-							responseTalendDoc_tRESTClient_2 = new routines.system.Document();
-							responseTalendDoc_tRESTClient_2.setDocument((org.dom4j.Document) responseObj_tRESTClient_2);
+						routines.system.Document responseTalendDoc_tRESTClient_1 = null;
+						if (null != responseObj_tRESTClient_1) {
+							responseTalendDoc_tRESTClient_1 = new routines.system.Document();
+							responseTalendDoc_tRESTClient_1.setDocument((org.dom4j.Document) responseObj_tRESTClient_1);
 						}
-						row1.body = responseTalendDoc_tRESTClient_2;
+						row1.body = responseTalendDoc_tRESTClient_1;
 					}
 				}
 			}
 			
 
 
-			globalMap.put("tRESTClient_2_HEADERS", webClient_tRESTClient_2.getResponse().getHeaders());
+			globalMap.put("tRESTClient_1_HEADERS", webClient_tRESTClient_1.getResponse().getHeaders());
 			
 			
 			
 		
 
-	} catch (javax.ws.rs.WebApplicationException ex_tRESTClient_2) {
+	} catch (javax.ws.rs.WebApplicationException ex_tRESTClient_1) {
 		
-			throw ex_tRESTClient_2;
+			throw ex_tRESTClient_1;
 		
 	}
 
-} catch(Exception e_tRESTClient_2) {
+} catch(Exception e_tRESTClient_1) {
 	
-		throw new TalendException(e_tRESTClient_2, currentComponent, globalMap);
+		throw new TalendException(e_tRESTClient_1, currentComponent, globalMap);
 	
 }
 
@@ -1667,21 +1970,21 @@ try {
  
 
 
-	tos_count_tRESTClient_2++;
+	tos_count_tRESTClient_1++;
 
 /**
- * [tRESTClient_2 main ] stop
+ * [tRESTClient_1 main ] stop
  */
 	
 	/**
-	 * [tRESTClient_2 process_data_begin ] start
+	 * [tRESTClient_1 process_data_begin ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tRESTClient_2";
+	currentComponent="tRESTClient_1";
 
 	
 
@@ -1690,7 +1993,7 @@ try {
 
 
 /**
- * [tRESTClient_2 process_data_begin ] stop
+ * [tRESTClient_1 process_data_begin ] stop
  */
 // Start of branch "row1"
 if(row1 != null) { 
@@ -1919,11 +2222,12 @@ if(row2 != null) {
         
 Var__tXMLMap_1__Struct Var = Var__tXMLMap_1;
 					
-Var.cod =  row2.name;
+Var.currency2 = StringHandling.EREPLACE(row2.name,"USD","") ;
 		// ###############################
 		// # Output tables
 
 inserts = null;
+inserts2 = null;
 
 
 // # Output table : 'inserts'
@@ -1931,8 +2235,16 @@ inserts_tmp.name = row2.name;
 inserts_tmp.exchange = row2.exchange;
 inserts_tmp.date = TalendDate.formatDate("dd/MM/yyyy",routineFecha.millisTOdate(row2.date) ) ;
 inserts_tmp.currency1 = "USD";
-inserts_tmp.currency2 = StringHandling.EREPLACE(row2.name,"USD","") ;
+inserts_tmp.currency2 =  Var.currency2;
 inserts = inserts_tmp;
+
+// # Output table : 'inserts2'
+inserts2_tmp.name =  Var.currency2+"USD";
+inserts2_tmp.exchange = (1.0)/(row2.exchange) ;
+inserts2_tmp.date = TalendDate.formatDate("dd/MM/yyyy",routineFecha.millisTOdate(row2.date) ) ;
+inserts2_tmp.currency1 = Var.currency2;
+inserts2_tmp.currency2 = "USD";
+inserts2 = inserts2_tmp;
 // ###############################
 
 } // end of Var scope
@@ -1976,14 +2288,14 @@ if(inserts != null) {
 
 	
 	/**
-	 * [tMysqlOutput_2 main ] start
+	 * [tDBOutput_1 main ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tMysqlOutput_2";
+	currentComponent="tDBOutput_1";
 
 	
 
@@ -2001,75 +2313,75 @@ if(inserts != null) {
 
 
 
-        whetherReject_tMysqlOutput_2 = false;
+        whetherReject_tDBOutput_1 = false;
                             if(inserts.name == null) {
-pstmt_tMysqlOutput_2.setNull(1, java.sql.Types.VARCHAR);
-} else {pstmt_tMysqlOutput_2.setString(1, inserts.name);
+pstmt_tDBOutput_1.setNull(1, java.sql.Types.VARCHAR);
+} else {pstmt_tDBOutput_1.setString(1, inserts.name);
 }
 
                             if(inserts.exchange == null) {
-pstmt_tMysqlOutput_2.setNull(2, java.sql.Types.DOUBLE);
-} else {pstmt_tMysqlOutput_2.setDouble(2, inserts.exchange);
+pstmt_tDBOutput_1.setNull(2, java.sql.Types.DOUBLE);
+} else {pstmt_tDBOutput_1.setDouble(2, inserts.exchange);
 }
 
                             if(inserts.date == null) {
-pstmt_tMysqlOutput_2.setNull(3, java.sql.Types.VARCHAR);
-} else {pstmt_tMysqlOutput_2.setString(3, inserts.date);
+pstmt_tDBOutput_1.setNull(3, java.sql.Types.VARCHAR);
+} else {pstmt_tDBOutput_1.setString(3, inserts.date);
 }
 
                             if(inserts.currency1 == null) {
-pstmt_tMysqlOutput_2.setNull(4, java.sql.Types.VARCHAR);
-} else {pstmt_tMysqlOutput_2.setString(4, inserts.currency1);
+pstmt_tDBOutput_1.setNull(4, java.sql.Types.VARCHAR);
+} else {pstmt_tDBOutput_1.setString(4, inserts.currency1);
 }
 
                             if(inserts.currency2 == null) {
-pstmt_tMysqlOutput_2.setNull(5, java.sql.Types.VARCHAR);
-} else {pstmt_tMysqlOutput_2.setString(5, inserts.currency2);
+pstmt_tDBOutput_1.setNull(5, java.sql.Types.VARCHAR);
+} else {pstmt_tDBOutput_1.setString(5, inserts.currency2);
 }
 
-                    pstmt_tMysqlOutput_2.addBatch();
-                    nb_line_tMysqlOutput_2++;
+                    pstmt_tDBOutput_1.addBatch();
+                    nb_line_tDBOutput_1++;
 
-                      batchSizeCounter_tMysqlOutput_2++;
-                if ( batchSize_tMysqlOutput_2 <= batchSizeCounter_tMysqlOutput_2) {
+                      batchSizeCounter_tDBOutput_1++;
+                if ( batchSize_tDBOutput_1 <= batchSizeCounter_tDBOutput_1) {
                 try {
-                        int countSum_tMysqlOutput_2 = 0;
-                        for(int countEach_tMysqlOutput_2: pstmt_tMysqlOutput_2.executeBatch()) {
-                            countSum_tMysqlOutput_2 += (countEach_tMysqlOutput_2 < 0 ? 0 : 1);
+                        int countSum_tDBOutput_1 = 0;
+                        for(int countEach_tDBOutput_1: pstmt_tDBOutput_1.executeBatch()) {
+                            countSum_tDBOutput_1 += (countEach_tDBOutput_1 < 0 ? 0 : 1);
                         }
-                        insertedCount_tMysqlOutput_2 += countSum_tMysqlOutput_2;
+                        insertedCount_tDBOutput_1 += countSum_tDBOutput_1;
                 }catch (java.sql.BatchUpdateException e){
-                    int countSum_tMysqlOutput_2 = 0;
-                    for(int countEach_tMysqlOutput_2: e.getUpdateCounts()) {
-                        countSum_tMysqlOutput_2 += (countEach_tMysqlOutput_2 < 0 ? 0 : countEach_tMysqlOutput_2);
+                    int countSum_tDBOutput_1 = 0;
+                    for(int countEach_tDBOutput_1: e.getUpdateCounts()) {
+                        countSum_tDBOutput_1 += (countEach_tDBOutput_1 < 0 ? 0 : countEach_tDBOutput_1);
                     }
-                    insertedCount_tMysqlOutput_2 += countSum_tMysqlOutput_2;
+                    insertedCount_tDBOutput_1 += countSum_tDBOutput_1;
                     System.err.println(e.getMessage());
                 }
 
-                batchSizeCounter_tMysqlOutput_2 = 0;
+                batchSizeCounter_tDBOutput_1 = 0;
             }
-                commitCounter_tMysqlOutput_2++;
+                commitCounter_tDBOutput_1++;
 
-                if(commitEvery_tMysqlOutput_2 <= commitCounter_tMysqlOutput_2) {
+                if(commitEvery_tDBOutput_1 <= commitCounter_tDBOutput_1) {
 
                 try {
-                        int countSum_tMysqlOutput_2 = 0;
-                        for(int countEach_tMysqlOutput_2: pstmt_tMysqlOutput_2.executeBatch()) {
-                            countSum_tMysqlOutput_2 += (countEach_tMysqlOutput_2 < 0 ? 0 : 1);
+                        int countSum_tDBOutput_1 = 0;
+                        for(int countEach_tDBOutput_1: pstmt_tDBOutput_1.executeBatch()) {
+                            countSum_tDBOutput_1 += (countEach_tDBOutput_1 < 0 ? 0 : 1);
                         }
-                        insertedCount_tMysqlOutput_2 += countSum_tMysqlOutput_2;
+                        insertedCount_tDBOutput_1 += countSum_tDBOutput_1;
                 }catch (java.sql.BatchUpdateException e){
-                    int countSum_tMysqlOutput_2 = 0;
-                    for(int countEach_tMysqlOutput_2: e.getUpdateCounts()) {
-                        countSum_tMysqlOutput_2 += (countEach_tMysqlOutput_2 < 0 ? 0 : countEach_tMysqlOutput_2);
+                    int countSum_tDBOutput_1 = 0;
+                    for(int countEach_tDBOutput_1: e.getUpdateCounts()) {
+                        countSum_tDBOutput_1 += (countEach_tDBOutput_1 < 0 ? 0 : countEach_tDBOutput_1);
                     }
-                    insertedCount_tMysqlOutput_2 += countSum_tMysqlOutput_2;
+                    insertedCount_tDBOutput_1 += countSum_tDBOutput_1;
                     System.err.println(e.getMessage());
 
                 }
-                    conn_tMysqlOutput_2.commit();
-                    commitCounter_tMysqlOutput_2=0;
+                    conn_tDBOutput_1.commit();
+                    commitCounter_tDBOutput_1=0;
 
                 }
 
@@ -2077,21 +2389,21 @@ pstmt_tMysqlOutput_2.setNull(5, java.sql.Types.VARCHAR);
  
 
 
-	tos_count_tMysqlOutput_2++;
+	tos_count_tDBOutput_1++;
 
 /**
- * [tMysqlOutput_2 main ] stop
+ * [tDBOutput_1 main ] stop
  */
 	
 	/**
-	 * [tMysqlOutput_2 process_data_begin ] start
+	 * [tDBOutput_1 process_data_begin ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tMysqlOutput_2";
+	currentComponent="tDBOutput_1";
 
 	
 
@@ -2100,18 +2412,18 @@ pstmt_tMysqlOutput_2.setNull(5, java.sql.Types.VARCHAR);
 
 
 /**
- * [tMysqlOutput_2 process_data_begin ] stop
+ * [tDBOutput_1 process_data_begin ] stop
  */
 	
 	/**
-	 * [tMysqlOutput_2 process_data_end ] start
+	 * [tDBOutput_1 process_data_end ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tMysqlOutput_2";
+	currentComponent="tDBOutput_1";
 
 	
 
@@ -2120,10 +2432,169 @@ pstmt_tMysqlOutput_2.setNull(5, java.sql.Types.VARCHAR);
 
 
 /**
- * [tMysqlOutput_2 process_data_end ] stop
+ * [tDBOutput_1 process_data_end ] stop
  */
 
 } // End of branch "inserts"
+
+
+
+
+// Start of branch "inserts2"
+if(inserts2 != null) { 
+
+
+
+	
+	/**
+	 * [tDBOutput_2 main ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tDBOutput_2";
+
+	
+
+			//inserts2
+			//inserts2
+
+
+			
+				if(execStat){
+					runStat.updateStatOnConnection("inserts2"+iterateId,1, 1);
+				} 
+			
+
+		
+
+
+
+        whetherReject_tDBOutput_2 = false;
+                            if(inserts2.name == null) {
+pstmt_tDBOutput_2.setNull(1, java.sql.Types.VARCHAR);
+} else {pstmt_tDBOutput_2.setString(1, inserts2.name);
+}
+
+                            if(inserts2.exchange == null) {
+pstmt_tDBOutput_2.setNull(2, java.sql.Types.DOUBLE);
+} else {pstmt_tDBOutput_2.setDouble(2, inserts2.exchange);
+}
+
+                            if(inserts2.date == null) {
+pstmt_tDBOutput_2.setNull(3, java.sql.Types.VARCHAR);
+} else {pstmt_tDBOutput_2.setString(3, inserts2.date);
+}
+
+                            if(inserts2.currency1 == null) {
+pstmt_tDBOutput_2.setNull(4, java.sql.Types.VARCHAR);
+} else {pstmt_tDBOutput_2.setString(4, inserts2.currency1);
+}
+
+                            if(inserts2.currency2 == null) {
+pstmt_tDBOutput_2.setNull(5, java.sql.Types.VARCHAR);
+} else {pstmt_tDBOutput_2.setString(5, inserts2.currency2);
+}
+
+                    pstmt_tDBOutput_2.addBatch();
+                    nb_line_tDBOutput_2++;
+
+                      batchSizeCounter_tDBOutput_2++;
+                if ( batchSize_tDBOutput_2 <= batchSizeCounter_tDBOutput_2) {
+                try {
+                        int countSum_tDBOutput_2 = 0;
+                        for(int countEach_tDBOutput_2: pstmt_tDBOutput_2.executeBatch()) {
+                            countSum_tDBOutput_2 += (countEach_tDBOutput_2 < 0 ? 0 : 1);
+                        }
+                        insertedCount_tDBOutput_2 += countSum_tDBOutput_2;
+                }catch (java.sql.BatchUpdateException e){
+                    int countSum_tDBOutput_2 = 0;
+                    for(int countEach_tDBOutput_2: e.getUpdateCounts()) {
+                        countSum_tDBOutput_2 += (countEach_tDBOutput_2 < 0 ? 0 : countEach_tDBOutput_2);
+                    }
+                    insertedCount_tDBOutput_2 += countSum_tDBOutput_2;
+                    System.err.println(e.getMessage());
+                }
+
+                batchSizeCounter_tDBOutput_2 = 0;
+            }
+                commitCounter_tDBOutput_2++;
+
+                if(commitEvery_tDBOutput_2 <= commitCounter_tDBOutput_2) {
+
+                try {
+                        int countSum_tDBOutput_2 = 0;
+                        for(int countEach_tDBOutput_2: pstmt_tDBOutput_2.executeBatch()) {
+                            countSum_tDBOutput_2 += (countEach_tDBOutput_2 < 0 ? 0 : 1);
+                        }
+                        insertedCount_tDBOutput_2 += countSum_tDBOutput_2;
+                }catch (java.sql.BatchUpdateException e){
+                    int countSum_tDBOutput_2 = 0;
+                    for(int countEach_tDBOutput_2: e.getUpdateCounts()) {
+                        countSum_tDBOutput_2 += (countEach_tDBOutput_2 < 0 ? 0 : countEach_tDBOutput_2);
+                    }
+                    insertedCount_tDBOutput_2 += countSum_tDBOutput_2;
+                    System.err.println(e.getMessage());
+
+                }
+                    conn_tDBOutput_2.commit();
+                    commitCounter_tDBOutput_2=0;
+
+                }
+
+
+ 
+
+
+	tos_count_tDBOutput_2++;
+
+/**
+ * [tDBOutput_2 main ] stop
+ */
+	
+	/**
+	 * [tDBOutput_2 process_data_begin ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tDBOutput_2";
+
+	
+
+ 
+
+
+
+/**
+ * [tDBOutput_2 process_data_begin ] stop
+ */
+	
+	/**
+	 * [tDBOutput_2 process_data_end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tDBOutput_2";
+
+	
+
+ 
+
+
+
+/**
+ * [tDBOutput_2 process_data_end ] stop
+ */
+
+} // End of branch "inserts2"
 
 
 
@@ -2186,14 +2657,14 @@ pstmt_tMysqlOutput_2.setNull(5, java.sql.Types.VARCHAR);
 
 	
 	/**
-	 * [tRESTClient_2 process_data_end ] start
+	 * [tRESTClient_1 process_data_end ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tRESTClient_2";
+	currentComponent="tRESTClient_1";
 
 	
 
@@ -2202,18 +2673,18 @@ pstmt_tMysqlOutput_2.setNull(5, java.sql.Types.VARCHAR);
 
 
 /**
- * [tRESTClient_2 process_data_end ] stop
+ * [tRESTClient_1 process_data_end ] stop
  */
 	
 	/**
-	 * [tRESTClient_2 end ] start
+	 * [tRESTClient_1 end ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tRESTClient_2";
+	currentComponent="tRESTClient_1";
 
 	
 
@@ -2221,14 +2692,14 @@ pstmt_tMysqlOutput_2.setNull(5, java.sql.Types.VARCHAR);
 // [tRESTCliend_end]
  
 
-ok_Hash.put("tRESTClient_2", true);
-end_Hash.put("tRESTClient_2", System.currentTimeMillis());
+ok_Hash.put("tRESTClient_1", true);
+end_Hash.put("tRESTClient_1", System.currentTimeMillis());
 
 
 
 
 /**
- * [tRESTClient_2 end ] stop
+ * [tRESTClient_1 end ] stop
  */
 
 	
@@ -2299,77 +2770,77 @@ end_Hash.put("tXMLMap_1", System.currentTimeMillis());
 
 	
 	/**
-	 * [tMysqlOutput_2 end ] start
+	 * [tDBOutput_1 end ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tMysqlOutput_2";
+	currentComponent="tDBOutput_1";
 
 	
 
 
 
                 try {
-                		if (batchSizeCounter_tMysqlOutput_2 != 0) {
-							int countSum_tMysqlOutput_2 = 0;
+                		if (batchSizeCounter_tDBOutput_1 != 0) {
+							int countSum_tDBOutput_1 = 0;
 							
-							for(int countEach_tMysqlOutput_2: pstmt_tMysqlOutput_2.executeBatch()) {
-								countSum_tMysqlOutput_2 += (countEach_tMysqlOutput_2 < 0 ? 0 : 1);
+							for(int countEach_tDBOutput_1: pstmt_tDBOutput_1.executeBatch()) {
+								countSum_tDBOutput_1 += (countEach_tDBOutput_1 < 0 ? 0 : 1);
 							}
 							
 	            	    	
-	            	    		insertedCount_tMysqlOutput_2 += countSum_tMysqlOutput_2;
+	            	    		insertedCount_tDBOutput_1 += countSum_tDBOutput_1;
 	            	    	
             	    	}
 
                 }catch (java.sql.BatchUpdateException e){
                 	
-                	int countSum_tMysqlOutput_2 = 0;
-					for(int countEach_tMysqlOutput_2: e.getUpdateCounts()) {
-						countSum_tMysqlOutput_2 += (countEach_tMysqlOutput_2 < 0 ? 0 : countEach_tMysqlOutput_2);
+                	int countSum_tDBOutput_1 = 0;
+					for(int countEach_tDBOutput_1: e.getUpdateCounts()) {
+						countSum_tDBOutput_1 += (countEach_tDBOutput_1 < 0 ? 0 : countEach_tDBOutput_1);
 					}
 					
-            	    insertedCount_tMysqlOutput_2 += countSum_tMysqlOutput_2;
+            	    insertedCount_tDBOutput_1 += countSum_tDBOutput_1;
 	    	    	
 					globalMap.put(currentComponent+"_ERROR_MESSAGE",e.getMessage());
                 	System.err.println(e.getMessage());
                 	
                 }
-                batchSizeCounter_tMysqlOutput_2 = 0;
+                batchSizeCounter_tDBOutput_1 = 0;
     		
 	
 
-        if(pstmt_tMysqlOutput_2 != null) {
+        if(pstmt_tDBOutput_1 != null) {
 			
-				pstmt_tMysqlOutput_2.close();
+				pstmt_tDBOutput_1.close();
 			
         }
 
-    	if (commitCounter_tMysqlOutput_2 > 0) {
+    	if (commitCounter_tDBOutput_1 > 0) {
     		
-    		conn_tMysqlOutput_2.commit();
+    		conn_tDBOutput_1.commit();
     		
     	}
     		
 		
-    	conn_tMysqlOutput_2 .close();
+    	conn_tDBOutput_1 .close();
     	
-    	resourceMap.put("finish_tMysqlOutput_2", true);
+    	resourceMap.put("finish_tDBOutput_1", true);
     	
 
-	nb_line_deleted_tMysqlOutput_2=nb_line_deleted_tMysqlOutput_2+ deletedCount_tMysqlOutput_2;
-	nb_line_update_tMysqlOutput_2=nb_line_update_tMysqlOutput_2 + updatedCount_tMysqlOutput_2;
-	nb_line_inserted_tMysqlOutput_2=nb_line_inserted_tMysqlOutput_2 + insertedCount_tMysqlOutput_2;
-	nb_line_rejected_tMysqlOutput_2=nb_line_rejected_tMysqlOutput_2 + rejectedCount_tMysqlOutput_2;
+	nb_line_deleted_tDBOutput_1=nb_line_deleted_tDBOutput_1+ deletedCount_tDBOutput_1;
+	nb_line_update_tDBOutput_1=nb_line_update_tDBOutput_1 + updatedCount_tDBOutput_1;
+	nb_line_inserted_tDBOutput_1=nb_line_inserted_tDBOutput_1 + insertedCount_tDBOutput_1;
+	nb_line_rejected_tDBOutput_1=nb_line_rejected_tDBOutput_1 + rejectedCount_tDBOutput_1;
 	
-        globalMap.put("tMysqlOutput_2_NB_LINE",nb_line_tMysqlOutput_2);
-        globalMap.put("tMysqlOutput_2_NB_LINE_UPDATED",nb_line_update_tMysqlOutput_2);
-        globalMap.put("tMysqlOutput_2_NB_LINE_INSERTED",nb_line_inserted_tMysqlOutput_2);
-        globalMap.put("tMysqlOutput_2_NB_LINE_DELETED",nb_line_deleted_tMysqlOutput_2);
-        globalMap.put("tMysqlOutput_2_NB_LINE_REJECTED", nb_line_rejected_tMysqlOutput_2);
+        globalMap.put("tDBOutput_1_NB_LINE",nb_line_tDBOutput_1);
+        globalMap.put("tDBOutput_1_NB_LINE_UPDATED",nb_line_update_tDBOutput_1);
+        globalMap.put("tDBOutput_1_NB_LINE_INSERTED",nb_line_inserted_tDBOutput_1);
+        globalMap.put("tDBOutput_1_NB_LINE_DELETED",nb_line_deleted_tDBOutput_1);
+        globalMap.put("tDBOutput_1_NB_LINE_REJECTED", nb_line_rejected_tDBOutput_1);
     
 	
 
@@ -2381,14 +2852,111 @@ end_Hash.put("tXMLMap_1", System.currentTimeMillis());
 		
  
 
-ok_Hash.put("tMysqlOutput_2", true);
-end_Hash.put("tMysqlOutput_2", System.currentTimeMillis());
+ok_Hash.put("tDBOutput_1", true);
+end_Hash.put("tDBOutput_1", System.currentTimeMillis());
 
 
 
 
 /**
- * [tMysqlOutput_2 end ] stop
+ * [tDBOutput_1 end ] stop
+ */
+
+
+
+
+	
+	/**
+	 * [tDBOutput_2 end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tDBOutput_2";
+
+	
+
+
+
+                try {
+                		if (batchSizeCounter_tDBOutput_2 != 0) {
+							int countSum_tDBOutput_2 = 0;
+							
+							for(int countEach_tDBOutput_2: pstmt_tDBOutput_2.executeBatch()) {
+								countSum_tDBOutput_2 += (countEach_tDBOutput_2 < 0 ? 0 : 1);
+							}
+							
+	            	    	
+	            	    		insertedCount_tDBOutput_2 += countSum_tDBOutput_2;
+	            	    	
+            	    	}
+
+                }catch (java.sql.BatchUpdateException e){
+                	
+                	int countSum_tDBOutput_2 = 0;
+					for(int countEach_tDBOutput_2: e.getUpdateCounts()) {
+						countSum_tDBOutput_2 += (countEach_tDBOutput_2 < 0 ? 0 : countEach_tDBOutput_2);
+					}
+					
+            	    insertedCount_tDBOutput_2 += countSum_tDBOutput_2;
+	    	    	
+					globalMap.put(currentComponent+"_ERROR_MESSAGE",e.getMessage());
+                	System.err.println(e.getMessage());
+                	
+                }
+                batchSizeCounter_tDBOutput_2 = 0;
+    		
+	
+
+        if(pstmt_tDBOutput_2 != null) {
+			
+				pstmt_tDBOutput_2.close();
+			
+        }
+
+    	if (commitCounter_tDBOutput_2 > 0) {
+    		
+    		conn_tDBOutput_2.commit();
+    		
+    	}
+    		
+		
+    	conn_tDBOutput_2 .close();
+    	
+    	resourceMap.put("finish_tDBOutput_2", true);
+    	
+
+	nb_line_deleted_tDBOutput_2=nb_line_deleted_tDBOutput_2+ deletedCount_tDBOutput_2;
+	nb_line_update_tDBOutput_2=nb_line_update_tDBOutput_2 + updatedCount_tDBOutput_2;
+	nb_line_inserted_tDBOutput_2=nb_line_inserted_tDBOutput_2 + insertedCount_tDBOutput_2;
+	nb_line_rejected_tDBOutput_2=nb_line_rejected_tDBOutput_2 + rejectedCount_tDBOutput_2;
+	
+        globalMap.put("tDBOutput_2_NB_LINE",nb_line_tDBOutput_2);
+        globalMap.put("tDBOutput_2_NB_LINE_UPDATED",nb_line_update_tDBOutput_2);
+        globalMap.put("tDBOutput_2_NB_LINE_INSERTED",nb_line_inserted_tDBOutput_2);
+        globalMap.put("tDBOutput_2_NB_LINE_DELETED",nb_line_deleted_tDBOutput_2);
+        globalMap.put("tDBOutput_2_NB_LINE_REJECTED", nb_line_rejected_tDBOutput_2);
+    
+	
+
+			if(execStat){
+				if(resourceMap.get("inIterateVComp") == null || !((Boolean)resourceMap.get("inIterateVComp"))){
+			 		runStat.updateStatOnConnection("inserts2"+iterateId,2, 0); 
+			 	}
+			}
+		
+ 
+
+ok_Hash.put("tDBOutput_2", true);
+end_Hash.put("tDBOutput_2", System.currentTimeMillis());
+
+
+
+
+/**
+ * [tDBOutput_2 end ] stop
  */
 
 
@@ -2422,14 +2990,14 @@ end_Hash.put("tMysqlOutput_2", System.currentTimeMillis());
 					
 	
 	/**
-	 * [tRESTClient_2 finally ] start
+	 * [tRESTClient_1 finally ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tRESTClient_2";
+	currentComponent="tRESTClient_1";
 
 	
 
@@ -2438,7 +3006,7 @@ end_Hash.put("tMysqlOutput_2", System.currentTimeMillis());
 
 
 /**
- * [tRESTClient_2 finally ] stop
+ * [tRESTClient_1 finally ] stop
  */
 
 	
@@ -2485,35 +3053,35 @@ end_Hash.put("tMysqlOutput_2", System.currentTimeMillis());
 
 	
 	/**
-	 * [tMysqlOutput_2 finally ] start
+	 * [tDBOutput_1 finally ] start
 	 */
 
 	
 
 	
 	
-	currentComponent="tMysqlOutput_2";
+	currentComponent="tDBOutput_1";
 
 	
 
 
 
 	
-		if(resourceMap.get("finish_tMysqlOutput_2")==null){
-			if(resourceMap.get("conn_tMysqlOutput_2")!=null){
+		if(resourceMap.get("finish_tDBOutput_1")==null){
+			if(resourceMap.get("conn_tDBOutput_1")!=null){
 				try {
 					
 					
-					java.sql.Connection ctn_tMysqlOutput_2 = (java.sql.Connection)resourceMap.get("conn_tMysqlOutput_2");
+					java.sql.Connection ctn_tDBOutput_1 = (java.sql.Connection)resourceMap.get("conn_tDBOutput_1");
 					
 					
             		
-					ctn_tMysqlOutput_2.close();
+					ctn_tDBOutput_1.close();
 					
-				} catch (java.sql.SQLException sqlEx_tMysqlOutput_2) {
-					String errorMessage_tMysqlOutput_2 = "failed to close the connection in tMysqlOutput_2 :" + sqlEx_tMysqlOutput_2.getMessage();
+				} catch (java.sql.SQLException sqlEx_tDBOutput_1) {
+					String errorMessage_tDBOutput_1 = "failed to close the connection in tDBOutput_1 :" + sqlEx_tDBOutput_1.getMessage();
 					
-					System.err.println(errorMessage_tMysqlOutput_2);
+					System.err.println(errorMessage_tDBOutput_1);
 				}
 			}
 		}
@@ -2524,7 +3092,54 @@ end_Hash.put("tMysqlOutput_2", System.currentTimeMillis());
 
 
 /**
- * [tMysqlOutput_2 finally ] stop
+ * [tDBOutput_1 finally ] stop
+ */
+
+
+
+
+	
+	/**
+	 * [tDBOutput_2 finally ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tDBOutput_2";
+
+	
+
+
+
+	
+		if(resourceMap.get("finish_tDBOutput_2")==null){
+			if(resourceMap.get("conn_tDBOutput_2")!=null){
+				try {
+					
+					
+					java.sql.Connection ctn_tDBOutput_2 = (java.sql.Connection)resourceMap.get("conn_tDBOutput_2");
+					
+					
+            		
+					ctn_tDBOutput_2.close();
+					
+				} catch (java.sql.SQLException sqlEx_tDBOutput_2) {
+					String errorMessage_tDBOutput_2 = "failed to close the connection in tDBOutput_2 :" + sqlEx_tDBOutput_2.getMessage();
+					
+					System.err.println(errorMessage_tDBOutput_2);
+				}
+			}
+		}
+	
+
+ 
+
+
+
+/**
+ * [tDBOutput_2 finally ] stop
  */
 
 
@@ -2544,7 +3159,7 @@ end_Hash.put("tMysqlOutput_2", System.currentTimeMillis());
 			}
 		
 
-		globalMap.put("tRESTClient_2_SUBPROCESS_STATE", 1);
+		globalMap.put("tRESTClient_1_SUBPROCESS_STATE", 1);
 	}
 	
     public String resuming_logs_dir_path = null;
@@ -2735,12 +3350,12 @@ this.globalResumeTicket = true;//to run tPreJob
 this.globalResumeTicket = false;//to run others jobs
 
 try {
-errorCode = null;tRESTClient_2Process(globalMap);
+errorCode = null;tRESTClient_1Process(globalMap);
 if(!"failure".equals(status)) { status = "end"; }
-}catch (TalendException e_tRESTClient_2) {
-globalMap.put("tRESTClient_2_SUBPROCESS_STATE", -1);
+}catch (TalendException e_tRESTClient_1) {
+globalMap.put("tRESTClient_1_SUBPROCESS_STATE", -1);
 
-e_tRESTClient_2.printStackTrace();
+e_tRESTClient_1.printStackTrace();
 
 }
 
@@ -2914,6 +3529,6 @@ if (execStat) {
     ResumeUtil resumeUtil = null;
 }
 /************************************************************************************************
- *     81903 characters generated by Talend Open Studio for Data Integration 
- *     on the 7 de mayo de 2018 09:52:29 PM COT
+ *     95731 characters generated by Talend Open Studio for Data Integration 
+ *     on the 12 de mayo de 2018 10:02:38 PM COT
  ************************************************************************************************/

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content%}
+
+
+
+    <div class = "row">
+      <div class="alert alert-warning col-md-10 col-md-offset-1" role="alert" align="center">
+        <h4>Para cambiar los valores de par moneda se deben ajustar los parámetros que tiene el proceso que consulta el API, del cual se obtienen las tasas de cambio. </h4>
+      </div>
+    </div>
+    <div>
+      <h2 class="page-header space" alig="center"> Pares de moneda aceptadas </h2>
+    </div>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped" id="tablesDtm" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Moneda 1</th>
+              <th>Moneda 2</th>
+              <th>Ultima actualización</th>
+              
+
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Id</th>
+              <th>Moneda 1</th>
+              <th>Moneda 2</th>
+              <th>Ultima actualización</th>
+             
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for p in par%}
+            <tr>
+              <td>{{ p.id }} </td>
+              <td>{{ p.m1 }} </td>
+              <td>{{ p.m2 }} </td>
+              <td>{{ p.date }} </td>
+              
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+
+
+{%endblock%}

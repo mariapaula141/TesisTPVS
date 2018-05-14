@@ -46,7 +46,7 @@
       </div>
 
     <div class = "row">
-      <h2 class="page-header space " style="color:#C70039"> Elementos no identificados </h2>
+      <h2 class="page-header space " style="color:#C70039"> Contrapartes no identificadas </h2>
     </div>
 
       <div class="table-responsive ">
@@ -62,9 +62,9 @@
             </tr>
           </tfoot>
           <tbody>
-          	{% for s in contraparteStage %}
+          	{% for c in contraparteStage %}
             <tr class="bg-danger" >
-              <th>{{ s.idcontraparte }} </th>
+              <td>{{ c.idcontraparte }} </td>
             </tr>
             {% endfor %}
           </tbody>
@@ -72,7 +72,7 @@
       </div>
 
     <div class = "row ">
-      <h2 class="page-header space" style="color:#33C7FF"> Elementos existentes en el Datamart </h2>
+      <h2 class="page-header space" style="color:#31B404"> Contrapartes existentes en el Datamart </h2>
     </div>
 
      <div class="table-responsive ">
@@ -81,7 +81,7 @@
             <tr class="bg-success">
               <th>Identificador</th>
               <th>Nombre</th>
-              <th>Descripción</th>
+              
 
             </tr>
           </thead>
@@ -89,15 +89,15 @@
             <tr class="bg-success">
               <th>Identificador</th>
               <th>Nombre</th>
-              <th>Descripción</th>
+              
             </tr>
           </tfoot>
           <tbody>
-          	{% for s in contraparteDatamart %}
+          	{% for c in contraparteDatamart %}
               <tr class="bg-success">
-              	<th>{{ s.idcontraparte }} </th>
-                <th>{{ s.nombre }} </th>
-                <th>{{ s.descripcion }} </th>
+              	<td>{{ c.idcontraparte }} </td>
+                <td>{{ c.nombre }} </td>
+               
               </tr>
               {% endfor %}
           </tbody>

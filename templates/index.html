@@ -5,141 +5,113 @@
 	  <h1>Bienvenido a TPVS</h1>
 	  <p>Este es el sistema que le permitirá realizar limpiar, organizar, almacenar y visualizar la información de una forma
 	   estructurada para su posterior análisis</p>
-	  <p><a class="btn btn-primary btn-lg" href="#" role="button">Conoce más</a>
-	  	<a class="btn btn-warning btn-lg" href="{%url 'manual'%}" role="button">Manual de usuario</a></p>
-
+	  <p><a class="btn btn-primary btn-lg" href="http://pegasus.javeriana.edu.co/~CIS1730CP07/" role="button">Conoce más</a>
+	  		<a class="btn btn-warning btn-lg" href="/download/Manual.pdf" role="button">Manual de usuario</a></p>
 	</div>
+	{% if messages %}
+	 <div class="row">
+	 <div class='col-sm-6 col-sm-offset-3'>
+			 {% for message in messages %}
+			 <p{% if message.tags == "success" %} class="alert alert-success" {% endif %}
+			 {% if message.tags == "error" %} class="alert alert-danger" {% endif %}
+			 >{{ message }}</p>
+			 {% endfor %}
+	 </div>
+ </div>
+	 {% endif %}
 
-	<div class="row display-flex">
-	  <div class="col-sm-6 col-md-4"  >
-	    <div class="thumbnail" align="center">
-	      <a class="col-md-12" style="margin:10px;"><i class="iconos fa fa-wrench fa-5x " ></i></a>
-
-	      <div class="caption">
+	 <div class="row space" align="center">
+	 	<h1>Proceso actual</h1>
+	 	<hr>
+	 	<a class="col-md-4 "><i class="iconos fa fa-circle fa-2x "  style="color: #ddd;"></i><span><h4>No realizado</h4></span></a>
+	 	<a class="col-md-4 "><i class="iconos fa fa-circle fa-2x "  style="color: #e5bf00;"></i><span><h4>Opcional</h4></span></a>
+	 	<a class="col-md-4 "><i class="iconos fa fa-circle fa-2x "  style="color: #01DF01;"></i><span><h4>Realizado</h4></span></a>
+	 	
+	 </div>
+	<div class="row">
+	  <div class="col-sm-6 col-md-4 " >
+	    <div   class="panel panel-default"{% if registro.estado == "Cargado" or registro.estado == "Limpio" or registro.estado == "Validado" or registro.estado == "Finalizado"%}  style="border-color:#01DF01;border-width: 10px;" {% else %}style="border-width: 10px;"{% endif %}  align="center">
+	    <div class="panel-body" style="min-height: 250px; max-height: 250px;">
+	      <a class="col-md-12" style="padding: 10px;"><i class="iconos fa fa-wrench fa-5x " ></i></a>
+	      <div class="caption ">
 	        <h3 style="color: #E18B00">1.Configurar archivo</h3>
 	        <p>Ajustar las fechas a formato fecha corta y guarde el archivo en formato (.csv)</p>
 	      </div>
+	      </div>
 	    </div>
 	  </div>
 	  <div class="col-sm-6 col-md-4">
-	    <div class="thumbnail" align="center" >
-	      <a class="col-md-12" style="margin:10px;"><i class="fa fa-file fa-5x " aria-hidden="true" ></i></a>
-
-	      <div class="caption">
+	    <div class="panel panel-default" {% if registro.estado == "Cargado" or registro.estado == "Limpio" or registro.estado == "Validado" or registro.estado == "Finalizado"%}  style="border-color:#01DF01;border-width: 10px;" {% else %} style="border-width: 10px;"  {% endif %}  align="center">
+	    <div class="panel-body"  style="min-height: 250px; max-height: 250px;">
+	      <a class="col-md-12" style="padding: 10px;"><i class="fa fa-file fa-5x " aria-hidden="true" ></i></a>
+			<div class="caption ">
 	        <h3 style="color: #E18B00">2.Cargar archivo</h3>
 	        <p>Cargar el archivo Spot-fwdxlsx o CURR-FUT en formato (.csv)</p>
 	      </div>
+	  </div>
 	    </div>
 	  </div>
 	  <div class="col-sm-6 col-md-4">
-	    <div class="thumbnail" align="center" >
-	      <a class="col-md-12" style="margin:10px;"><i class="fa fa-cogs fa-5x " ></i></a>
+	     <div class="panel panel-default" {% if registro.estado == "Limpio" or registro.estado == "Validado" or registro.estado == "Finalizado"%} style="border-color:#01DF01;border-width: 10px;"{% else %} style="border-width: 10px;"{% endif %} align="center">
+	    <div class="panel-body"  style="min-height: 250px; max-height: 250px;">
+	      <a class="col-md-12" style="padding: 10px;"><i class="fa fa-cogs fa-5x " ></i></a>
 
-	      <div class="caption">
+				<div  class="caption ">
 	        <h3 style="color: #E18B00">3.Procesar archivo</h3>
 	        <p>El sistema limpia la información entrante y genera tablas de información faltante.</p>
 	      </div>
+	  </div>
 	    </div>
 	  </div>
 	   <div class="col-sm-6 col-md-4">
-	    <div class="thumbnail" align="center" >
-	      <a class="col-md-12" style="margin:10px;"><i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true" ></i></a>
+	    <div class="panel panel-warning"  style="border-color:#e5bf00;border-width: 10px;" align="center">
+	    <div class="panel-body" style="min-height: 250px; max-height: 250px;">
+	      <a class="col-md-12" style="padding: 10px;"><i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true" ></i></a>
 
-	      <div class="caption">
+				<!---<div {% if registro.estado == "Validado" or registro.estado == "Finalizado"%}
+				class="caption bg-success text-white"{% else %} class="caption "{% endif %}> -->
+			<div class="caption ">
 	        <h3 style="color: #E18B00">4. Validar errores</h3>
 	        <p>Generar archivo con los registros no cargados y validar errores.</p>
 	      </div>
+	  </div>
 	    </div>
 	  </div>
 	  <div class="col-sm-6 col-md-4">
-	    <div class="thumbnail" align="center" >
-	      <a class="col-md-12" style="margin:10px;"><i class="fa fa-info-circle fa-5x " ></i></a>
+	    <div class="panel panel-default"  {% if total == 0 %} style="border-color:#01DF01;border-width: 10px;"{% else %} style="border-width: 10px;"{% endif %}  align="center">
+	    <div class="panel-body" style="min-height: 250px; max-height: 250px;">
+	      <a class="col-md-12" style="padding: 10px;"><i class="fa fa-pen-square fa-5x" aria-hidden="true" ></i></a>
 
-	      <div class="caption">
+				<div class="caption ">
 	        <h3 style="color: #E18B00">5. Completar información</h3>
 	        <p>Revisar que dimensiones tienen información faltante y completarla</p>
 	      </div>
+	  </div>
 	    </div>
 	  </div>
 	  <div class="col-sm-6 col-md-4">
-	    <div class="thumbnail" align="center" >
-	      <a class="col-md-12" style="margin:10px;"><i class="fa fa-database fa-5x " ></i></a>
+	    <div class="panel panel-default" {% if registro.estado == "Finalizado"%}  style="border-color:#01DF01;border-width: 10px;"{% else %}  style="border-width: 10px;"{% endif %} align="center">
+	    <div class="panel-body" style="min-height: 250px; max-height: 250px;">
+	      <a class="col-md-12" style="padding: 10px;"><i class="fa fa-database fa-5x " ></i></a>
 
-	      <div class="caption">
+				<div class="caption ">
 	        <h3 style="color: #E18B00">6.Cargar el datamart</h3>
 	        <p>Pasar los registros limpios que poseen la información completa al datamart</p>
 	      </div>
+	  </div>
 	    </div>
 	  </div>
 	  <div class="col-sm-6 col-md-4 col-md-offset-4">
-	    <div class="thumbnail" align="center" >
-	      <a class="col-md-12" style="margin:10px;"><i class="fa fa-eye fa-5x " aria-hidden="true" ></i></a>
-	      <div class="caption">
+	     <div class="panel panel-default"  {% if registro.estado == "Finalizado"%} style="border-color:#01DF01;border-width: 10px;"{% else %} style="border-width: 10px;"{% endif %} align="center">
+	    <div class="panel-body" style="min-height: 250px; max-height: 250px;">
+	      <a class="col-md-12" style="padding: 10px;"><i class="fa fa-eye fa-5x " aria-hidden="true" ></i></a>
+				<div class="caption ">
 	        <h3 style="color: #E18B00">7.Abrir vista en QLIK</h3>
 	        <p>Abrir visualizaciones en QLIK con la información disponible en el sistema.</p>
 	      </div>
+	  </div>
 	    </div>
 	  </div>
 	</div>
-<!---
-	<div class="row">
-		<div class="col-md-6 topspace"  >
-			<div class=" panel panel-default panel-yellow"  >
-				<div class="panel-heading col-md-6" align="center" style="margin-bottom: 5%;" >
-					<h3>Manual de usuario</h3>
-				</div>
-					<div class="text-center">
-						<a class="d-block small col-md-12"  href="{%url 'manual'%}"> Manual de usuario.pdf</a>
-					</div >
-
-					<form method="post" class="post-form"  >
-						<div class="form-label-group">
-							<label for= {{field.id_for_label}}>AAA</label>
-						</div>
-						<div >
-							<label for="inputText">Nombre</label>
-							<input type="text" id="inputNombreTrader" class="form-control" placeholder="Nombre" required >
-						</div>
-						<div class="form-label-group">
-							<label for="inputText">Apellido</label>
-							<input type="text" id="inputApellidoTrader" class="form-control" placeholder="Apellido" required >
-						</div>
-						<div class="space" align="center" >
-							<button class="btn btn-primary btn-lg btn-warning" type="submit">Guardar</button>
-						</div>
-					</form>
-
-			</div>
-		</div>
-		<div class="col-md-6 topspace"  >
-			<div class=" panel panel-default panel-yellow"  >
-				<div class="panel-heading col-md-6" align="center" style="margin-bottom: 5%;" >
-					<h3>Log </h3>
-				</div>
-				<div class="panel-body" >
-
-					<form method="post" class="post-form"  >
-						<div class="form-label-group">
-							<label for= {{field.id_for_label}}>AAA</label>
-						</div>
-						<div class="form-label-group">
-							<label for="inputText">Nombre</label>
-							<input type="text" id="inputNombreTrader" class="form-control" placeholder="Nombre" required >
-						</div>
-						<div class="form-label-group">
-							<label for="inputText">Apellido</label>
-							<input type="text" id="inputApellidoTrader" class="form-control" placeholder="Apellido" required >
-						</div>
-						<div class="space" align="center" >
-							<button class="btn btn-primary btn-lg btn-warning" type="submit">Guardar</button>
-						</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-		-->
-
-
 
 {%endblock%}
