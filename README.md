@@ -1,40 +1,37 @@
 # TesisTPVS
 Tesis Javeriana
 
-Para correr esta aplicación de forma local se sebe installar:
+Una vez descargue el proyecto correr esta aplicación de forma local se sebe installar:
+
 
 [Python](https://www.python.org/downloads/).
 
-Instalar un [entorno virtual](https://tutorial.djangogirls.org/es/django_installation/).
+Acceder al [entorno virtual](https://tutorial.djangogirls.org/es/django_installation/) y activarlo .
 ```
->>python3 -m venv myvenv
->>mkdir myenv
->>cd myenv
->>virtualenv .
->>myenv\Scripts\activate
->>cd..
+>> cd ENV
+>>source bin/activate
+>>cd ..
 ```
-Django
-```
->>pip install django==2.0.3
-```
-Herramientas para unir Django con MySQL
-```
->>pip install cymysql
->>pip install django-cymysql
-```
-MySQLClient
-```
->>pip install mysqlclient
-```
+  En caso tal que quiera realizar su propio entorno virtual, el proceso a seguir es:
+  ```
+  sudo pip install virtualenv
+  pip install django-import-export
+  pip install djangorestframework
+  pip install django-notifications-hq
+  pip install cymysql
+  sudo apt-get install mysql-server
+  pip install django mysqlclient
+  pip install django-alert
+  pip install django-webline-notifications
+  pip install virtualenvwrapper
+  pip install python-crontab
+  ```
+
 Crear un usuario para su correcto ingreso a la plataforma, dentro de la carpeta src del proyecto:
 ```
 >>python manage.py createsuperuser
 ```
-Cambiar los datos de la base de datos a los propios:
-1. En el Archivo `settings.py` en `mysite`, cambiar el apartado DATABASE
-
-Migrar el modelo a la base de datos, dentro de la carpeta src del proyecto:
+En caso de cambios en la base de datos usted deberá migrar el modelo a la base de datos, dentro de la carpeta src del proyecto:
 ```
 >>python manage.py makemigrations
 >>python manage.py showmigrations
